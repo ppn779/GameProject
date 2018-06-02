@@ -4,46 +4,69 @@ using UnityEngine;
 
 public class QuickSlot : MonoBehaviour {
     [SerializeField] private GameObject itemEmpty = null;
-    private const int slotMax = 4;
+    private const int slotMax = 5;
     private Transform tr = null;
     private List<Item> itemList = new List<Item>();
-    private bool[] isSlotEmpty = new bool[3];
+    private Item itemMain = null;
+    private bool[] isSlotEmpty = null;
     private int SlotCnt = 0;
     private QuickSlotImage slotImage = null;
     
     public List<Item> ItemList { get { return itemList; } }
     public bool IsSlotEmpty(int num) { return isSlotEmpty[num]; }
 
-    private void Start()
+    private void Awake()
     {
         tr = this.transform;
         slotImage = GetComponent<QuickSlotImage>();
-        for (int i=0; i<3; ++i) { itemList.Add(itemEmpty.GetComponent<Item>()); }
+        for (int i=0; i<slotMax; ++i) { itemList.Add(itemEmpty.GetComponent<Item>()); }
         SlotCnt = 0;
+        isSlotEmpty = new bool[5];
     }
-    public void AddItem(Item goItem)
+    public void AddItem(int num , Item goItem)
     {
+        Debug.Log("num = " + num);
         if (SlotCnt >= slotMax) { Debug.Log("QuickSlot is Max : " + SlotCnt); return; }
-        itemList.Add(goItem);
-        isSlotEmpty[SlotCnt] = false;
-        slotImage.Regist(SlotCnt, goItem.spriteWeaponIcon);
+        itemList.Insert(num, goItem);
+        isSlotEmpty[num] = false;
+        slotImage.Regist(num, goItem.spriteWeaponIcon);
         ++SlotCnt;
+    }
+    public void AddItemMain(Item goItem)
+    {
+        itemMain = goItem;
+        slotImage.RegistMain(goItem.spriteWeaponIcon);
     }
     public void AddItemEmpty(int num)
     {
         if (SlotCnt >= slotMax) { Debug.Log("QuickSlot is Max"); }
-        Item it = itemEmpty.GetComponent<Item>();
-        itemList[num] = it;
-        slotImage.Regist(SlotCnt, it.spriteWeaponIcon);
+        //Item it = itemEmpty.GetComponent<Item>();
+        //itemList[num] = it;
+        //slotImage.Regist(SlotCnt, it.spriteWeaponIcon);
+        Debug.Log("num = " + num);
         isSlotEmpty[num] = true;
     }
     public void RemoveItemInNumber(int num)
     {
-         itemList.RemoveAt(num);
+        Item it = itemList[num];
+        slotImage.RemoveAt(num);
+        itemList.RemoveAt(num);
         isSlotEmpty[num] = true;
         --SlotCnt;
     }
-    public void HideItemNumber(int num) { itemList[num].gameObject.SetActive(false); }
-    public void ShowItemNumber(int num) { itemList[num].gameObject.SetActive(true); }
+    public void RemoveItemMain()
+    {
+        slotImage.RemoveMain();
+        itemMain = null;
+    }
+    public Item GetItemListNumber(int num)
+    {
+        return itemList[num];
+    }
+    public int GetEmptySlot()
+    {
+        for (int i = 0; i < slotMax; ++i) { if (isSlotEmpty[i]) { return i; } }
+        return -1;
+    }
     public bool IsCanPickUpItem() { return SlotCnt < slotMax; }
 }

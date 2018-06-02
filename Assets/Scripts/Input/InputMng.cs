@@ -6,7 +6,9 @@ public class InputMng : MonoBehaviour {
     private Transform tr = null;
     private PickUp pickup = null;
     private QuickSlot slot = null;
+    private QuickSlotImage slotImage = null;
     private Equipment equipment = null;
+
 	private void Start () {
         tr = this.transform;
         pickup = this.GetComponent<PickUp>();
@@ -14,30 +16,47 @@ public class InputMng : MonoBehaviour {
         slot = this.transform.GetComponentInChildren<QuickSlot>();
         equipment = tr.GetComponent<Equipment>();
         if (equipment == null) { equipment = tr.gameObject.AddComponent<Equipment>(); }
-	}
+        slotImage = this.transform.GetComponentInChildren<QuickSlotImage>();
+
+    }
 
 	private void Update () {
+        int slotNumber = 0;
+        Item it = null;
+        bool isPressedNumber = false;
+
         if (Input.GetKeyDown(KeyCode.F)) { pickup.CheckItemInArea(tr.position); }
-        else if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            if (slot.IsSlotEmpty(0)) { Debug.Log("비었다"); return; }
-            Item it = equipment.UnEquip();
-            equipment.Equip(slot.ItemList[0]);
-            slot.RemoveItemInNumber(0);
-            slot.AddItem(it);
+
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { slotNumber = 0; isPressedNumber = true; }
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) { slotNumber = 1; isPressedNumber = true; }
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) { slotNumber = 2; isPressedNumber = true; }
+        else if (Input.GetKeyDown(KeyCode.Alpha4)) { slotNumber = 3; isPressedNumber = true; }
+        else if (Input.GetKeyDown(KeyCode.Alpha5)) { slotNumber = 4; isPressedNumber = true; }
+        
+        if (isPressedNumber)
+        {
+            isPressedNumber = false;
+            // 그리고 누른 번호에 해당하는 슬롯의 정보를 현재 장착슬롯에 적용및 누른번호에 해당하는 슬롯에 대한 정보 소거
+            // 따로 빼낸 정보를 슬롯에 추가
+            if (slot.IsSlotEmpty(slotNumber)) { Debug.Log("비었다"); return; }
+            // 현재 낀 아이템이 있는지 체크
+            if (equipment.IsEquipWeapon)
+            {
+                Item itMain = equipment.UnEquip();
+                it = slot.GetItemListNumber(slotNumber);
+                it.gameObject.SetActive(true);
+                slot.RemoveItemMain();
+                slot.AddItemMain(slot.ItemList[slotNumber]);
+                slot.RemoveItemInNumber(slotNumber);
+                slot.AddItem(slotNumber, itMain);
+                equipment.Equip(it);
+            }
+            else
+            {
+                it = slot.GetItemListNumber(slotNumber);
+                slot.AddItemMain(it);
+                slot.RemoveItemInNumber(slotNumber);
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2)) {
-            if (slot.IsSlotEmpty(1)) { Debug.Log("비었다"); return; }
-            Item it = equipment.UnEquip();
-            equipment.Equip(slot.ItemList[1]);
-            slot.RemoveItemInNumber(1);
-            slot.AddItem(it);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3)) {
-            if (slot.IsSlotEmpty(2)) { Debug.Log("비었다"); return; }
-            Item it = equipment.UnEquip();
-            equipment.Equip(slot.ItemList[2]);
-            slot.RemoveItemInNumber(2);
-            slot.AddItem(it);
-        }
-	}
+    }
 }

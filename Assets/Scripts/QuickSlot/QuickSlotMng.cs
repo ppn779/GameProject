@@ -21,18 +21,24 @@ public class QuickSlotMng : MonoBehaviour {
         equipment = tr.parent.GetComponent<Equipment>();
         if (equipment == null) { equipment = tr.parent.gameObject.AddComponent<Equipment>(); }
 
-        for (int i=0; i<3; ++i) { slot.AddItemEmpty(i); }
+        for (int i=0; i<5; ++i)
+        {
+            slot.AddItemEmpty(i);
+        }
     }
     private void Update()
     {
         if (pickup.IsExistAroundItem)
         {
             pickup.IsExistAroundItem = false;
-            if (!equipment.IsEquipWeapon) { equipment.Equip(pickup.GetPickupItem); }
-            else {
-                slot.AddItem(pickup.GetPickupItem);
+            if (!equipment.IsEquipWeapon) {
+                slot.AddItemMain(pickup.GetPickupItem);
+                equipment.Equip(pickup.GetPickupItem);
             }
-            pickup.GetPickupItem.gameObject.SetActive(false);
+            else {
+                slot.AddItem(slot.GetEmptySlot(), pickup.GetPickupItem);
+                pickup.GetPickupItem.gameObject.SetActive(false);
+            }
         }
     }
 }

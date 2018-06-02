@@ -23,6 +23,17 @@ GameObject:
   - component: {fileID: 23719424702436842}
   - component: {fileID: 65932433672767366}
   - component: {fileID: 114738039011709570}
+  - component: {fileID: 114809698450491838}
+  - component: {fileID: 114875681011743912}
+  - component: {fileID: 114057712768230664}
+  - component: {fileID: 114230776804769090}
+  - component: {fileID: 114772682364856762}
+  - component: {fileID: 114427433036075496}
+  - component: {fileID: 114515978964254878}
+  - component: {fileID: 114599524621469068}
+  - component: {fileID: 114088119378975978}
+  - component: {fileID: 114188797298148478}
+  - component: {fileID: 114460077339985068}
   m_Layer: 0
   m_Name: PrefabEmpty
   m_TagString: Weapon
@@ -37,7 +48,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1099638734758964}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 2}
+  m_LocalPosition: {x: 2.0616982, y: 0.8479583, z: 2.0044098}
   m_LocalScale: {x: 0.1, y: 0.2, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,6 +108,118 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114057712768230664
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099638734758964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596eeb73cbbe3cc4f98afe8897310b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupRange: 3
+  remainCount: 3
+  spriteWeaponIcon: {fileID: 0}
+--- !u!114 &114088119378975978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099638734758964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596eeb73cbbe3cc4f98afe8897310b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupRange: 3
+  remainCount: 3
+  spriteWeaponIcon: {fileID: 0}
+--- !u!114 &114188797298148478
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099638734758964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596eeb73cbbe3cc4f98afe8897310b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupRange: 3
+  remainCount: 3
+  spriteWeaponIcon: {fileID: 0}
+--- !u!114 &114230776804769090
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099638734758964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596eeb73cbbe3cc4f98afe8897310b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupRange: 3
+  remainCount: 3
+  spriteWeaponIcon: {fileID: 0}
+--- !u!114 &114427433036075496
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099638734758964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596eeb73cbbe3cc4f98afe8897310b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupRange: 3
+  remainCount: 3
+  spriteWeaponIcon: {fileID: 0}
+--- !u!114 &114460077339985068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099638734758964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596eeb73cbbe3cc4f98afe8897310b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupRange: 3
+  remainCount: 3
+  spriteWeaponIcon: {fileID: 0}
+--- !u!114 &114515978964254878
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099638734758964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596eeb73cbbe3cc4f98afe8897310b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupRange: 3
+  remainCount: 3
+  spriteWeaponIcon: {fileID: 0}
+--- !u!114 &114599524621469068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099638734758964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596eeb73cbbe3cc4f98afe8897310b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupRange: 3
+  remainCount: 3
+  spriteWeaponIcon: {fileID: 0}
 --- !u!114 &114738039011709570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,3 +238,45 @@ MonoBehaviour:
   damage: 0
   attackSpeed: 1.5
   remainTime: 0
+--- !u!114 &114772682364856762
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099638734758964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596eeb73cbbe3cc4f98afe8897310b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupRange: 3
+  remainCount: 3
+  spriteWeaponIcon: {fileID: 0}
+--- !u!114 &114809698450491838
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099638734758964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596eeb73cbbe3cc4f98afe8897310b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupRange: 3
+  remainCount: 3
+  spriteWeaponIcon: {fileID: 0}
+--- !u!114 &114875681011743912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099638734758964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596eeb73cbbe3cc4f98afe8897310b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupRange: 3
+  remainCount: 3
+  spriteWeaponIcon: {fileID: 0}

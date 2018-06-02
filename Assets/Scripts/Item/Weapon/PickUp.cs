@@ -32,7 +32,7 @@ public class PickUp : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Weapon"))
         {
-            Debug.Log(other.gameObject.name + "아이템이 근처에 있다");
+            //Debug.Log(other.gameObject.name + "아이템이 근처에 있다");
             Item it = other.GetComponent<Item>();
             if (it == null) { other.gameObject.AddComponent<Item>(); }
             listAround.Add(it);
@@ -42,7 +42,7 @@ public class PickUp : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Weapon"))
         {
-            Debug.Log(other.gameObject.name + "아이템이 근처에서 벗어났다");
+            //Debug.Log(other.gameObject.name + "아이템이 근처에서 벗어났다");
             Item it = other.GetComponent<Item>();
             if (it == null) { other.gameObject.AddComponent<Item>(); }
             listAround.Remove(it);

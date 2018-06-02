@@ -5,67 +5,62 @@ using UnityEngine.AI;
 
 public class EnemyAIScript01 : MonoBehaviour
 {
-    public bool on = true;                  // AI active?
+
+    public Animator animator;
+    //public Rigidbody rigidbody;
 
     public bool runAway = false;            // 타겟과 거리 유지
     public bool runTo = false;              // 타겟 바라보기
-    public float runAwayDistance = 5.0f;   // 도망 시작 거리
-    public float runBufferDistance = 10.0f;
+    public float runAwayDistance = 5.0f;    // 도망 시작 거리
+
+    public float speed = 0.0f;
     public float walkSpeed = 3.0f;
     public float runSpeed = 5.0f;
-    public float randomSpeed = 3.0f;
     public float rotationSpeed = 1.0f;
 
-    public float moveableRadius = 50.0f;   // 타겟이 너무 멀리 떨어져 있으면 AI가 자동으로 종료
-    public float visualRadius = 20.0f;
+    public float moveableRadius = 30.0f;    // 움직이는 범위, 값이 0이거나 설정값 내에서만 움직임
+    public float visualRadius = 20.0f;      // 시야 범위
 
     public float attackRange = 2.0f;
-    public float attackTime = 0.5f;
-
-    public bool useWaypoint = false;
-    public bool reversePatrol = true;
+    public float attackTime = 2.0f;
 
     public Transform[] waypoints;           // 웨이포인트, 경로 설정
+    public bool useWaypoint = false;
+    public bool reversePatrol = true;
     public bool pauseAtWaypoints = false;   // 참이면 패트롤 유닛은 도달 할 때마다 각 웨이포인트에서 잠시 멈춤.
     public float pauseMin = 1.0f;
     public float pauseMax = 3.0f;           // pauseAtWaypoints가 true 인 경우 이 시간의 최대치를 일시 정지
-    public float huntingTimer = 5.0f;
 
+    public float huntingTimer = 5.0f;       // 추적 지속 시간
 
     public Transform target;
     public bool requireTarget = true;
 
-
-    //private
-
-    private bool initialGo = false;
-    private bool go = true;
     private Vector3 lastVisTargetPos;
 
-    CharacterController characterController;
-
-    private bool playerHasBeenSeen = false;
+    private bool playerHasBeenSeen = false;     // 플레이어 발견
     private bool enemyCanAttack = false;        // 공격 범위 내에 있는지 확인
     private bool enemyIsAttacking = false;
-    private bool executeBufferState = false;    // 도망 속도 제어 변수
+    private bool isRun = false;
+
     private float lastShotFired;
     private float lostPlayerTimer;
     private bool targetIsOutOfSight;
 
     private Vector3 randomDirection;
-    private float randomDirectionTimer;
+    private float randomDirectionTimer = 0.0f;
     private bool walkInRandomDirection = false;
 
     private bool waypointCountdown = false;
-    private bool monitorRunTo = false;
     private int waypointPatrol = 0;
     private bool pauseWaypointControl;
 
-    private bool smoothAttackRangeBuffer = false;
+    private CharacterStat targetStats;
+    private CharacterStat myStats;
 
-    private NavMeshAgent nvAgent;
+    private AtkMng atkMng;
+    private NavMeshAgent agent;
 
-    // Use this for initialization
     void Start()
     {
         StartCoroutine(Initialize());
@@ -73,45 +68,24 @@ public class EnemyAIScript01 : MonoBehaviour
 
     IEnumerator Initialize()
     {
-        characterController = gameObject.GetComponent<CharacterController>();
-        nvAgent = gameObject.GetComponent<NavMeshAgent>();
-        initialGo = true;
+        //rigidbody = this.gameObject.GetComponent<Rigidbody>();
+        target = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        targetStats = target.GetComponent<CharacterStat>();
+
+        myStats = this.gameObject.GetComponent<CharacterStat>();
+        atkMng = this.gameObject.GetComponent<AtkMng>();
+        animator = this.gameObject.GetComponentInChildren<Animator>();
+        agent = this.gameObject.GetComponent<NavMeshAgent>();
+
+        speed = agent.speed;
 
         yield return null;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //float range = 2.0f;
-        //Vector3 forward = Vector3.forward;
-
-        //if (Physics.Raycast(transform.position, forward, range))
-        //{
-        //    transform.Rotate(0, 90, 0);
-        //    if (Physics.Raycast(transform.position, forward, range))
-        //    {
-        //        transform.Rotate(0, 90, 0);
-        //        if (Physics.Raycast(transform.position, forward, range))
-        //        {
-        //            characterController.Move(forward * 20 * Time.deltaTime);
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        characterController.Move(forward * 20 * Time.deltaTime);
-        //    }
-        //}
-
-        if (!on || !initialGo)
-        {
-            return;
-        }
-        else
-        {
-            AIFunctionality();
-        }
+        animator.SetBool("isRun", isRun);
+        AIFunctionality();
     }
 
     void AIFunctionality()
@@ -122,38 +96,30 @@ public class EnemyAIScript01 : MonoBehaviour
         }
 
         lastVisTargetPos = target.position;
+
         Vector3 moveToward = lastVisTargetPos - transform.position;     // 추적
         Vector3 moveAway = transform.position - lastVisTargetPos;       // 도망
 
         float distance = Vector3.Distance(transform.position, target.position);
-        Debug.Log("RequireTarget : " + requireTarget);
-        if (!requireTarget)
+
+        // 타겟 시야 반경 내
+        if (TargetIsInSight())
         {
-            Patrol();
-        }
-        else if (TargetIsInSight())
-        {
-            if (!go)
-            {
-                return;
-            }
+            LookAtPlayer();
 
             if ((distance > attackRange) && (!runAway) && (!runTo))
             {
                 enemyCanAttack = false;
                 MoveTowards(moveToward);
             }
-            else if ((smoothAttackRangeBuffer) && (distance > attackRange + 5.0f))
-            {
-                WalkNewPath();
-            }
-            else if ((runAway || runTo) && (distance > runAwayDistance) && (!executeBufferState))
-            {
-                if (monitorRunTo)
-                {
-                    monitorRunTo = false;
-                }
 
+            else if ((myStats.currentHealth <= 30) && (!runAway))
+            {
+                runAway = true;
+            }
+
+            else if ((distance > runAwayDistance) && (runAway || runTo))
+            {
                 if (runAway)
                 {
                     WalkNewPath();
@@ -163,13 +129,9 @@ public class EnemyAIScript01 : MonoBehaviour
                     MoveTowards(moveToward);
                 }
             }
-            else if ((runAway || runTo) && (distance < runAwayDistance) && (!executeBufferState))
+            else if ((distance < runAwayDistance) && (runAway || runTo))
             {
                 enemyCanAttack = false;
-                if (!monitorRunTo)
-                {
-                    executeBufferState = true;
-                }
 
                 walkInRandomDirection = false;
 
@@ -181,51 +143,40 @@ public class EnemyAIScript01 : MonoBehaviour
                 {
                     MoveTowards(moveToward);
                 }
-            }
-            else if (executeBufferState && ((runAway) && (distance < runBufferDistance)) || ((runTo) && (distance > runBufferDistance)))
-            {
-                if (runAway)
-                {
-                    MoveTowards(moveAway);
-                }
-                else
-                {
-                    MoveTowards(moveToward);
-                }
-            }
-            else if (executeBufferState && ((runAway) && (distance > runBufferDistance)) || ((runTo) && (distance < runBufferDistance)))
-            {
-                monitorRunTo = true;
-                executeBufferState = false;
+
             }
 
-            if ((distance < attackRange) || (!runAway && !runTo) && (distance < runAwayDistance))
+            if ((distance < attackRange) && (!runAway))
             {
-                if (runAway)
-                {
-                    smoothAttackRangeBuffer = true;
-                }
-
-                LookAtPlayer();
-
                 if (Time.time > lastShotFired + attackTime)
                 {
+                    Debug.Log("Attack!!");
                     StartCoroutine(Attack());
                 }
             }
         }
-        else if ((playerHasBeenSeen) && (!targetIsOutOfSight) && (go))
+
+        // 타겟 시야 반경 밖
+
+        // 발견 했을 때 지속 추격
+        else if ((playerHasBeenSeen) && (!targetIsOutOfSight))
         {
             lostPlayerTimer = Time.time + huntingTimer;
             StartCoroutine(HuntDownTarget(lastVisTargetPos));
         }
+        // 발견 못했거나 moveableRadius가 0 또는 플레이어와의 거리가 moveableRadius보다 작으면
+        else if (((!playerHasBeenSeen)) && ((moveableRadius == 0) || (distance < moveableRadius)))
+        {
+            WalkNewPath();
+        }
+        // useWaypoint = true 면 패트롤
         else if (useWaypoint)
         {
             Patrol();
         }
-        else if (((!playerHasBeenSeen) && (go)) && ((moveableRadius == 0) || (distance < moveableRadius)))
+        else
         {
-            WalkNewPath();
+            isRun = false;
         }
     }
 
@@ -238,40 +189,61 @@ public class EnemyAIScript01 : MonoBehaviour
 
     IEnumerator Attack()
     {
-        enemyCanAttack = true;
-
-        if (!enemyIsAttacking)
+        if (target != null)
         {
-            enemyIsAttacking = true;
+            enemyCanAttack = true;
 
-            while (enemyIsAttacking)
+            animator.SetTrigger("attack");
+            if (!enemyIsAttacking)
             {
-                lastShotFired = Time.time;
+                enemyIsAttacking = true;
 
-                // 공격 변수 구현
+                while (enemyIsAttacking)
+                {
+                    lastShotFired = Time.time;
 
-                yield return new WaitForSeconds(attackTime);
+                    if (targetStats != null)
+                    {
+                        if (atkMng == null) { Debug.LogError(atkMng); }
+                        else
+                        {
+                            atkMng.AtkMngOn(enemyIsAttacking);
+                        }
+                    }
+
+                    yield return new WaitForSeconds(attackTime);
+                }
             }
         }
     }
 
+    // 시야 반경 내에 있는지 확인
     bool TargetIsInSight()
     {
-        if ((moveableRadius > 0) && (Vector3.Distance(transform.position, target.position) > moveableRadius))
-        {
-            go = false;
-        }
-        else
-        {
-            go = true;
-        }
-        // 시야 반경 내에 있는지 확인
-        if ((visualRadius > 0) && (Vector3.Distance(transform.position, target.position) > visualRadius))
+        if (target == null)
         {
             return false;
         }
 
+        float distance = Vector3.Distance(transform.position, target.position);
+
+        if ((moveableRadius > 0) && (distance > moveableRadius))
+        {
+            requireTarget = false;
+        }
+
+        if ((visualRadius > 0) && (distance > visualRadius))
+        {
+            requireTarget = false;
+            return false;
+        }
+        else
+        {
+            requireTarget = true;
+        }
+
         RaycastHit sight;
+
         if (Physics.Linecast(transform.position, target.position, out sight))
         {
             if (!playerHasBeenSeen && sight.transform == target)
@@ -286,7 +258,7 @@ public class EnemyAIScript01 : MonoBehaviour
         }
     }
 
-    // 타겟 추적
+    // 타겟 추적 지속
     IEnumerator HuntDownTarget(Vector3 position)
     {
         targetIsOutOfSight = true;
@@ -388,9 +360,7 @@ public class EnemyAIScript01 : MonoBehaviour
 
     void WalkNewPath()
     {
-        Debug.Log("WalkNewPath");
-        //RaycastHit hit;
-        //float range = Mathf.Infinity;
+        //Debug.Log("WalkNewPath");
 
         if (!walkInRandomDirection)
         {
@@ -412,7 +382,7 @@ public class EnemyAIScript01 : MonoBehaviour
             MoveTowards(randomDirection);
         }
 
-        if ((Time.time - randomDirectionTimer) > 2)
+        if ((Time.time - randomDirectionTimer) > 5)
         {
             walkInRandomDirection = false;
         }
@@ -422,27 +392,39 @@ public class EnemyAIScript01 : MonoBehaviour
     {
         direction.y = 0;
 
-        float speed = walkSpeed;
+        isRun = true;
 
-        if (walkInRandomDirection)
+        agent.speed = walkSpeed;
+
+        if (runAway)
         {
-            speed = randomSpeed;
+            agent.speed = runSpeed;
         }
 
-        if (executeBufferState)
-        {
-            speed = runSpeed;
-        }
+        float speed = agent.speed;
 
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 
         Vector3 forward = transform.TransformDirection(Vector3.forward);
-        float speedModifier = Vector3.Dot(forward, direction.normalized);
-        speedModifier = Mathf.Clamp01(speedModifier);
 
-        direction = forward * speed * speedModifier;
+        direction = forward * speed * Time.deltaTime;
 
-        characterController.Move(direction * Time.deltaTime);
+        this.transform.position += direction;
+    }
+    
+    public void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, runAwayDistance);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, visualRadius);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, moveableRadius);
     }
 }

@@ -3,40 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyStats : CharacterStat {
+public class EnemyStats : CharacterStat
+{
 
     //private bool canBeAttacked;
-    
+    public Animator animator;
+
+    private void Start()
+    {
+        animator = animator = this.gameObject.GetComponentInChildren<Animator>();
+    }
+
     public override void Die()
     {
         base.Die();
 
-        // effect / death animation
+        // effect
+        // death animation
+        animator.SetBool("isDeath", true);
 
         Destroy(gameObject);
+
     }
 
-    //public bool isPlayerNearby
-    //{
-    //    get
-    //    {
-    //        return canBeAttacked;
-    //    }
-    //}
-
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if(other.tag == "Player")
-    //    {
-    //        canBeAttacked = true;
-    //    }
-    //}
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.tag == "Player")
-    //    {
-    //        canBeAttacked = false;
-    //    }   
-    //}
 }

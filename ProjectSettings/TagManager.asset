@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - Weapon
+  - SpecialAtkGageBar
+  - RunEnemy
+  - PlayerWeaponMesh
   layers:
   - Default
   - TransparentFX

@@ -19,8 +19,8 @@ public class EnemyRunAwayManager : MonoBehaviour
     {
         if (enemies != null)
         {
-            enemiesLength = GameObject.FindGameObjectsWithTag("RunEnemy").Length;
-            Debug.Log("Enemies Length = " + enemiesLength);
+            enemiesLength = GameObject.FindGameObjectsWithTag("Enemy").Length;
+            //Debug.Log("Enemies Length = " + enemiesLength);
             if (enemiesLength <= 1)
             {
                 Debug.Log("ENEMY RUNAWAY : " + enemies[1].gameObject.GetComponent<EnemyAIScript01>().runAway);

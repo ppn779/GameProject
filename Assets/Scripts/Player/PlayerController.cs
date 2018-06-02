@@ -6,8 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private Vector3 movement; //GetAxisRaw 처리 다음에 반환값을 담을 변수                 
     private Animator playerAnim;
-    private PlayerAbilities playerAbilities;
-    private Equipment equipment;
+    private PlayerStats playerStats;
     private AtkMng atkMng;
 
     private bool isAlive = true;//죽으면 true
@@ -16,24 +15,23 @@ public class PlayerController : MonoBehaviour
 
     private int floorMask; //raycast Layer 정보를 담을 변수                    
     private float camRayLength = 100f; //raycast 거리 값 
-    private float playerAtkPower = 0f;
+    private int playerAtkPower = 0;
 
     private float atkTimer = 0.0f;//누르고 있으면 무한공격이 되지 않도록 만드는 변수
 
     private void Start()
     {
         playerAnim = this.GetComponent<Animator>();
-        playerAbilities = this.GetComponent<PlayerAbilities>();
-        equipment = this.GetComponent<Equipment>();
+        playerStats= this.GetComponent<PlayerStats>();
         atkMng = this.GetComponent<AtkMng>();
         floorMask = LayerMask.GetMask("Floor");//"Floor"로 layer 위치값 등록
         //나중에 Update에서 갱신하도록 수정해야 함.
-        atkTimer = 1.5f - (playerAbilities.AtkSpeed / 140);//공격속도 숫자가 커질수록 타이머 시간은 줄어듬.
+        atkTimer = 1.5f - (playerStats.AtkSpeed / 140);//공격속도 숫자가 커질수록 타이머 시간은 줄어듬.
     }
 
     private void Update()
     {
-        
+        atkMng.AtkPower = playerAtkPower;
         if (this.isAlive)
         {
             this.AtkCtrl();
@@ -43,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
             
          
-            Move(h, v,playerAbilities.MovementSpeed);
+            Move(h, v,playerStats.MovementSpeed);
             Turning();
             Animating(h, v);
         }
@@ -58,7 +56,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (atkMng == null) { Debug.LogError(atkMng); }
                 else
-                    atkMng.SearchAtkTarget(isClicked);
+                    atkMng.AtkMngOn(isClicked);
                 isClicked = false;
             }
         }
@@ -70,7 +68,7 @@ public class PlayerController : MonoBehaviour
             else if (atkTimer < 0.0f)
             {
                 isClicked = true;
-                atkTimer = 1.5f - (playerAbilities.AtkSpeed / 140);//공격속도 숫자가 커질수록 타이머 시간은 줄어듬.
+                atkTimer = 1.5f - (playerStats.AtkSpeed / 140);//공격속도 숫자가 커질수록 타이머 시간은 줄어듬.
             }
         } 
     }

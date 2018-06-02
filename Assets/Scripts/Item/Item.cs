@@ -10,6 +10,9 @@ public class Item : MonoBehaviour {
     private bool isDestroyed = false;
 
     public Item GetItemType() { return this; }
+    static public Item Create(Item it) { return Instantiate(it); }
+    static public Item Create(Item it , Transform trParent) { return Instantiate(it, trParent); }
+    static public Item Create(Item it , Vector3 pos , Quaternion rot) { return Instantiate(it, pos, rot); }
     public bool IsUseful
     {
         get { return isUseful; }

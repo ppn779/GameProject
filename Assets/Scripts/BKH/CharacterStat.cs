@@ -7,8 +7,8 @@ public class CharacterStat : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth { get; private set; }
 
-    public Stat damage;
-    public Stat armor;
+    public int damage;
+    public int armor;
 
     public event System.Action<int, int> OnHealthChanged;
 
@@ -24,19 +24,18 @@ public class CharacterStat : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        damage -= armor.GetValue();
-        damage = Mathf.Clamp(damage, 0, int.MaxValue);
+        damage -= armor;
 
         currentHealth -= damage;
 
-        Debug.Log(transform.name + " takes " + damage + " damage ");
+        //Debug.Log(transform.name + " takes " + damage + " damage ");
 
         if (OnHealthChanged != null)
         {
             OnHealthChanged(maxHealth, currentHealth);
         }
 
-        Debug.Log(transform.name + "-> " + currentHealth);
+        //Debug.Log(transform.name + "-> " + currentHealth);
 
         if (currentHealth <= 0)
         {

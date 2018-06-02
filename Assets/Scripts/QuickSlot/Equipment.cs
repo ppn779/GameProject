@@ -12,24 +12,28 @@ public class Equipment : MonoBehaviour {
 	private void Start () {
         tr = this.transform;	
 	}
+    
     public void Equip(Item it)
     {
         if (!isEquipWeapon)
         {
             GameObject go =  FindForName(tr , "Right Hand");
-            GameObject goItem = Instantiate(it.gameObject, go.transform.position, go.transform.rotation, go.transform);
-            goItem.AddComponent<Item>();
-            equippedItem = goItem.GetComponent<Item>();
+            it.transform.parent = go.transform;
+            it.transform.position = go.transform.position;
+            it.gameObject.AddComponent<Item>();
+            equippedItem = it.transform.GetComponent<Item>();
             isEquipWeapon = true;
         }
     }
+    
     public Item UnEquip()
     {
         if (isEquipWeapon)
         {
             if (equippedItem != null) {
-                Debug.Log(equippedItem.name + "을 장착해제했다");
-                equippedItem.gameObject.SetActive(false);
+                //Debug.Log(equippedItem.name + "을 장착해제했다");
+                equippedItem.transform.parent = null;
+                //equippedItem.gameObject.SetActive(false);
                 isEquipWeapon = false;
                 return equippedItem;
                 
@@ -42,12 +46,9 @@ public class Equipment : MonoBehaviour {
         Transform[] trChild = findTr.GetComponentsInChildren<Transform>();
         foreach(Transform trEach in trChild)
         {
-            if (trEach.name.Contains(equipmentName))
-            {
-                return trEach.gameObject;
-            }
+            if (trEach.name.Contains(equipmentName)) { return trEach.gameObject; }
         }
-        Debug.Log("Cant FindForName [" + equipmentName + "]");
+        //Debug.Log("Cant FindForName [" + equipmentName + "]");
         return null;
     }
     private GameObject FindForTag(Transform findTr , string equipmentTag)
@@ -55,12 +56,9 @@ public class Equipment : MonoBehaviour {
         Transform[] goChild = findTr.GetComponentsInChildren<Transform>();
         foreach (Transform trEach in goChild)
         {
-            if (trEach.gameObject.CompareTag(equipmentTag))
-            {
-                return trEach.gameObject;
-            }
+            if (trEach.gameObject.CompareTag(equipmentTag)) { return trEach.gameObject; }
         }
-        Debug.Log("Cant FindForTag [" + equipmentTag + "]");
+        //Debug.Log("Cant FindForTag [" + equipmentTag + "]");
         return null;
     }
 }

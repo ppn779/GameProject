@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class WeaponMeshCtrl : MonoBehaviour {
 
-    private const float PIECE_ANGLE = 10.0f;  // 1폴리곤의 각도(원의 원만한 정도)
-    private const float FAN_RADIUS = 1.0f;  // 원의 반지름.
+    private const float PIECE_ANGLE = 0.1f;  // 1폴리곤의 각도(원의 원만한 정도)
     
     private Mesh mesh;
     private MeshFilter meshFilter;
     private MeshCollider meshCollider;
     private AtkMng atkMng;
+    private string targetTagName;
 
     // Use this for initialization
     void Start()
@@ -31,14 +31,16 @@ public class WeaponMeshCtrl : MonoBehaviour {
         meshCollider.enabled = true;
     }
 
-    public bool makeFanShape(float[] angle)
+    public void makeFanShape(float[] angle, Vector3 atkStartPos, float atkRangeDist, string targetTagName)
     {
+        this.transform.position = atkStartPos;
         float startAngle; //원의 시작 각도.
         float endAngle;   //원의 종료 각도.
         float pieceAngle = PIECE_ANGLE; // 1폴러긴의 각도(원의 완만함).
-        float radius = FAN_RADIUS; // 원의 반지름
-        Vector3 customAngle = new Vector3(0f, 0.5f, 1f);
-
+        float radius = atkRangeDist; // 원의 반지름
+        this.targetTagName=targetTagName;
+        Vector3 customAngle = new Vector3(0f, 0.05f, 1f);
+        
         startAngle = angle[0];
         endAngle = angle[1];
 
@@ -94,7 +96,6 @@ public class WeaponMeshCtrl : MonoBehaviour {
 
             //angleAxis = 축 axis 주위를 angle 만큼 회전한 rotation을 생성합니다.
             circleVertices[1 + i] = Quaternion.AngleAxis(currentAngle, Vector3.up) * customAngle * radius;
-            Debug.DrawLine(circleVertices[0], circleVertices[1], Color.red);
         }
 
         //인덱스
@@ -110,6 +111,8 @@ public class WeaponMeshCtrl : MonoBehaviour {
         //
         //
 
+      
+
         mesh.Clear();
 
         mesh.vertices = circleVertices;
@@ -123,15 +126,6 @@ public class WeaponMeshCtrl : MonoBehaviour {
         //mesh를 변경한 후 false-> true로 설정해야 반영된다.
         meshCollider.enabled = false;
         meshCollider.enabled = true;
-        Debug.Log("Searching");
-        return false;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Enemy")
-        {
-            atkMng.Attack();
-        }
+        //Debug.Log("Searching");
     }
 }
