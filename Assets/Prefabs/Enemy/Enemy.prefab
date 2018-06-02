@@ -1466,7 +1466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8833cfc27a603a84c879494511a2e52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atkObjTagName: Player
+  opponentObjAtkTagName: PlayerWeaponMesh
 --- !u!114 &114662975971379564
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1492,7 +1492,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objTagName: Enemy
-  targetTagName: Player
 --- !u!114 &114951945941886782
 MonoBehaviour:
   m_ObjectHideFlags: 1

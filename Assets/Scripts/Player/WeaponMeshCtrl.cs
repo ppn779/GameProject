@@ -10,7 +10,6 @@ public class WeaponMeshCtrl : MonoBehaviour {
     private MeshFilter meshFilter;
     private MeshCollider meshCollider;
     private AtkMng atkMng;
-    private string targetTagName;
 
     // Use this for initialization
     void Start()
@@ -31,14 +30,13 @@ public class WeaponMeshCtrl : MonoBehaviour {
         meshCollider.enabled = true;
     }
 
-    public void makeFanShape(float[] angle, Vector3 atkStartPos, float atkRangeDist, string targetTagName)
+    public void makeFanShape(float[] angle, Vector3 atkStartPos, float atkRangeDist)
     {
         this.transform.position = atkStartPos;
         float startAngle; //원의 시작 각도.
         float endAngle;   //원의 종료 각도.
         float pieceAngle = PIECE_ANGLE; // 1폴러긴의 각도(원의 완만함).
         float radius = atkRangeDist; // 원의 반지름
-        this.targetTagName=targetTagName;
         Vector3 customAngle = new Vector3(0f, 0.05f, 1f);
         
         startAngle = angle[0];

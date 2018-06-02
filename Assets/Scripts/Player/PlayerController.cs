@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
 
     private int floorMask; //raycast Layer 정보를 담을 변수                    
     private float camRayLength = 100f; //raycast 거리 값 
-    private int playerAtkPower = 0;
 
     private float atkTimer = 0.0f;//누르고 있으면 무한공격이 되지 않도록 만드는 변수
 
@@ -31,7 +30,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        atkMng.AtkPower = playerAtkPower;
+        //레벨 업 기능 고려해서 설정(추후 변경 가능)
+        atkMng.AtkPower = playerStats.damage;
+        atkMng.AtkSpeed = playerStats.AtkSpeed;
+
         if (this.isAlive)
         {
             this.AtkCtrl();

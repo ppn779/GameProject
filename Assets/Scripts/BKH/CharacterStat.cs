@@ -41,6 +41,8 @@ public class CharacterStat : MonoBehaviour
         {
             Die();
         }
+
+        Debug.Log(this.gameObject.tag + "은(는) 데미지 " + damage + "을 입었다.");
     }
 
     public virtual void Die()

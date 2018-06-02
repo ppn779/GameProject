@@ -8,18 +8,17 @@ using UnityEngine;
 public class DamageProcessMng : MonoBehaviour
 {
     [SerializeField]
-    private string atkObjTagName;
+    private string opponentObjAtkTagName;
 
 
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.tag == atkObjTagName)
+        if (other.tag == opponentObjAtkTagName)
         {
             CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
             AtkMng atkMng = other.GetComponentInParent<AtkMng>();
             objStat.TakeDamage(atkMng.Attack());
-            Debug.Log(this.gameObject.tag + "은 데미지 " + atkMng.Attack()+"을 입었다.");
         }
     }
 }

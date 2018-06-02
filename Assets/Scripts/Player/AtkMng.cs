@@ -6,18 +6,16 @@ public class AtkMng : MonoBehaviour
 {
     [SerializeField]
     private string objTagName;
-    [SerializeField]
-    private string targetTagName;
     private GameObject obj;
     private WeaponMeshCtrl weaponMesh;
     private CharacterStat stats;
 
-    private int atkPower = 0;
-    private float atkAngle = 1.0f;//0.0f로 바꿔야 함.
-    private float atkRangeDist = 10.0f;//마찬가지
-    private float atkSpeed = 9.0f;//- (stats.AtkSpeed / 140); 공격속도 숫자가 커질수록 타이머 시간은 줄어듬.
+    private int atkPower = 10;
+    private float atkAngle = 50.0f;//0.0f로 바꿔야 함.
+    private float atkRangeDist = 2.0f;//마찬가지
+    private float atkSpeed = 0.0f;//- (stats.AtkSpeed / 140); 공격속도 숫자가 커질수록 타이머 시간은 줄어듬.
     private float atkTimer = 0.0f;
-    private float atkStartDist = 3.0f;//미완성 코드
+    private float atkStartDist = 0.0f;
     private bool isAtkSwitchOn = false;
     private bool isAtkTimerOn = false;
 
@@ -94,6 +92,7 @@ public class AtkMng : MonoBehaviour
 
     public int Attack()
     {
+        Debug.Log("공격력 : " + atkPower);
         return atkPower;
     }
 
@@ -109,7 +108,7 @@ public class AtkMng : MonoBehaviour
                 {
                     Vector3 atkStartPos = this.transform.position+(this.transform.forward * atkStartDist);
                     float[] tmpAngle = new float[] { obj.transform.rotation.y - (atkAngle / 2), obj.transform.rotation.y + (atkAngle / 2) };
-                    weaponMesh.makeFanShape(tmpAngle, atkStartPos,atkRangeDist, targetTagName);
+                    weaponMesh.makeFanShape(tmpAngle, atkStartPos,atkRangeDist);
                     isAtkSwitchOn = false;
                 }
             }
