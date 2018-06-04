@@ -11,29 +11,22 @@ public class PlayerController : MonoBehaviour
 
     private bool isAlive = true;//죽으면 true
 
-    private bool isClicked = true;//한번 공격하면 일정 시간 이후 공격 가능, 공격속도와 연관
+    private bool isClick = false;//한번 공격하면 일정 시간 이후 공격 가능, 공격속도와 연관
 
     private int floorMask; //raycast Layer 정보를 담을 변수                    
-    private float camRayLength = 100f; //raycast 거리 값 
-
-    private float atkTimer = 0.0f;//누르고 있으면 무한공격이 되지 않도록 만드는 변수
+    private float camRayLength = 100f; //raycast 거리 값
 
     private void Start()
     {
         playerAnim = this.GetComponent<Animator>();
-        playerStats= this.GetComponent<PlayerStats>();
+        playerStats = this.GetComponent<PlayerStats>();
         atkMng = this.GetComponent<AtkMng>();
         floorMask = LayerMask.GetMask("Floor");//"Floor"로 layer 위치값 등록
         //나중에 Update에서 갱신하도록 수정해야 함.
-        atkTimer = 1.5f - (playerStats.AtkSpeed / 140);//공격속도 숫자가 커질수록 타이머 시간은 줄어듬.
     }
 
     private void Update()
     {
-        //레벨 업 기능 고려해서 설정(추후 변경 가능)
-        atkMng.AtkPower = playerStats.damage;
-        atkMng.AtkSpeed = playerStats.AtkSpeed;
-
         if (this.isAlive)
         {
             this.AtkCtrl();
@@ -41,9 +34,9 @@ public class PlayerController : MonoBehaviour
             float h = Input.GetAxisRaw("Horizontal");//가로 값
             float v = Input.GetAxisRaw("Vertical");//세로 값
 
-            
-         
-            Move(h, v,playerStats.MovementSpeed);
+
+
+            Move(h, v, playerStats.MovementSpeed);
             Turning();
             Animating(h, v);
         }
@@ -52,30 +45,22 @@ public class PlayerController : MonoBehaviour
     private void AtkCtrl()//아이템의 공격력 값을 반환시킬 예정(float으로 바꿔도 무방)
                           //공격 애니메이션 bool값 여기서 바꿀 예정.
     {
-        if (isClicked)
-        {
-            if (Input.GetMouseButton(0))
-            {
-                if (atkMng == null) { Debug.LogError(atkMng); }
-                else
-                    atkMng.AtkMngOn(isClicked);
-                isClicked = false;
-            }
-        }
 
+        if (Input.GetMouseButton(0))
+        {
+            if (atkMng == null) { Debug.LogError(atkMng); }
+            else
+                isClick = true;
+        }
         else
         {
-            if (atkTimer >= 0.0f)
-                this.atkTimer -= Time.deltaTime;
-            else if (atkTimer < 0.0f)
-            {
-                isClicked = true;
-                atkTimer = 1.5f - (playerStats.AtkSpeed / 140);//공격속도 숫자가 커질수록 타이머 시간은 줄어듬.
-            }
-        } 
+            isClick = false;
+        }
+
+        atkMng.AtkMngOn(isClick);
     }
 
-    private void Move(float h, float v,float speed)
+    private void Move(float h, float v, float speed)
     {
         //방향 값 담음.
         movement.Set(h, 0f, v);
@@ -84,7 +69,7 @@ public class PlayerController : MonoBehaviour
         movement = movement.normalized * speed * Time.deltaTime;
 
         //캐릭터 이동
-        this.transform.position+=movement;
+        this.transform.position += movement;
     }
 
     private void Turning()

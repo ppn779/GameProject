@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Equipment : MonoBehaviour {
     private Transform tr = null;
-    private Item equippedItem = null;
+    private Weapon equippedItem = null;
+    private AtkMng atkMng = null;
     private bool isEquipWeapon = false;
     public bool IsEquipWeapon{ get { return isEquipWeapon; } }
     public Item GetEquippedItem { get { return equippedItem; } }
 
 	private void Start () {
-        tr = this.transform;	
+        tr = this.transform;
+        atkMng = this.GetComponent<AtkMng>();
 	}
     
     public void Equip(Item it)
@@ -20,8 +22,16 @@ public class Equipment : MonoBehaviour {
             GameObject go =  FindForName(tr , "Right Hand");
             it.transform.parent = go.transform;
             it.transform.position = go.transform.position;
-            it.gameObject.AddComponent<Item>();
-            equippedItem = it.transform.GetComponent<Item>();
+            it.gameObject.AddComponent<Weapon>();
+            equippedItem = it.transform.GetComponent<Weapon>();
+            if (equippedItem != null)
+            {
+                atkMng.AtkPower += equippedItem.damage;
+                atkMng.AtkSpeed += equippedItem.attackSpeed;
+                atkMng.AtkAngle += equippedItem.weaponAngle;
+                atkMng.AtkRangeDist += equippedItem.attackRange;
+                atkMng.AtkStartDist += equippedItem.atkStartDist;
+            }
             isEquipWeapon = true;
         }
     }

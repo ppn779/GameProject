@@ -110,8 +110,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupRange: 3
   remainCount: 3
-  attackRange: {x: 0, y: 0, z: 0}
+  spriteWeaponIcon: {fileID: 21300000, guid: bb9545633e4d5df4b91a90fdf447ac44, type: 3}
+  atkStartDist: 0
+  attackRange: 2
   damage: 50
   attackSpeed: 1.5
+  weaponAngle: 30
   remainTime: 5
-  spriteWeaponIcon: {fileID: 21300000, guid: bb9545633e4d5df4b91a90fdf447ac44, type: 3}
