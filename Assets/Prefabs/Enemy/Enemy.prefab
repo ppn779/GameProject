@@ -1421,7 +1421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8833cfc27a603a84c879494511a2e52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atkObjTagName: PlayerWeaponMesh
+  opponentObjAtkTagName: PlayerWeaponMesh
 --- !u!114 &114230280807562550
 MonoBehaviour:
   m_ObjectHideFlags: 1
