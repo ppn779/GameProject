@@ -43,7 +43,7 @@ public class Equipment : MonoBehaviour {
             if (equippedItem != null) {
                 //Debug.Log(equippedItem.name + "을 장착해제했다");
                 equippedItem.transform.parent = null;
-                //equippedItem.gameObject.SetActive(false);
+                equippedItem.gameObject.SetActive(false);
                 isEquipWeapon = false;
                 return equippedItem;
                 
