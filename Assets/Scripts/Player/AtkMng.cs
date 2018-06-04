@@ -17,7 +17,7 @@ public class AtkMng : MonoBehaviour
     private float atkTimer;
     private bool isAtkSwitchOn = false;
     private bool isAtkTimerOn = false;
-
+    private bool isEquippedWeapon = false;
     private void Start()
     {
         obj = GameObject.FindGameObjectWithTag(objTagName);
@@ -105,6 +105,18 @@ public class AtkMng : MonoBehaviour
         return atkPower;
     }
 
+    public bool IsEquippedWeapon
+    {
+        get
+        {
+            return isEquippedWeapon;
+        }
+        set
+        {
+            isEquippedWeapon = value;
+        }
+    }
+
     private void UpdateTransformMesh()
     {
         //콜리전에 사용할 Mesh를 만든다.
@@ -115,9 +127,9 @@ public class AtkMng : MonoBehaviour
                 if (weaponMesh == null) { Debug.LogError(weaponMesh); }
                 else
                 {
-                    Vector3 atkStartPos = this.transform.position+(this.transform.forward * (atkStartDist));
+                    Vector3 atkStartPos = this.transform.position + (this.transform.forward * (atkStartDist));
                     float[] tmpAngle = new float[] { obj.transform.rotation.y - (atkAngle / 2), obj.transform.rotation.y + (atkAngle / 2) };
-                    weaponMesh.makeFanShape(tmpAngle, atkStartPos,atkRangeDist);
+                    weaponMesh.makeFanShape(tmpAngle, atkStartPos, atkRangeDist);
                     isAtkSwitchOn = false;
                 }
             }
@@ -126,7 +138,7 @@ public class AtkMng : MonoBehaviour
 
                 weaponMesh.clearShape();
             }
-            this.atkTimer -= Time.deltaTime+(atkSpeed/50);
+            this.atkTimer -= Time.deltaTime + (atkSpeed / 50);
         }
         else
         {

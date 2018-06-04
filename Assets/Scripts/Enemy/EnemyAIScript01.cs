@@ -39,7 +39,7 @@ public class EnemyAIScript01 : MonoBehaviour
     private Vector3 lastVisTargetPos;
 
     private bool playerHasBeenSeen = false;     // 플레이어 발견
-    private bool enemyCanAttack = false;        // 공격 범위 내에 있는지 확인
+    private bool enemyCanAttack = false;        // 공격 할 수 있는지
     private bool enemyIsAttacking = false;
     private bool isRun = false;
 
@@ -61,6 +61,7 @@ public class EnemyAIScript01 : MonoBehaviour
     private AtkMng atkMng;
     private NavMeshAgent agent;
 
+   
     void Start()
     {
         StartCoroutine(Initialize());
@@ -76,7 +77,7 @@ public class EnemyAIScript01 : MonoBehaviour
         atkMng = this.gameObject.GetComponent<AtkMng>();
         animator = this.gameObject.GetComponentInChildren<Animator>();
         agent = this.gameObject.GetComponent<NavMeshAgent>();
-
+        
         speed = agent.speed;
 
         yield return null;
@@ -207,7 +208,7 @@ public class EnemyAIScript01 : MonoBehaviour
                         if (atkMng == null) { Debug.LogError(atkMng); }
                         else
                         {
-                            atkMng.AtkMngOn(enemyIsAttacking);
+                            atkMng.AtkMngOn(enemyCanAttack);
                         }
                     }
 
