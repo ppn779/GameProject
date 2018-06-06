@@ -61,7 +61,7 @@ public class EnemyAIScript01 : MonoBehaviour
     private AtkMng atkMng;
     private NavMeshAgent agent;
 
-   
+
     void Start()
     {
         StartCoroutine(Initialize());
@@ -77,7 +77,7 @@ public class EnemyAIScript01 : MonoBehaviour
         atkMng = this.gameObject.GetComponent<AtkMng>();
         animator = this.gameObject.GetComponentInChildren<Animator>();
         agent = this.gameObject.GetComponent<NavMeshAgent>();
-        
+
         speed = agent.speed;
 
         yield return null;
@@ -106,45 +106,49 @@ public class EnemyAIScript01 : MonoBehaviour
         // 타겟 시야 반경 내
         if (TargetIsInSight())
         {
-            LookAtPlayer();
-
-            if ((distance > attackRange) && (!runAway) && (!runTo))
+            if (!enemyIsAttacking)
             {
-                enemyCanAttack = false;
-                MoveTowards(moveToward);
-            }
 
-            else if ((myStats.currentHealth <= 30) && (!runAway))
-            {
-                runAway = true;
-            }
+                LookAtPlayer();
 
-            else if ((distance > runAwayDistance) && (runAway || runTo))
-            {
-                if (runAway)
+                if ((distance > attackRange) && (!runAway) && (!runTo))
                 {
-                    WalkNewPath();
-                }
-                else
-                {
-                    MoveTowards(moveToward);
-                }
-            }
-            else if ((distance < runAwayDistance) && (runAway || runTo))
-            {
-                enemyCanAttack = false;
-
-                walkInRandomDirection = false;
-
-                if (runAway)
-                {
-                    MoveTowards(moveAway);
-                }
-                else
-                {
+                    enemyCanAttack = false;
                     MoveTowards(moveToward);
                 }
 
+                else if ((myStats.currentHealth <= 30) && (!runAway))
+                {
+                    runAway = true;
+                }
+
+                else if ((distance > runAwayDistance) && (runAway || runTo))
+                {
+                    if (runAway)
+                    {
+                        WalkNewPath();
+                    }
+                    else
+                    {
+                        MoveTowards(moveToward);
+                    }
+                }
+                else if ((distance < runAwayDistance) && (runAway || runTo))
+                {
+                    enemyCanAttack = false;
+
+                    walkInRandomDirection = false;
+
+                    if (runAway)
+                    {
+                        MoveTowards(moveAway);
+                    }
+                    else
+                    {
+                        MoveTowards(moveToward);
+                    }
+
+                }
             }
 
             if ((distance < attackRange) && (!runAway))
@@ -413,7 +417,7 @@ public class EnemyAIScript01 : MonoBehaviour
 
         this.transform.position += direction;
     }
-    
+
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
