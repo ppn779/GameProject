@@ -8,10 +8,12 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnim;
     private PlayerStats playerStats;
     private AtkMng atkMng;
+    private Vector3 direction;
+    private Rigidbody rb;
 
     private bool isAlive = true;//죽으면 true
-
     private bool isClick = false;//한번 공격하면 일정 시간 이후 공격 가능, 공격속도와 연관
+    private bool isInputSwitchOn = true;
 
     private int floorMask; //raycast Layer 정보를 담을 변수                    
     private float camRayLength = 100f; //raycast 거리 값
@@ -25,20 +27,51 @@ public class PlayerController : MonoBehaviour
         //나중에 Update에서 갱신하도록 수정해야 함.
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (this.isAlive)
         {
-            this.AtkCtrl();
+            if (this.isInputSwitchOn)
+            {
+                this.AtkCtrl();
 
-            float h = Input.GetAxisRaw("Horizontal");//가로 값
-            float v = Input.GetAxisRaw("Vertical");//세로 값
+                float h = Input.GetAxisRaw("Horizontal");//가로 값
+                float v = Input.GetAxisRaw("Vertical");//세로 값
 
 
 
-            Move(h, v, playerStats.MovementSpeed);
-            Turning();
-            Animating(h, v);
+                Move(h, v, playerStats.MovementSpeed);
+                Turning();
+                Animating(h, v);
+            }
+        }
+        else
+        {
+            playerStats.Die();
+        }
+    }
+
+    public bool IsAlive
+    {
+        get
+        {
+            return isAlive;
+        }
+        set
+        {
+            isAlive = value;
+        }
+    }
+
+    public bool IsInputSwitchOn
+    {
+        get
+        {
+            return isInputSwitchOn;
+        }
+        set
+        {
+            isInputSwitchOn = value;
         }
     }
 
@@ -104,13 +137,5 @@ public class PlayerController : MonoBehaviour
 
         //저장된 bool값 들어감.
         playerAnim.SetBool("IsWalking", walking);
-    }
-
-    public bool IsAlive
-    {
-        get
-        {
-            return isAlive;
-        }
     }
 }

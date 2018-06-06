@@ -1,41 +1,49 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-//using UnityEngine.UI;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-//public class ComboSystemMng : MonoBehaviour {
-//    public GameObject player = null;
-//    //private Enemy[] Enemies = null;
+public class ComboSystemMng : MonoBehaviour
+{
+    private PlayerStats playerStats;
 
-//    public GameObject Combo=null;
-//    private Text ComboText=null;
+    private int count = 0;
+    private bool resetComboCountTimer = false;
+    private bool attackSuccessed = false;
+    private float countTimer = 0.0f;
+    private void Awake()
+    {
+        playerStats = this.GetComponentInParent<PlayerStats>();
+    }
 
-//    private int comboNum=0;
+    private void Update()
+    {
+        if (resetComboCountTimer && countTimer > 0)
+        {
+            countTimer -= Time.deltaTime;
+        }
+        else if (resetComboCountTimer && countTimer <= 0)
+        {
+            count = 0;
+            countTimer = 2.5f;
+            resetComboCountTimer = false;
+        }
+    }
+    public int Count
+    {
+        get
+        {
+            return count;
+        }
+    }
 
-//    private const float OFFSET_Y = 130f;                 // 플레이어와의 간격 Y
-//                                                        // Use this for initialization
-//    void Start () {
-//        ComboText = Combo.GetComponent<Text>();
-//       //Enemies = FindObjectsOfType<Enemy>();
-//	}
-	
-//	// Update is called once per frame
-//	void Update () {
-//        Follow();
-
-//        ComboText.text = "Combo  " + comboNum;
-//    }
-
-//    private void Follow()
-//    {
-//        // 월드(World)상에 존재하는 플레이어의 위치를
-//        // UI가 있는 스크린 좌표로 변환
-//        Vector2 pos = RectTransformUtility.WorldToScreenPoint(Camera.main, player.transform.position);
-//        // 간격 적용
-//        pos.y += OFFSET_Y;
-//        // 위치 갱신
-//        ComboText.transform.position = pos;
-//    }
-//}
-
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Enemy")
+        {
+            count++;
+            resetComboCountTimer = true;
+            countTimer = 2.5f;
+            playerStats.HealthUp(300);
+        }
+    }
+}

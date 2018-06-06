@@ -11,6 +11,26 @@ public class PlayerStats : CharacterStat {
     [SerializeField]
     private float resistance = 0f;//저항력
 
+    private void Update()
+    {
+        if (currentHealth > 0)
+        {
+            currentHealth -= (int)(Time.deltaTime + 1.0f);
+        }
+        else
+        {
+            Die();
+        }
+    }
+
+    public void HealthUp(int HP)
+    {
+        currentHealth += HP;
+        if (currentHealth > 300)
+        {
+            currentHealth = 300;
+        }
+    }
 
     public float AtkSpeed
     {

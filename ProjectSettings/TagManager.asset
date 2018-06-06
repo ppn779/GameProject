@@ -6,9 +6,12 @@ TagManager:
   tags:
   - Enemy
   - Weapon
-  - SpecialAtkGageBar
   - RunEnemy
   - PlayerWeaponMesh
+  - WeaponMesh
+  - LifeGageBar
+  - ComboText
+  - UI Mng
   layers:
   - Default
   - TransparentFX

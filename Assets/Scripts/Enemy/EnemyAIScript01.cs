@@ -151,7 +151,7 @@ public class EnemyAIScript01 : MonoBehaviour
             {
                 if (Time.time > lastShotFired + attackTime)
                 {
-                    Debug.Log("Attack!!");
+                    //Debug.Log("Attack!!");
                     StartCoroutine(Attack());
                 }
             }

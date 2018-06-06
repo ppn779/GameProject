@@ -91,9 +91,9 @@ public class WeaponMeshCtrl : MonoBehaviour {
 
             //지정값을 초과하지 않도록.
             currentAngle = Mathf.Min(currentAngle, endAngle);
-
             //angleAxis = 축 axis 주위를 angle 만큼 회전한 rotation을 생성합니다.
             circleVertices[1 + i] = Quaternion.AngleAxis(currentAngle, Vector3.up) * customAngle * radius;
+            circleVertices[1 + i] += circleVertices[0];
         }
 
         //인덱스
