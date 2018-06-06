@@ -10,14 +10,12 @@ public class EnemyStats : CharacterStat
     public Animator animator;
 
     private AtkMng atkMng;
-    private Equipment equipment = null;
     private Weapon weapon = null;
 
     private void Start()
     {
-        animator = animator = this.gameObject.GetComponentInChildren<Animator>();
+        animator =  this.gameObject.GetComponentInChildren<Animator>();
         atkMng = this.gameObject.GetComponent<AtkMng>();
-        equipment = this.gameObject.GetComponent<Equipment>();
         weapon = this.gameObject.GetComponentInChildren<Weapon>();
 
 
@@ -31,7 +29,7 @@ public class EnemyStats : CharacterStat
         atkMng.AtkRangeDist += weapon.attackRange;
         atkMng.AtkStartDist += weapon.atkStartDist;
     }
-
+     
     public override void Die()
     {
         base.Die();
