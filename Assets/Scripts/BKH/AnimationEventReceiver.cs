@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AnimationEventReceiver : MonoBehaviour {
-
-    public CharacterCombat combat;
+    
     public void AttackHitEvent()
     {
-        combat.AttackHit_AnimationEvent();
+        Debug.Log("ATTACKHIT");
     }
 }

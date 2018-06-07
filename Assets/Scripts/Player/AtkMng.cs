@@ -119,6 +119,10 @@ public class AtkMng : MonoBehaviour
 
     private void UpdateTransformMesh()
     {
+        if(obj == null)
+        {
+            return;
+        }
         //콜리전에 사용할 Mesh를 만든다.
         if (isAtkTimerOn && atkTimer > 0.0f)
         {

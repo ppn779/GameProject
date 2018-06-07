@@ -43,21 +43,12 @@ public class CharacterCombat : MonoBehaviour {
 
             if(OnAttack != null)
             {
-                OnAttack();
+                //OnAttack();
             }
 
             attackCooldowm = 1f / attackSpeed;
             inCombat = true;
             lastAttackTime = Time.time;
-        }
-    }
-
-    public void AttackHit_AnimationEvent()
-    {
-        otherStats.TakeDamage(myStats.damage);
-        if (otherStats.currentHealth < 0)
-        {
-            inCombat = false;
         }
     }
 }

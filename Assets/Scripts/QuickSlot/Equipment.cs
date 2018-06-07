@@ -24,7 +24,6 @@ public class Equipment : MonoBehaviour
             GameObject go = FindForName(tr, "Right Hand");
             it.transform.parent = go.transform;
             it.transform.position = go.transform.position;
-            it.gameObject.AddComponent<Weapon>();
             equippedItem = it.transform.GetComponent<Weapon>();
             if (equippedItem != null)
             {
