@@ -5,27 +5,25 @@ using UnityEngine;
 public class EnemyRunAwayManager : MonoBehaviour
 {
 
-    public Transform[] enemies;
-    public int enemiesLength;  
+    public EnemyStats[] enemies;
+    //public int enemiesLength;
     // Use this for initialization
     void Start()
     {
-        enemies = this.gameObject.GetComponentsInChildren<Transform>();
-
+        enemies = this.gameObject.GetComponentsInChildren<EnemyStats>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (enemies != null)
+        if (enemies.Length == 0)
         {
-            enemiesLength = GameObject.FindGameObjectsWithTag("Enemy").Length;
-            //Debug.Log("Enemies Length = " + enemiesLength);
-            if (enemiesLength <= 1)
-            {
-                Debug.Log("ENEMY RUNAWAY : " + enemies[1].gameObject.GetComponent<EnemyAIScript01>().runAway);
-                enemies[1].gameObject.GetComponent<EnemyAIScript01>().runAway = true;
-            }
+            return;
+        }
+
+        if (enemies.Length <= 1)
+        {            
+            enemies[1].gameObject.GetComponent<EnemyAIScript01>().runAway = true;
         }
     }
 }

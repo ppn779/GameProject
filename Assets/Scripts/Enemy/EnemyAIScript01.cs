@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class EnemyAIScript01 : MonoBehaviour
 {
 
-    public Animator animator;
     //public Rigidbody rigidbody;
 
     public bool runAway = false;            // 타겟과 거리 유지
@@ -58,6 +57,7 @@ public class EnemyAIScript01 : MonoBehaviour
     private CharacterStat targetStats;
     private CharacterStat myStats;
 
+    private Animator animator;
     private AtkMng atkMng;
     private NavMeshAgent agent;
 
@@ -106,49 +106,46 @@ public class EnemyAIScript01 : MonoBehaviour
         // 타겟 시야 반경 내
         if (TargetIsInSight())
         {
-            if (!enemyIsAttacking)
+
+            LookAtPlayer();
+
+            if ((distance > attackRange) && (!runAway) && (!runTo) && (!enemyIsAttacking))
             {
+                enemyCanAttack = false;
+                MoveTowards(moveToward);
+            }
 
-                LookAtPlayer();
+            else if ((myStats.currentHealth <= 30) && (!runAway))
+            {
+                runAway = true;
+            }
 
-                if ((distance > attackRange) && (!runAway) && (!runTo))
+            else if ((distance > runAwayDistance) && (runAway || runTo))
+            {
+                if (runAway)
                 {
-                    enemyCanAttack = false;
+                    WalkNewPath();
+                }
+                else
+                {
+                    MoveTowards(moveToward);
+                }
+            }
+            else if ((distance < runAwayDistance) && (runAway || runTo))
+            {
+                enemyCanAttack = false;
+
+                walkInRandomDirection = false;
+
+                if (runAway)
+                {
+                    MoveTowards(moveAway);
+                }
+                else
+                {
                     MoveTowards(moveToward);
                 }
 
-                else if ((myStats.currentHealth <= 30) && (!runAway))
-                {
-                    runAway = true;
-                }
-
-                else if ((distance > runAwayDistance) && (runAway || runTo))
-                {
-                    if (runAway)
-                    {
-                        WalkNewPath();
-                    }
-                    else
-                    {
-                        MoveTowards(moveToward);
-                    }
-                }
-                else if ((distance < runAwayDistance) && (runAway || runTo))
-                {
-                    enemyCanAttack = false;
-
-                    walkInRandomDirection = false;
-
-                    if (runAway)
-                    {
-                        MoveTowards(moveAway);
-                    }
-                    else
-                    {
-                        MoveTowards(moveToward);
-                    }
-
-                }
             }
 
             if ((distance < attackRange) && (!runAway))
@@ -157,6 +154,7 @@ public class EnemyAIScript01 : MonoBehaviour
                 {
                     //Debug.Log("Attack!!");
                     StartCoroutine(Attack());
+                    enemyIsAttacking = false;
                 }
             }
         }
