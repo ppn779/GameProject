@@ -9,20 +9,20 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1558817673226416}
+  m_RootGameObject: {fileID: 1509833293233074}
   m_IsPrefabParent: 1
---- !u!1 &1558817673226416
+--- !u!1 &1509833293233074
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4155628330039574}
-  - component: {fileID: 33375211098973630}
-  - component: {fileID: 23423991713391802}
-  - component: {fileID: 65727513565361260}
-  - component: {fileID: 114063681313837140}
+  - component: {fileID: 4632599050876146}
+  - component: {fileID: 33436456870147494}
+  - component: {fileID: 23180519671570508}
+  - component: {fileID: 65866192993823744}
+  - component: {fileID: 114467606083609376}
   m_Layer: 0
   m_Name: PrefabShuriken
   m_TagString: Weapon
@@ -30,25 +30,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4155628330039574
+--- !u!4 &4632599050876146
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1558817673226416}
+  m_GameObject: {fileID: 1509833293233074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.737, y: 0.2, z: 3.938}
   m_LocalScale: {x: 0.1, y: 0.2, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23423991713391802
+--- !u!23 &23180519671570508
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1558817673226416}
+  m_GameObject: {fileID: 1509833293233074}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -78,31 +78,31 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33375211098973630
+--- !u!33 &33436456870147494
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1558817673226416}
+  m_GameObject: {fileID: 1509833293233074}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65727513565361260
+--- !u!65 &65866192993823744
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1558817673226416}
+  m_GameObject: {fileID: 1509833293233074}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114063681313837140
+--- !u!114 &114467606083609376
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1558817673226416}
+  m_GameObject: {fileID: 1509833293233074}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 299fec80c0c2a6c45a13dd2d5422184a, type: 3}
@@ -111,9 +111,13 @@ MonoBehaviour:
   pickupRange: 3
   remainCount: 3
   spriteWeaponIcon: {fileID: 21300000, guid: b76e5a1ffdc1fe14cad60ed46bceaf75, type: 3}
-  attackRange: 10
-  damage: 50
-  attackSpeed: 1.5
-  weaponAngle: 1
+  weaponMesh: {fileID: 0}
   atkStartDist: 0
+  attackRange: 10
+  attackSpeed: 1.5
+  weaponAngle: 2
   remainTime: 5
+  damage: 50
+  usableCount: 5
+  durability: 100
+  hasProjectile: 1

@@ -111,9 +111,13 @@ MonoBehaviour:
   pickupRange: 3
   remainCount: 3
   spriteWeaponIcon: {fileID: 21300000, guid: bb9545633e4d5df4b91a90fdf447ac44, type: 3}
+  weaponMesh: {fileID: 1893362385657426, guid: 044ef946add40d0498158919bc967327, type: 2}
   atkStartDist: 0
-  attackRange: 2
-  damage: 50
+  attackRange: 8
   attackSpeed: 1.5
-  weaponAngle: 30
+  weaponAngle: 40
   remainTime: 5
+  damage: 50
+  usableCount: 5
+  durability: 100
+  hasProjectile: 0

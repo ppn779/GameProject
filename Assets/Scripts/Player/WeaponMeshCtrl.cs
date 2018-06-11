@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponMeshCtrl : MonoBehaviour {
 
-    private const float PIECE_ANGLE = 0.1f;  // 1폴리곤의 각도(원의 원만한 정도)
+    private const float PIECE_ANGLE = 10f;  // 1폴리곤의 각도(원의 원만한 정도)
     
     private Mesh mesh;
     private MeshFilter meshFilter;
@@ -23,6 +23,7 @@ public class WeaponMeshCtrl : MonoBehaviour {
 
     public void clearShape()
     {
+        Debug.Log("실행");
         mesh.Clear();
         meshFilter.mesh = mesh;
         //mesh 변경 후 false->true로 설정해야 반영된다.
@@ -30,15 +31,16 @@ public class WeaponMeshCtrl : MonoBehaviour {
         meshCollider.enabled = true;
     }
 
-    public void makeFanShape(float[] angle, Vector3 atkStartPos, float atkRangeDist)
+    public void makeFanShape(float[] angle, Vector3 atkStartPos, float atkRangeDist,Transform tr)
     {
+        this.transform.rotation = tr.rotation;
         this.transform.position = atkStartPos;
         float startAngle; //원의 시작 각도.
         float endAngle;   //원의 종료 각도.
         float pieceAngle = PIECE_ANGLE; // 1폴러긴의 각도(원의 완만함).
         float radius = atkRangeDist; // 원의 반지름
         Vector3 customAngle = new Vector3(0f, 0.05f, 1f);
-        
+
         startAngle = angle[0];
         endAngle = angle[1];
 
@@ -83,22 +85,22 @@ public class WeaponMeshCtrl : MonoBehaviour {
 
         //정범 좌표를 계산.
 
-        circleVertices[0] = new Vector3(0f,0.5f,0f);
-        
-        for(int i = 0; i < triangleNum + 1; i++)
+        circleVertices[0] = new Vector3(0f, 0.5f, 0f);
+
+        for (int i = 0; i < triangleNum + 1; i++)
         {
             float currentAngle = startAngle + (float)i * pieceAngle;
 
             //지정값을 초과하지 않도록.
             currentAngle = Mathf.Min(currentAngle, endAngle);
             //angleAxis = 축 axis 주위를 angle 만큼 회전한 rotation을 생성합니다.
-            circleVertices[1 + i] = Quaternion.AngleAxis(currentAngle, Vector3.up) * customAngle * radius;
+            circleVertices[1 + i] = Quaternion.AngleAxis(currentAngle, Vector3.up) *customAngle* radius;
             circleVertices[1 + i] += circleVertices[0];
         }
 
         //인덱스
 
-        for(int i = 0; i < triangleNum; i++)
+        for (int i = 0; i < triangleNum; i++)
         {
             circleTriangles[i * 3 + 0] = 0;
             circleTriangles[i * 3 + 1] = i + 1;
@@ -109,7 +111,7 @@ public class WeaponMeshCtrl : MonoBehaviour {
         //
         //
 
-      
+
 
         mesh.Clear();
 
@@ -124,6 +126,5 @@ public class WeaponMeshCtrl : MonoBehaviour {
         //mesh를 변경한 후 false-> true로 설정해야 반영된다.
         meshCollider.enabled = false;
         meshCollider.enabled = true;
-        //Debug.Log("Searching");
     }
 }

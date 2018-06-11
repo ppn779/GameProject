@@ -26,9 +26,9 @@ public class PlayerStats : CharacterStat {
     public void HealthUp(int HP)
     {
         currentHealth += HP;
-        if (currentHealth > 300)
+        if (currentHealth > maxHealth)
         {
-            currentHealth = 300;
+            currentHealth = maxHealth;
         }
     }
 

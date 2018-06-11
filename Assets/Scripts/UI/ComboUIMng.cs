@@ -18,7 +18,7 @@ public class ComboUIMng : MonoBehaviour
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        comboSystemMng = GameObject.FindGameObjectWithTag("PlayerWeaponMesh").GetComponent<ComboSystemMng>();
+        //comboSystemMng = GameObject.FindGameObjectWithTag("PlayerWeaponMesh").GetComponent<ComboSystemMng>();
         ComboText = GameObject.FindGameObjectWithTag("ComboText").GetComponent<Text>();
         //Enemies = FindObjectsOfType<Enemy>();
     }
@@ -26,7 +26,7 @@ public class ComboUIMng : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        comboNum = comboSystemMng.Count;
+        //comboNum = comboSystemMng.Count;
 
         Follow();
 
@@ -35,12 +35,15 @@ public class ComboUIMng : MonoBehaviour
 
     private void Follow()
     {
-        // 월드(World)상에 존재하는 플레이어의 위치를
-        // UI가 있는 스크린 좌표로 변환
-        Vector2 pos = RectTransformUtility.WorldToScreenPoint(Camera.main, player.transform.position);
-        // 간격 적용
-        pos.y += OFFSET_Y;
-        // 위치 갱신
-        ComboText.transform.position = pos;
+        if (player != null)
+        {
+            // 월드(World)상에 존재하는 플레이어의 위치를
+            // UI가 있는 스크린 좌표로 변환
+            Vector2 pos = RectTransformUtility.WorldToScreenPoint(Camera.main, player.transform.position);
+            // 간격 적용
+            pos.y += OFFSET_Y;
+            // 위치 갱신
+            ComboText.transform.position = pos;
+        }
     }
 }
