@@ -80,6 +80,8 @@ public class EnemyAIScript01 : MonoBehaviour
 
         speed = agent.speed;
 
+        this.gameObject.GetComponentInChildren<AnimationEventReceiver>().attackHit = AttackHit;
+
         yield return null;
     }
 
@@ -109,7 +111,7 @@ public class EnemyAIScript01 : MonoBehaviour
 
             LookAtPlayer();
 
-            if ((distance > attackRange) && (!runAway) && (!runTo) && (!enemyIsAttacking))
+            if ((distance > attackRange) && (!runAway) && (!runTo))
             {
                 enemyCanAttack = false;
                 MoveTowards(moveToward);
@@ -152,10 +154,10 @@ public class EnemyAIScript01 : MonoBehaviour
             {
                 if (Time.time > lastShotFired + attackTime)
                 {
-                    //Debug.Log("Attack!!");
                     StartCoroutine(Attack());
-                    enemyIsAttacking = false;
+                    Debug.Log("Attack!!");
                 }
+                // }
             }
         }
 
@@ -196,7 +198,6 @@ public class EnemyAIScript01 : MonoBehaviour
         {
             enemyCanAttack = true;
 
-            animator.SetTrigger("attack");
             if (!enemyIsAttacking)
             {
                 enemyIsAttacking = true;
@@ -207,14 +208,12 @@ public class EnemyAIScript01 : MonoBehaviour
 
                     if (targetStats != null)
                     {
-                        if (atkMng == null) { Debug.LogError(atkMng); }
-                        else
-                        {
-                            atkMng.AtkMngOn(enemyCanAttack);
-                        }
+                        animator.SetTrigger("attack");
                     }
 
                     yield return new WaitForSeconds(attackTime);
+
+                    enemyIsAttacking = false;
                 }
             }
         }
@@ -429,5 +428,15 @@ public class EnemyAIScript01 : MonoBehaviour
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, moveableRadius);
+    }
+
+    public void AttackHit()
+    {
+        if (atkMng == null) { Debug.LogError(atkMng); }
+        else
+        {
+            atkMng.AtkMngOn(enemyCanAttack);
+        }
+        Debug.Log("ATTACKHIT");
     }
 }

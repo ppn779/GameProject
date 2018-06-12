@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6283,7 +6283,7 @@ RectTransform:
   - {fileID: 1884425777}
   - {fileID: 2015740636}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11488,7 +11488,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4022847970004294, guid: b53db6432556e4b4e847f89ed6673ada, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 65891099874499070, guid: b53db6432556e4b4e847f89ed6673ada,
         type: 2}
@@ -16592,7 +16592,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4922849875179578, guid: a205f6605640c6a4e9a7f861d5d58089, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114107186754594950, guid: a205f6605640c6a4e9a7f861d5d58089,
         type: 2}
@@ -28008,7 +28008,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 63b7eb707dc116e4796d3a00005b3a7f, type: 3}
@@ -42591,7 +42591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 711257944741b7745ac025935a20a021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
+  maxHealth: 100000
   currentHealth: 0
   damage: 5
   armor: 0
@@ -47689,7 +47689,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4982921458207214, guid: 4ffa6ecf27da0eb48b6f3ee22c4b07e7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 5.52
+      value: -1.7
       objectReference: {fileID: 0}
     - target: {fileID: 4982921458207214, guid: 4ffa6ecf27da0eb48b6f3ee22c4b07e7, type: 2}
       propertyPath: m_LocalPosition.y
@@ -47697,7 +47697,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4982921458207214, guid: 4ffa6ecf27da0eb48b6f3ee22c4b07e7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -14.66
+      value: 43.5
       objectReference: {fileID: 0}
     - target: {fileID: 4982921458207214, guid: 4ffa6ecf27da0eb48b6f3ee22c4b07e7, type: 2}
       propertyPath: m_LocalRotation.x
@@ -50005,7 +50005,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 63b7eb707dc116e4796d3a00005b3a7f, type: 3}
@@ -65606,7 +65606,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 54e3dd0595d296a4ebdea322faba1c3f, type: 3}
@@ -67513,7 +67513,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1859883081 stripped
 Transform:
