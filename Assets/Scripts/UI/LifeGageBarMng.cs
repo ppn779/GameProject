@@ -34,7 +34,7 @@ public class LifeGageBarMng : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        lifeGage = ((float)playerStats.currentHealth/(float)playerStats.maxHealth)*width;
+        lifeGage = (playerStats.currentHealth/playerStats.maxHealth)*width;
 
         LifeGageBarCtrl();
 

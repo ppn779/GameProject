@@ -22,7 +22,8 @@ GameObject:
   - component: {fileID: 33263578558456484}
   - component: {fileID: 23331631350753380}
   - component: {fileID: 65496584309238052}
-  - component: {fileID: 114690983876718204}
+  - component: {fileID: 114147023455015924}
+  - component: {fileID: 114805288917875142}
   m_Layer: 0
   m_Name: PrefabExtinguisher
   m_TagString: Weapon
@@ -97,7 +98,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114690983876718204
+--- !u!114 &114147023455015924
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -105,15 +106,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 1295213387744814}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 299fec80c0c2a6c45a13dd2d5422184a, type: 3}
+  m_Script: {fileID: 11500000, guid: c7b166468b231d84986587200409dda0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pickupRange: 3
   remainCount: 3
   spriteWeaponIcon: {fileID: 0}
-  atkStartDist: 0
-  attackRange: 2
-  damage: 50
-  attackSpeed: 1.5
-  weaponAngle: 40
   remainTime: 5
+  damage: 15
+  attackSpeed: 0.1
+  durability: 100
+  usableCount: 5
+  atkStartDist: 0
+  attackRange: 6
+  weaponAngle: 180
+  weaponMesh: {fileID: 1893362385657426, guid: 044ef946add40d0498158919bc967327, type: 2}
+--- !u!114 &114805288917875142
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1295213387744814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282a532c7a45e814383adba517e3c3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heightMax: 1.5
+  heightMin: 1
+  defaultSpeed: 0.5

@@ -25,12 +25,13 @@ public class QuickSlot : MonoBehaviour {
     }
     public void AddItem(int num , Item goItem)
     {
-        Debug.Log("num = " + num);
         if (SlotCnt >= slotMax) { Debug.Log("QuickSlot is Max : " + SlotCnt); return; }
         itemList.Insert(num, goItem);
         isSlotEmpty[num] = false;
         slotImage.Regist(num, goItem.spriteWeaponIcon);
         ++SlotCnt;
+
+        DebugSystem.Create(new Vector3(0f , 0f , 0f), "done");
     }
     public void AddItemMain(Item goItem)
     {
@@ -43,7 +44,6 @@ public class QuickSlot : MonoBehaviour {
         //Item it = itemEmpty.GetComponent<Item>();
         //itemList[num] = it;
         //slotImage.Regist(SlotCnt, it.spriteWeaponIcon);
-        Debug.Log("num = " + num);
         isSlotEmpty[num] = true;
     }
     public void RemoveItemInNumber(int num)

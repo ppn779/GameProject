@@ -210,7 +210,7 @@ public class EnemyAIScript01 : MonoBehaviour
                         if (atkMng == null) { Debug.LogError(atkMng); }
                         else
                         {
-                            atkMng.AtkMngOn(enemyCanAttack);
+                            atkMng.Attack(enemyCanAttack);
                         }
                     }
 

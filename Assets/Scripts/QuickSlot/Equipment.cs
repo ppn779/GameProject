@@ -27,23 +27,16 @@ public class Equipment : MonoBehaviour
             equippedItem = it.transform.GetComponent<Weapon>();
             if (equippedItem != null)
             {
-                if (!equippedItem.hasProjectile)
-                {
-                    atkMng.WeaponMeshCtrl = GetComponentInChildren<WeaponMeshCtrl>();
-                }
-                else if (equippedItem.hasProjectile) {
-                    atkMng.ProjectileCtrl = GetComponentInChildren<ProjectileCtrl>();
-                }
-                atkMng.AtkPower += equippedItem.damage;
-                atkMng.AtkSpeed += equippedItem.attackSpeed;
-                atkMng.AtkAngle += equippedItem.weaponAngle;
-                atkMng.AtkRangeDist += equippedItem.attackRange;
-                atkMng.AtkStartDist += equippedItem.atkStartDist;
-                atkMng.HasProjectile = equippedItem.hasProjectile;
+                //atkMng.AtkPower += equippedItem.damage;
+                //atkMng.AtkSpeed += equippedItem.attackSpeed;
+                //atkMng.AtkAngle += equippedItem.weaponAngle;
+                //atkMng.AtkRangeDist += equippedItem.attackRange;
+                //atkMng.AtkStartDist += equippedItem.atkStartDist;
+                //atkMng.HasProjectile = equippedItem.hasProjectile;
 
                 isEquipWeapon = true;
                 atkMng.IsEquippedWeapon = isEquipWeapon;
-                Debug.Log(atkMng.WeaponMeshCtrl);
+                atkMng.Weapon = equippedItem;
             }
         }
     }
@@ -57,20 +50,12 @@ public class Equipment : MonoBehaviour
                 isEquipWeapon = false;
                 atkMng.IsEquippedWeapon = isEquipWeapon;
 
-                if (atkMng.WeaponMeshCtrl != null)
-                {
-                    atkMng.WeaponMeshCtrl = null;
-                }
-                else if (atkMng.ProjectileCtrl != null)
-                {
-                    atkMng.ProjectileCtrl = null;
-                }
-                atkMng.AtkPower -= equippedItem.damage;
-                atkMng.AtkSpeed -= equippedItem.attackSpeed;
-                atkMng.AtkAngle -= equippedItem.weaponAngle;
-                atkMng.AtkRangeDist -= equippedItem.attackRange;
-                atkMng.AtkStartDist -= equippedItem.atkStartDist;
-                atkMng.HasProjectile = false;
+                //atkMng.AtkPower -= equippedItem.damage;
+                //atkMng.AtkSpeed -= equippedItem.attackSpeed;
+                //atkMng.AtkAngle -= equippedItem.weaponAngle;
+                //atkMng.AtkRangeDist -= equippedItem.attackRange;
+                //atkMng.AtkStartDist -= equippedItem.atkStartDist;
+                //atkMng.HasProjectile = false;
                 //Debug.Log(equippedItem.name + "을 장착해제했다");
                 equippedItem.transform.parent = null;
                 //equippedItem.gameObject.SetActive(false);

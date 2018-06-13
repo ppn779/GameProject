@@ -4,72 +4,84 @@ using UnityEngine;
 
 public class AtkMng : MonoBehaviour
 {
-    private WeaponMeshCtrl weaponMesh = null;
-    private ProjectileCtrl projectileCtrl = null;
-    private int atkPower;
-    private float atkAngle;
-    private float atkStartDist;
-    private float atkRangeDist;
+    private Weapon weapon;
+//    private WeaponMeshCtrl weaponMesh = null;
+//    private ProjectileCtrl projectileCtrl = null;
+    private float atkPower;
+    //private float atkAngle;
+    //private float atkStartDist;
+    //private float atkRangeDist;
     private float atkSpeed;
-    private float atkTimer;
-    private bool isAtkSwitchOn = false;
-    private bool isAtkTimerOn = false;
+    //private float atkTimer;
+    //private bool isAtkSwitchOn = false;
+    //private bool isAtkTimerOn = false;
     private bool isEquippedWeapon = false;
-    private bool hasProjectile;
+    //private bool hasProjectile;
 
-    private void FixedUpdate()
+    public Weapon Weapon
     {
-        UpdateTransformMesh();
-    }
-
-    public WeaponMeshCtrl WeaponMeshCtrl
-    {
-        get
-        {
-            return weaponMesh;
-        }
         set
         {
-            weaponMesh = value;
+            weapon = value;
         }
     }
 
-    public ProjectileCtrl ProjectileCtrl
+    public void Attack(bool isClick)
     {
-        get
+        if (isEquippedWeapon)
         {
-            return projectileCtrl;
-        }
-        set
-        {
-            projectileCtrl = value;
+            weapon.Attack(isClick,this.transform);
         }
     }
 
-    public float AtkStartDist
-    {
-        get
-        {
-            return atkStartDist;
-        }
-        set
-        {
-            atkStartDist = value;
-        }
-    }
-    public float AtkAngle
-    {
-        get
-        {
-            return atkAngle;
-        }
-        set
-        {
-            atkAngle = value;
-        }
-    }
+    //public WeaponMeshCtrl WeaponMeshCtrl
+    //{
+    //    get
+    //    {
+    //        return weaponMesh;
+    //    }
+    //    set
+    //    {
+    //        weaponMesh = value;
+    //    }
+    //}
 
-    public int AtkPower
+    //public ProjectileCtrl ProjectileCtrl
+    //{
+    //    get
+    //    {
+    //        return projectileCtrl;
+    //    }
+    //    set
+    //    {
+    //        projectileCtrl = value;
+    //    }
+    //}
+
+    //public float AtkStartDist
+    //{
+    //    get
+    //    {
+    //        return atkStartDist;
+    //    }
+    //    set
+    //    {
+    //        atkStartDist = value;
+    //    }
+    //}
+    //public float AtkAngle
+    //{
+    //    get
+    //    {
+    //        return atkAngle;
+    //    }
+    //    set
+    //    {
+    //        atkAngle = value;
+    //    }
+    //}
+
+    public float AtkPower
     {
         get
         {
@@ -81,17 +93,17 @@ public class AtkMng : MonoBehaviour
         }
     }
 
-    public float AtkRangeDist
-    {
-        get
-        {
-            return atkRangeDist;
-        }
-        set
-        {
-            atkRangeDist = value;
-        }
-    }
+    //public float AtkRangeDist
+    //{
+    //    get
+    //    {
+    //        return atkRangeDist;
+    //    }
+    //    set
+    //    {
+    //        atkRangeDist = value;
+    //    }
+    //}
 
     public float AtkSpeed
     {
@@ -105,34 +117,34 @@ public class AtkMng : MonoBehaviour
         }
     }
 
-    public bool HasProjectile
-    {
-        get
-        {
-            return hasProjectile;
-        }
-        set
-        {
-            hasProjectile = value;
-        }
-    }
+    //public bool HasProjectile
+    //{
+    //    get
+    //    {
+    //        return hasProjectile;
+    //    }
+    //    set
+    //    {
+    //        hasProjectile = value;
+    //    }
+    //}
 
-    public void AtkMngOn(bool isAtkTimerOn)
-    {
-        if (!this.isAtkTimerOn)
-        {
-            //Debug.Log("atkMngOn");
-            this.isAtkTimerOn = isAtkTimerOn;
-            this.isAtkSwitchOn = isAtkTimerOn;
-            atkTimer = 2.0f;
-        }
-    }
+    //public void AtkMngOn(bool isAtkTimerOn)
+    //{
+    //    if (!this.isAtkTimerOn)
+    //    {
+    //        //Debug.Log("atkMngOn");
+    //        this.isAtkTimerOn = isAtkTimerOn;
+    //        this.isAtkSwitchOn = isAtkTimerOn;
+    //        atkTimer = 2.0f;
+    //    }
+    //}
 
 
-    public int Attack()
-    {
-        return atkPower;
-    }
+    //public int Attack()
+    //{
+    //    return atkPower;
+    //}
 
     public bool IsEquippedWeapon
     {
@@ -146,37 +158,33 @@ public class AtkMng : MonoBehaviour
         }
     }
 
-    private void UpdateTransformMesh()
-    {
-        //콜리전에 사용할 Mesh를 만든다.
-        if (isAtkTimerOn && atkTimer > 0.0f)
-        {
-            if (isAtkSwitchOn)
-            {
-                if (weaponMesh != null && !hasProjectile)
-                {
+    //private void UpdateTransformMesh()
+    //{
+    //    콜리전에 사용할 Mesh를 만든다.
+    //    if (isAtkTimerOn && atkTimer > 0.0f)
+    //    {
+    //        if (isAtkSwitchOn)
+    //        {
+    //            if (weaponMesh != null && !hasProjectile)
+    //            {
 
-                    Vector3 atkStartPos = this.transform.position + (this.transform.forward * (atkStartDist));
-                    float[] tmpAngle = new float[] { this.transform.rotation.y - (atkAngle / 2), this.transform.rotation.y + (atkAngle / 2) };
-                    weaponMesh.makeFanShape(tmpAngle, atkStartPos, atkRangeDist, this.transform);
-                    isAtkSwitchOn = false;
+    //                Vector3 atkStartPos = this.transform.position + (this.transform.forward * (atkStartDist));
+    //                float[] tmpAngle = new float[] { this.transform.rotation.y - (atkAngle / 2), this.transform.rotation.y + (atkAngle / 2) };
+    //                weaponMesh.makeFanShape(tmpAngle, atkStartPos, atkRangeDist, this.transform);
+    //                isAtkSwitchOn = false;
 
-                }
-                else if (ProjectileCtrl != null && hasProjectile)
-                {
-                    projectileCtrl.Fire(this.transform.forward);
-                }
-            }
-            else
-            {
+    //            }
+    //        }
+    //        else
+    //        {
 
-                weaponMesh.clearShape();
-            }
-            this.atkTimer -= Time.deltaTime + (atkSpeed / 50);
-        }
-        else
-        {
-            isAtkTimerOn = false;
-        }
-    }
+    //            weaponMesh.clearShape();
+    //        }
+    //        this.atkTimer -= Time.deltaTime + (atkSpeed / 50);
+    //    }
+    //    else
+    //    {
+    //        isAtkTimerOn = false;
+    //    }
+    //}
 }

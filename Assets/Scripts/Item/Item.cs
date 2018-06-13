@@ -10,9 +10,22 @@ public class Item : MonoBehaviour {
     private bool isDestroyed = false;
 
     public Item GetItemType() { return this; }
-    static public Item Create(Item it) { return Instantiate(it); }
-    static public Item Create(Item it , Transform trParent) { return Instantiate(it, trParent); }
-    static public Item Create(Item it , Vector3 pos , Quaternion rot) { return Instantiate(it, pos, rot); }
+    static public Item Create(GameObject itemGo) {
+        GameObject go = Instantiate(itemGo);
+        Item it = go.AddComponent<Item>();
+        return it;
+    }
+    static public Item Create(GameObject itemGo, Transform trParent) {
+        GameObject go = Instantiate(itemGo , trParent);
+        Item it = go.AddComponent<Item>();
+        AddComponent(go);
+        return it;
+    }
+    static public Item Create(GameObject itemGo, Vector3 pos , Quaternion rot) {
+        GameObject go = Instantiate(itemGo, pos , rot);
+        Item it = go.AddComponent<Item>();
+        return it;
+    }
     public bool IsUseful
     {
         get { return isUseful; }
@@ -22,5 +35,10 @@ public class Item : MonoBehaviour {
     {
         get { return isDestroyed; }
         set { isDestroyed = value; }
+    }
+
+    private static void AddComponent(GameObject go)
+    {
+        go.AddComponent<ItemMovement>();
     }
 }

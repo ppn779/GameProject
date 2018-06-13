@@ -22,7 +22,8 @@ GameObject:
   - component: {fileID: 33736970066800226}
   - component: {fileID: 23992420561448568}
   - component: {fileID: 65754541217457928}
-  - component: {fileID: 114537880574107992}
+  - component: {fileID: 114920118531293926}
+  - component: {fileID: 114176995800583404}
   m_Layer: 0
   m_Name: PrefabPineApple
   m_TagString: Weapon
@@ -97,7 +98,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114537880574107992
+--- !u!114 &114176995800583404
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -105,18 +106,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 1783659366462482}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 299fec80c0c2a6c45a13dd2d5422184a, type: 3}
+  m_Script: {fileID: 11500000, guid: 282a532c7a45e814383adba517e3c3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heightMax: 1.5
+  heightMin: 1
+  defaultSpeed: 0.5
+--- !u!114 &114920118531293926
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1783659366462482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b166468b231d84986587200409dda0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pickupRange: 3
   remainCount: 3
   spriteWeaponIcon: {fileID: 0}
-  weaponMesh: {fileID: 1893362385657426, guid: 044ef946add40d0498158919bc967327, type: 2}
-  atkStartDist: 0
-  attackRange: 2
-  attackSpeed: 1.5
-  weaponAngle: 40
   remainTime: 5
-  damage: 50
-  usableCount: 5
+  damage: 5
+  attackSpeed: 1
   durability: 100
+  usableCount: 5
+  atkStartDist: 0
+  attackRange: 6
+  weaponAngle: 30
+  weaponMesh: {fileID: 1893362385657426, guid: 044ef946add40d0498158919bc967327, type: 2}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponMeshCtrl : MonoBehaviour {
 
-    private const float PIECE_ANGLE = 10f;  // 1폴리곤의 각도(원의 원만한 정도)
+    private const float PIECE_ANGLE = 1f;  // 1폴리곤의 각도(원의 원만한 정도)
     
     private Mesh mesh;
     private MeshFilter meshFilter;
@@ -23,7 +23,6 @@ public class WeaponMeshCtrl : MonoBehaviour {
 
     public void clearShape()
     {
-        Debug.Log("실행");
         mesh.Clear();
         meshFilter.mesh = mesh;
         //mesh 변경 후 false->true로 설정해야 반영된다.
@@ -31,15 +30,15 @@ public class WeaponMeshCtrl : MonoBehaviour {
         meshCollider.enabled = true;
     }
 
-    public void makeFanShape(float[] angle, Vector3 atkStartPos, float atkRangeDist,Transform tr)
+    public void makeFanShape(float[] angle, Vector3 atkStartPos, float atkRangeDist,Quaternion rot)
     {
-        this.transform.rotation = tr.rotation;
+        this.transform.rotation = rot;
         this.transform.position = atkStartPos;
         float startAngle; //원의 시작 각도.
         float endAngle;   //원의 종료 각도.
         float pieceAngle = PIECE_ANGLE; // 1폴러긴의 각도(원의 완만함).
         float radius = atkRangeDist; // 원의 반지름
-        Vector3 customAngle = new Vector3(0f, 0.05f, 1f);
+        Vector3 customAngle = new Vector3(0f, 0f, 1f);
 
         startAngle = angle[0];
         endAngle = angle[1];
@@ -85,7 +84,7 @@ public class WeaponMeshCtrl : MonoBehaviour {
 
         //정범 좌표를 계산.
 
-        circleVertices[0] = new Vector3(0f, 0.5f, 0f);
+        circleVertices[0] = new Vector3(0f, 2f, 0f);
 
         for (int i = 0; i < triangleNum + 1; i++)
         {

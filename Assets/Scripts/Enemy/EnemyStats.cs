@@ -25,9 +25,9 @@ public class EnemyStats : CharacterStat
     {
         atkMng.AtkPower += weapon.damage;
         atkMng.AtkSpeed += weapon.attackSpeed;
-        atkMng.AtkAngle += weapon.weaponAngle;
-        atkMng.AtkRangeDist += weapon.attackRange;
-        atkMng.AtkStartDist += weapon.atkStartDist;
+        //atkMng.AtkAngle += weapon.weaponAngle;
+        //atkMng.AtkRangeDist += weapon.attackRange;
+        //atkMng.AtkStartDist += weapon.atkStartDist;
     }
      
     public override void Die()

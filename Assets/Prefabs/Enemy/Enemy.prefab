@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 114230280807562550}
   - component: {fileID: 114126890359659468}
   - component: {fileID: 114007800886087140}
+  - component: {fileID: 114880278202937066}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -1520,15 +1521,11 @@ MonoBehaviour:
   pickupRange: 0
   remainCount: 0
   spriteWeaponIcon: {fileID: 0}
-  weaponMesh: {fileID: 0}
-  atkStartDist: 0
-  attackRange: 3
-  attackSpeed: 1
-  weaponAngle: 10
   remainTime: 5
   damage: 10
-  usableCount: 5
+  attackSpeed: 1
   durability: 100
+  usableCount: 5
 --- !u!114 &114857721894418984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1540,6 +1537,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e30577513cac4054bb471a72d53bb6ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114880278202937066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1136815501978768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c9f1af1ed557bb4fa6e5e655058ce94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropTable:
+  - name: Axe
+    item: {fileID: 1679818820238594, guid: 5ebcace05f40e294ea99512cb13fe4c0, type: 2}
+    dropDice: 0.33
+  - name: Dagger
+    item: {fileID: 1056988835352040, guid: b53db6432556e4b4e847f89ed6673ada, type: 2}
+    dropDice: 0.33
+  - name: Shuriken
+    item: {fileID: 1509833293233074, guid: ca81185ebed633d4bb3625e10be88137, type: 2}
+    dropDice: 0.33
 --- !u!136 &136170551524797646
 CapsuleCollider:
   m_ObjectHideFlags: 1

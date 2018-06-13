@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class CharacterStat : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth = 0;// { get; private set; }
+    public float maxHealth = 100;
+    public float currentHealth = 0;// { get; private set; }
 
-    public int damage;
-    public int armor;
+    public float damage;
+    public float armor;
 
-    public event System.Action<int, int> OnHealthChanged;
+    public event System.Action<float, float> OnHealthChanged;
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class CharacterStat : MonoBehaviour
         
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         damage -= armor;
 

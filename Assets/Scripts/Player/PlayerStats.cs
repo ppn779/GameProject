@@ -15,7 +15,7 @@ public class PlayerStats : CharacterStat {
     {
         if (currentHealth > 0)
         {
-            currentHealth -= (int)(Time.deltaTime + 1.0f);
+            currentHealth -= (Time.deltaTime + 1.0f);
         }
         else
         {
@@ -23,7 +23,7 @@ public class PlayerStats : CharacterStat {
         }
     }
 
-    public void HealthUp(int HP)
+    public void HealthUp(float HP)
     {
         currentHealth += HP;
         if (currentHealth > maxHealth)

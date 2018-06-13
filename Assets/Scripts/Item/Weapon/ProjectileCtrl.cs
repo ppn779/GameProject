@@ -4,26 +4,19 @@ using UnityEngine;
 
 public class ProjectileCtrl : MonoBehaviour {
     [SerializeField]
-    private float speed;
-    private Vector3 direction;
+    private float projectileSpeed;
 
-    public void Fire(Vector3 direction)
+    private void FixedUpdate()
     {
-        this.direction = direction;
-        StartCoroutine(FireProjectile());
+        this.transform.position += (this.transform.forward / 10) * projectileSpeed;
     }
-
-    IEnumerator FireProjectile()
-    {
-        while(true)
-        {
-            this.transform.position += (direction/10)*speed;
-            yield return new WaitForFixedUpdate();
-        }
-    }
+   
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(this.gameObject);
+        if (other.tag != "Player")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

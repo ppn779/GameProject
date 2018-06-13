@@ -18,7 +18,7 @@ public class DamageProcessMng : MonoBehaviour
         {
             CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
             AtkMng atkMng = other.GetComponentInParent<AtkMng>();
-            objStat.TakeDamage(atkMng.Attack());
+            objStat.TakeDamage(atkMng.AtkPower);
         }
     }
 }

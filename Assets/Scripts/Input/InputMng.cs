@@ -17,7 +17,6 @@ public class InputMng : MonoBehaviour {
         equipment = tr.GetComponent<Equipment>();
         if (equipment == null) { equipment = tr.gameObject.AddComponent<Equipment>(); }
         slotImage = this.transform.GetComponentInChildren<QuickSlotImage>();
-
     }
 
 	private void Update () {

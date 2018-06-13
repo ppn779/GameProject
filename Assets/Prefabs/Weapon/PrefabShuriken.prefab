@@ -22,7 +22,8 @@ GameObject:
   - component: {fileID: 33436456870147494}
   - component: {fileID: 23180519671570508}
   - component: {fileID: 65866192993823744}
-  - component: {fileID: 114467606083609376}
+  - component: {fileID: 114028124962803728}
+  - component: {fileID: 114181919200273192}
   m_Layer: 0
   m_Name: PrefabShuriken
   m_TagString: Weapon
@@ -97,7 +98,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114467606083609376
+--- !u!114 &114028124962803728
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -105,19 +106,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1509833293233074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 299fec80c0c2a6c45a13dd2d5422184a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fea9244634713d4297f5b5a1cca1961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pickupRange: 3
   remainCount: 3
   spriteWeaponIcon: {fileID: 21300000, guid: b76e5a1ffdc1fe14cad60ed46bceaf75, type: 3}
-  weaponMesh: {fileID: 0}
-  atkStartDist: 0
-  attackRange: 10
-  attackSpeed: 1.5
-  weaponAngle: 2
   remainTime: 5
-  damage: 50
-  usableCount: 5
+  damage: 10
+  attackSpeed: 5
   durability: 100
-  hasProjectile: 1
+  usableCount: 5
+  projectile: {fileID: 1941739627128864, guid: 47e9ffa2bf11a9941b0fed96068ac541, type: 2}
+--- !u!114 &114181919200273192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1509833293233074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282a532c7a45e814383adba517e3c3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heightMax: 1.5
+  heightMin: 1
+  defaultSpeed: 0.5
