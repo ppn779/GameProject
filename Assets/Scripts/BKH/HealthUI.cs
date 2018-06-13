@@ -49,7 +49,7 @@ public class HealthUI : MonoBehaviour
         }
     }
 
-    void OnHealthChanged(int maxHealth, int currentHealth)
+    void OnHealthChanged(float maxHealth, float currentHealth)
     {
         if (ui != null)
         {

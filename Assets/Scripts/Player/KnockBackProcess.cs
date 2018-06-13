@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class KnockBackProcess : MonoBehaviour
 {
-    private Rigidbody rb;
+    //벡터로 만든 코드
     private PlayerController playerCtrl;
 
     private Vector3 direction;
 
-    private bool isKnockBackOn=false;
+    private bool isKnockBackOn = false;
 
     [SerializeField]
     private float knockBackTime;
@@ -19,41 +19,96 @@ public class KnockBackProcess : MonoBehaviour
 
     private void Awake()
     {
-        rb = this.GetComponent<Rigidbody>();
-        if (rb == null) { Debug.LogError(rb);
-        }
-        playerCtrl=this.GetComponent<PlayerController>();
+        playerCtrl = this.GetComponent<PlayerController>();
         time = knockBackTime;
     }
 
-    private void FixedUpdate()
+    //질문 필요.
+    private void Update()
     {
-        if (this.isKnockBackOn && time > 0)
-        {
-            KnockBack();
-            time -= Time.deltaTime;
-            playerCtrl.IsInputSwitchOn=false;
-        }
-        else if (this.isKnockBackOn && time <= 0)
+        if (this.isKnockBackOn && time < knockBackTime)
         {
             isKnockBackOn = false;
-            time=knockBackTime;
             playerCtrl.IsInputSwitchOn = true;
         }
     }
 
-    private void KnockBack()
+    IEnumerator KnockBack()
     {
-        rb.AddForce(direction * forcePow);
+        while (time < knockBackTime)
+        {
+            playerCtrl.transform.position += (direction*forcePow)/100;
+            time += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "WeaponMesh")
+        if (other.tag == "WeaponMesh"&&!isKnockBackOn)
         {
-            //Debug.Log(other.transform.forward);
+            Debug.Log(other.transform.forward);
             direction = other.transform.forward;
+            time = 0;
             isKnockBackOn = true;
+            playerCtrl.IsInputSwitchOn = false;
+            StartCoroutine(KnockBack());
         }
     }
+
+    //애드포스로 만든 코드
+    //private Rigidbody rb;
+    //private PlayerController playerCtrl;
+
+    //private Vector3 direction;
+
+    //private bool isKnockBackOn = false;
+
+    //[SerializeField]
+    //private float knockBackTime;
+    //[SerializeField]
+    //private float forcePow;
+    //private float time;
+
+    //private void Awake()
+    //{
+    //    rb = this.GetComponent<Rigidbody>();
+    //    if (rb == null)
+    //    {
+    //        Debug.LogError(rb);
+    //    }
+    //    playerCtrl = this.GetComponent<PlayerController>();
+    //    time = knockBackTime;
+    //}
+
+    //private void FixedUpdate()
+    //{
+    //    if (this.isKnockBackOn && time > 0)
+    //    {
+    //        KnockBack();
+    //        time -= Time.deltaTime;
+    //        playerCtrl.IsInputSwitchOn = false;
+    //    }
+    //    else if (this.isKnockBackOn && time <= 0)
+    //    {
+    //        isKnockBackOn = false;
+    //        time = knockBackTime;
+    //        playerCtrl.IsInputSwitchOn = true;
+    //    }
+    //}
+
+    //private void KnockBack()
+    //{
+    //    rb.AddForce(direction * forcePow);
+    //}
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.tag == "WeaponMesh")
+    //    {
+    //        Debug.Log(other.transform.forward);
+    //        direction = other.transform.forward;
+    //        isKnockBackOn = true;
+    //    }
+    //}
 }

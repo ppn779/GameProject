@@ -155,9 +155,7 @@ public class EnemyAIScript01 : MonoBehaviour
                 if (Time.time > lastShotFired + attackTime)
                 {
                     StartCoroutine(Attack());
-                    Debug.Log("Attack!!");
                 }
-                // }
             }
         }
 
@@ -435,7 +433,7 @@ public class EnemyAIScript01 : MonoBehaviour
         if (atkMng == null) { Debug.LogError(atkMng); }
         else
         {
-            atkMng.AtkMngOn(enemyCanAttack);
+            atkMng.Attack(enemyCanAttack);
         }
         Debug.Log("ATTACKHIT");
     }

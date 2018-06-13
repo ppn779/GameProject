@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
             isClick = false;
         }
 
-        atkMng.AtkMngOn(isClick);
+        atkMng.Attack(isClick);
     }
 
     private void Move(float h, float v, float speed)

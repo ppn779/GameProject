@@ -15,7 +15,8 @@ public class LifeGageBarMng : MonoBehaviour
     //색상 변화량, 최대치가 1이기 때문에 파워 최대치 만큼을 나눠서 설정
     private const float COLOR_STEP = 1f / MAX_GAGE;
 
-    private float lifeGage = 0f;//콤보 게이지 수치
+    private float lifeGage;//콤보 게이지 수치
+    private float width;
 
     //private bool canSpecialAtk = false;
 
@@ -27,12 +28,13 @@ public class LifeGageBarMng : MonoBehaviour
         //enemies = GameObject.FindGameObjectsWithTag("Enemy");
         lifeGageBarTr = lifeGageBar.GetComponent<RectTransform>();
         lifeGageBarImg = lifeGageBar.GetComponent<Image>();
+        width = lifeGageBarTr.rect.width;
     }
 
     // Update is called once per frame
     void Update()
     {
-        lifeGage = playerStats.currentHealth;
+        lifeGage = (playerStats.currentHealth/playerStats.maxHealth)*width;
 
         LifeGageBarCtrl();
 

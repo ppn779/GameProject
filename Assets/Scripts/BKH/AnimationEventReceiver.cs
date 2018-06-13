@@ -6,11 +6,9 @@ public class AnimationEventReceiver : MonoBehaviour {
 
     public delegate void AttackHitDelegate();
     public AttackHitDelegate attackHit = null;
-    
+
     public void AttackHitEvent()
     {
         if (attackHit != null) attackHit();
-
-        //Debug.Log("ATTACKHIT");
     }
 }
