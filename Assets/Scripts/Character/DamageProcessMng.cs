@@ -16,8 +16,10 @@ public class DamageProcessMng : MonoBehaviour
 
         if (other.tag == opponentObjAtkTagName)
         {
+            Debug.Log("데미지");
             CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
             AtkMng atkMng = other.GetComponentInParent<AtkMng>();
+            Debug.Log(atkMng.AtkPower);
             objStat.TakeDamage(atkMng.AtkPower);
         }
     }

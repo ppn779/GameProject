@@ -23,7 +23,10 @@ GameObject:
   - component: {fileID: 23760335374782036}
   - component: {fileID: 65810122117692576}
   - component: {fileID: 114304055506115790}
+<<<<<<< HEAD
   - component: {fileID: 114221392042214400}
+=======
+>>>>>>> origin/BKH
   m_Layer: 0
   m_Name: PrefabAxe
   m_TagString: Weapon
@@ -98,7 +101,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!114 &114221392042214400
+=======
+--- !u!114 &114304055506115790
+>>>>>>> origin/BKH
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -106,6 +113,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1679818820238594}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< HEAD
   m_Script: {fileID: 11500000, guid: 282a532c7a45e814383adba517e3c3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -120,20 +128,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1679818820238594}
   m_Enabled: 1
   m_EditorHideFlags: 0
+=======
+>>>>>>> origin/BKH
   m_Script: {fileID: 11500000, guid: c7b166468b231d84986587200409dda0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pickupRange: 3
   remainCount: 3
   spriteWeaponIcon: {fileID: 21300000, guid: 472c7b62a4d7b264c91c5e04225dc3fb, type: 3}
-<<<<<<< HEAD
-  attackRange: 2
-  damage: 50
-  attackSpeed: 1.5
-  weaponAngle: 40
-  atkStartDist: 2
-  remainTime: 5
-=======
   remainTime: 5
   damage: 20
   attackSpeed: 0.5
@@ -143,4 +145,3 @@ MonoBehaviour:
   attackRange: 6
   weaponAngle: 160
   weaponMesh: {fileID: 1893362385657426, guid: 044ef946add40d0498158919bc967327, type: 2}
->>>>>>> 180619 21:14 직접 수동으로 머지완료 (빼먹은부분 있을수도 있어요)

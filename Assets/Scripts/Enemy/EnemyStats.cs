@@ -7,7 +7,7 @@ public class EnemyStats : CharacterStat
 {
 
     //private bool canBeAttacked;
-    public Animator animator;
+    private Animator animator;
 
     private AtkMng atkMng;
     private Weapon weapon = null;
@@ -23,19 +23,30 @@ public class EnemyStats : CharacterStat
     }
     void Equipment()
     {
+        atkMng.IsEquippedWeapon = true;
+        atkMng.Weapon = weapon;
+
         atkMng.AtkPower += weapon.damage;
         atkMng.AtkSpeed += weapon.attackSpeed;
-        //atkMng.AtkAngle += weapon.weaponAngle;
-        //atkMng.AtkRangeDist += weapon.attackRange;
-        //atkMng.AtkStartDist += weapon.atkStartDist;
+        
     }
-     
+
+    private void Update()
+    {
+        if(Input.GetKeyDown("k"))
+        {
+            Die();
+        }
+    }
+
     public override void Die()
     {
         base.Die();
 
         // effect
         // death animation
+        this.GetComponent<DropTable>().GetRandomItem();
+
         animator.SetBool("isDeath", true);
         Destroy(gameObject);
 

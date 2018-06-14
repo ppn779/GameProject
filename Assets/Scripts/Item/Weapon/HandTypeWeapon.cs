@@ -51,6 +51,7 @@ public class HandTypeWeapon : Weapon {
                 if (weaponMeshCtrl != null)
                 {
                     Vector3 atkStartPos = this.playerTr.position + (this.playerTr.forward * (atkStartDist));
+                    //Debug.Log("Start Pos   : " +atkStartPos);
                     float[] tmpAngle = new float[] { this.playerTr.rotation.y - (weaponAngle / 2), this.playerTr.rotation.y + (weaponAngle / 2) };
                     weaponMeshCtrl.makeFanShape(tmpAngle, atkStartPos, attackRange, this.playerTr.rotation);
                     isAtkSwitchOn = false;

@@ -23,7 +23,7 @@ public class DropTable : MonoBehaviour {
         for (int i = 0; i < dropTable.Count; ++i)
         {
             rand = Random.Range(0f, 1f);
-            if (rand > dropTable[i].dropDice)
+            if (rand < dropTable[i].dropDice)
             {
                 Item.Create(dropTable[i].item, tr.position, tr.rotation);
                 return;

@@ -31,7 +31,7 @@ public class QuickSlot : MonoBehaviour {
         slotImage.Regist(num, goItem.spriteWeaponIcon);
         ++SlotCnt;
 
-        DebugSystem.Create(new Vector3(0f , 0f , 0f), "done");
+        //DebugSystem.Create(new Vector3(0f , 0f , 0f), "done");
     }
     public void AddItemMain(Item goItem)
     {

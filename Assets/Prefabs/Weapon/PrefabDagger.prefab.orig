@@ -23,7 +23,10 @@ GameObject:
   - component: {fileID: 23766499848016330}
   - component: {fileID: 65891099874499070}
   - component: {fileID: 114116402810374732}
+<<<<<<< HEAD
   - component: {fileID: 114723474451947424}
+=======
+>>>>>>> origin/BKH
   m_Layer: 0
   m_Name: PrefabDagger
   m_TagString: Weapon
@@ -112,14 +115,6 @@ MonoBehaviour:
   pickupRange: 3
   remainCount: 3
   spriteWeaponIcon: {fileID: 21300000, guid: 81bc34ebec69eb943a5428cfc41febd1, type: 3}
-<<<<<<< HEAD
-  atkStartDist: 0
-  attackRange: 2
-  damage: 50
-  attackSpeed: 1.5
-  weaponAngle: 60
-  remainTime: 5
-=======
   remainTime: 5
   damage: 10
   attackSpeed: 5
@@ -129,6 +124,7 @@ MonoBehaviour:
   attackRange: 10
   weaponAngle: 60
   weaponMesh: {fileID: 1893362385657426, guid: 044ef946add40d0498158919bc967327, type: 2}
+<<<<<<< HEAD
 --- !u!114 &114723474451947424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -143,4 +139,5 @@ MonoBehaviour:
   heightMax: 1.5
   heightMin: 1
   defaultSpeed: 0.5
->>>>>>> 180619 21:14 직접 수동으로 머지완료 (빼먹은부분 있을수도 있어요)
+=======
+>>>>>>> origin/BKH

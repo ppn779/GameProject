@@ -23,6 +23,7 @@ public class WeaponMeshCtrl : MonoBehaviour {
 
     public void clearShape()
     {
+        //Debug.Log("실행");
         mesh.Clear();
         meshFilter.mesh = mesh;
         //mesh 변경 후 false->true로 설정해야 반영된다.
@@ -84,7 +85,7 @@ public class WeaponMeshCtrl : MonoBehaviour {
 
         //정범 좌표를 계산.
 
-        circleVertices[0] = new Vector3(0f, 2f, 0f);
+        circleVertices[0] = new Vector3(0f, 0.5f, 0f);
 
         for (int i = 0; i < triangleNum + 1; i++)
         {

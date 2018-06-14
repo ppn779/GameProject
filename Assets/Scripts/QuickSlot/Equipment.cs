@@ -21,20 +21,24 @@ public class Equipment : MonoBehaviour
     {
         if (!isEquipWeapon)
         {
+            //int abc = DebugSystem.Create(it.name);
+            //DebugSystem.SetText(abc, "I am Groot");
             GameObject go = FindForName(tr, "Right Hand");
             it.transform.parent = go.transform;
             it.transform.position = go.transform.position;
             equippedItem = it.transform.GetComponent<Weapon>();
+            isEquipWeapon = true;
+            equippedItem.IsPlayerEquipped = true;
             if (equippedItem != null)
             {
-                //atkMng.AtkPower += equippedItem.damage;
-                //atkMng.AtkSpeed += equippedItem.attackSpeed;
+                atkMng.AtkPower += equippedItem.damage;
+                atkMng.AtkSpeed += equippedItem.attackSpeed;
                 //atkMng.AtkAngle += equippedItem.weaponAngle;
                 //atkMng.AtkRangeDist += equippedItem.attackRange;
                 //atkMng.AtkStartDist += equippedItem.atkStartDist;
                 //atkMng.HasProjectile = equippedItem.hasProjectile;
 
-                isEquipWeapon = true;
+                
                 atkMng.IsEquippedWeapon = isEquipWeapon;
                 atkMng.Weapon = equippedItem;
             }
@@ -50,8 +54,8 @@ public class Equipment : MonoBehaviour
                 isEquipWeapon = false;
                 atkMng.IsEquippedWeapon = isEquipWeapon;
 
-                //atkMng.AtkPower -= equippedItem.damage;
-                //atkMng.AtkSpeed -= equippedItem.attackSpeed;
+                atkMng.AtkPower -= equippedItem.damage;
+                atkMng.AtkSpeed -= equippedItem.attackSpeed;
                 //atkMng.AtkAngle -= equippedItem.weaponAngle;
                 //atkMng.AtkRangeDist -= equippedItem.attackRange;
                 //atkMng.AtkStartDist -= equippedItem.atkStartDist;
