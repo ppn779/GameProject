@@ -40,5 +40,12 @@ public class QuickSlotMng : MonoBehaviour {
                 pickup.GetPickupItem.gameObject.SetActive(false);
             }
         }
+
+        if (slot.GetItemMain() != null && slot.GetItemMain().IsDestroyed)
+        {
+            Debug.Log("파괴되었다");
+            equipment.IsEquipWeapon = false;
+            slot.RemoveItemMain();
+        }
     }
 }

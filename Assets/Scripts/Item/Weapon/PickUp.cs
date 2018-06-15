@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PickUp : MonoBehaviour {
+    private const float PICKUP_RANGE = 5f;
     private Transform tr = null;
     private List<Item> listAround = null;
     private bool isExistAroundItem = false;
@@ -19,7 +20,7 @@ public class PickUp : MonoBehaviour {
     {
         foreach (Item item in listAround)
         {
-            if (Vector3.Distance(pos , item.transform.position) < 3f)
+            if (Vector3.Distance(pos , item.transform.position) < PICKUP_RANGE)
             {
                 IsExistAroundItem = true;
                 pickupItem = item;
@@ -38,6 +39,7 @@ public class PickUp : MonoBehaviour {
             listAround.Add(it);
         }
     }
+    
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Weapon"))

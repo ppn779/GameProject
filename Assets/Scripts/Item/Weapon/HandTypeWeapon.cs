@@ -27,6 +27,14 @@ public class HandTypeWeapon : Weapon {
     private void Update()
     {
         UpdateTransformMesh();
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            if (IsPlayerEquipped)
+            {
+                SubtractDurability(25);
+                Debug.Log(durability);
+            }
+        }
     }
 
     public override void Attack(bool atkSwitch,Transform playerTr)

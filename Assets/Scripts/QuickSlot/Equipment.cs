@@ -8,7 +8,10 @@ public class Equipment : MonoBehaviour
     private Weapon equippedItem = null;
     private AtkMng atkMng = null;
     private bool isEquipWeapon = false;
-    public bool IsEquipWeapon { get { return isEquipWeapon; } }
+    public bool IsEquipWeapon {
+        get { return isEquipWeapon; }
+        set { isEquipWeapon = value; }
+    }
     public Item GetEquippedItem { get { return equippedItem; } }
 
     private void Start()
@@ -37,8 +40,6 @@ public class Equipment : MonoBehaviour
                 //atkMng.AtkRangeDist += equippedItem.attackRange;
                 //atkMng.AtkStartDist += equippedItem.atkStartDist;
                 //atkMng.HasProjectile = equippedItem.hasProjectile;
-
-                
                 atkMng.IsEquippedWeapon = isEquipWeapon;
                 atkMng.Weapon = equippedItem;
             }
@@ -62,8 +63,6 @@ public class Equipment : MonoBehaviour
                 //atkMng.HasProjectile = false;
                 //Debug.Log(equippedItem.name + "을 장착해제했다");
                 equippedItem.transform.parent = null;
-                //equippedItem.gameObject.SetActive(false);
-                //Debug.Log(equippedItem.name + "을 장착해제했다");
                 equippedItem.transform.parent = null;
                 equippedItem.gameObject.SetActive(false);
                 return equippedItem;
