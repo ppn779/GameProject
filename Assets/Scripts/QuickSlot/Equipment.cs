@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Equipment : MonoBehaviour
 {
+    [SerializeField] private GameObject rightHand = null;
     private Transform tr = null;
     private Weapon equippedItem = null;
     private AtkMng atkMng = null;
@@ -26,7 +27,10 @@ public class Equipment : MonoBehaviour
         {
             //int abc = DebugSystem.Create(it.name);
             //DebugSystem.SetText(abc, "I am Groot");
-            GameObject go = FindForName(tr, "Right Hand");
+
+            GameObject go = rightHand;
+            if (go == null) { Debug.LogError("go is null"); }
+            if (!it.gameObject.activeInHierarchy) { it.gameObject.SetActive(true); }
             it.transform.parent = go.transform;
             it.transform.position = go.transform.position;
             equippedItem = it.transform.GetComponent<Weapon>();

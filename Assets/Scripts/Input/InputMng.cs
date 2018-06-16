@@ -55,6 +55,7 @@ public class InputMng : MonoBehaviour {
                 it = slot.GetItemListNumber(slotNumber);
                 slot.AddItemMain(it);
                 slot.RemoveItemInNumber(slotNumber);
+                equipment.Equip(it);
             }
         }
     }

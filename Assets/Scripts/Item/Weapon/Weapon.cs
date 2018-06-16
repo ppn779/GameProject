@@ -44,7 +44,7 @@ public class Weapon : Item
     private void DestroyWeapon()
     {
         IsDestroyed = true;
-        DestroyItem();
+        //DestroyItem();
     }
 
     //private void UpdateTransformMesh()
