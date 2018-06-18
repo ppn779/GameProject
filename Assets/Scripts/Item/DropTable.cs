@@ -19,11 +19,15 @@ public class DropTable : MonoBehaviour {
 
     public void GetRandomItem()
     {
-        float rand = 0f;
+        float rand = Random.Range(0f, 1f);
+        float tempMin = 0f;
+        float tempMax = 0f;
+        Debug.Log(rand);
         for (int i = 0; i < dropTable.Count; ++i)
         {
-            rand = Random.Range(0f, 1f);
-            if (rand < dropTable[i].dropDice)
+            tempMin = tempMax;
+            tempMax += dropTable[i].dropDice;
+            if (rand > tempMin && rand < tempMax)
             {
                 Item.Create(dropTable[i].item, tr.position, tr.rotation);
                 return;

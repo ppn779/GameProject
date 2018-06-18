@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Equipment : MonoBehaviour
 {
+    [SerializeField] private GameObject rightHand = null;
     private Transform tr = null;
     private Weapon equippedItem = null;
     private AtkMng atkMng = null;
     private bool isEquipWeapon = false;
-    public bool IsEquipWeapon { get { return isEquipWeapon; } }
+    public bool IsEquipWeapon {
+        get { return isEquipWeapon; }
+        set { isEquipWeapon = value; }
+    }
     public Item GetEquippedItem { get { return equippedItem; } }
 
     private void Start()
@@ -23,7 +27,10 @@ public class Equipment : MonoBehaviour
         {
             //int abc = DebugSystem.Create(it.name);
             //DebugSystem.SetText(abc, "I am Groot");
-            GameObject go = FindForName(tr, "Right Hand");
+
+            GameObject go = rightHand;
+            if (go == null) { Debug.LogError("go is null"); }
+            if (!it.gameObject.activeInHierarchy) { it.gameObject.SetActive(true); }
             it.transform.parent = go.transform;
             it.transform.position = go.transform.position;
             equippedItem = it.transform.GetComponent<Weapon>();
@@ -37,8 +44,6 @@ public class Equipment : MonoBehaviour
                 //atkMng.AtkRangeDist += equippedItem.attackRange;
                 //atkMng.AtkStartDist += equippedItem.atkStartDist;
                 //atkMng.HasProjectile = equippedItem.hasProjectile;
-
-                
                 atkMng.IsEquippedWeapon = isEquipWeapon;
                 atkMng.Weapon = equippedItem;
             }
@@ -62,8 +67,6 @@ public class Equipment : MonoBehaviour
                 //atkMng.HasProjectile = false;
                 //Debug.Log(equippedItem.name + "을 장착해제했다");
                 equippedItem.transform.parent = null;
-                //equippedItem.gameObject.SetActive(false);
-                //Debug.Log(equippedItem.name + "을 장착해제했다");
                 equippedItem.transform.parent = null;
                 equippedItem.gameObject.SetActive(false);
                 return equippedItem;

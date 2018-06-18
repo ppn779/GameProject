@@ -30,8 +30,7 @@ public class QuickSlot : MonoBehaviour {
         isSlotEmpty[num] = false;
         slotImage.Regist(num, goItem.spriteWeaponIcon);
         ++SlotCnt;
-
-        //DebugSystem.Create(new Vector3(0f , 0f , 0f), "done");
+        
     }
     public void AddItemMain(Item goItem)
     {
@@ -59,10 +58,8 @@ public class QuickSlot : MonoBehaviour {
         slotImage.RemoveMain();
         itemMain = null;
     }
-    public Item GetItemListNumber(int num)
-    {
-        return itemList[num];
-    }
+    public Item GetItemListNumber(int num) { return itemList[num]; }
+    public Item GetItemMain() { return itemMain; }
     public int GetEmptySlot()
     {
         for (int i = 0; i < slotMax; ++i) { if (isSlotEmpty[i]) { return i; } }

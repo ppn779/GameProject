@@ -9,18 +9,8 @@ public class Weapon : Item
     public float attackSpeed = 0.0f;
     public int durability = 100;
     public int usableCount = 5;
-    //private float atkTimer;
-    //private bool isAtkSwitchOn = false;
-    //private bool isAtkTimerOn = false;
-
-    //private Transform tr = null;
     private bool isPlayerEquipped = false;
-
-    //private void Update()
-    //{
-    //    UpdateTransformMesh();
-    //}
-
+    
     public virtual void Attack(bool atkSwitch,Transform playerTr) { }
 
     public bool IsPlayerEquipped
@@ -54,6 +44,7 @@ public class Weapon : Item
     private void DestroyWeapon()
     {
         IsDestroyed = true;
+        //DestroyItem();
     }
 
     //private void UpdateTransformMesh()

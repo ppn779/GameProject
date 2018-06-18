@@ -57,7 +57,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -132,6 +131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282a532c7a45e814383adba517e3c3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightMax: 1.5
-  heightMin: 1
+  heightMax: 0.75
+  heightMin: 0.5
   defaultSpeed: 0.5

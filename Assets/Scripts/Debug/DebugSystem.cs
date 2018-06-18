@@ -26,6 +26,7 @@ public class DebugSystem : MonoBehaviour
     private static RectTransform[] rectArr = new RectTransform[ArrayIndexMax];
     private static Text[] textArr = new Text[ArrayIndexMax];
     private static int indexMax = 0;
+
     private void Start()
     {
         listDebug = new List<RectTransform>();
@@ -54,7 +55,7 @@ public class DebugSystem : MonoBehaviour
         textArr[emptyIdx].font = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
         textArr[emptyIdx].alignment = TextAnchor.MiddleLeft;
         textArr[emptyIdx].fontSize = 16;
-
+        
 
         if (emptyIdx  == indexMax) { ++indexMax; }
         return emptyIdx;

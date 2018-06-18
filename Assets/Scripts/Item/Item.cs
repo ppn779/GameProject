@@ -8,7 +8,7 @@ public class Item : MonoBehaviour {
     public Sprite spriteWeaponIcon = null;
     private bool isUseful = true;
     private bool isDestroyed = false;
-
+    
     public Item GetItemType() { return this; }
     static public Item Create(GameObject itemGo) {
         GameObject go = Instantiate(itemGo);
@@ -35,6 +35,11 @@ public class Item : MonoBehaviour {
     {
         get { return isDestroyed; }
         set { isDestroyed = value; }
+    }
+
+    public void DestroyItem()
+    {
+        Destroy(gameObject);
     }
 
     private static void AddComponent(GameObject go)
