@@ -10,7 +10,6 @@ public class AtkMng : MonoBehaviour
     private float atkPower;
     private float atkSpeed;
     private float atkTimer;
-    private bool isAtkTimerOn = false;
     private bool isAtkSwitchOn = false;
     private bool isEquippedWeapon = false;
 
@@ -18,28 +17,6 @@ public class AtkMng : MonoBehaviour
     {
         obj = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
-    }
-
-    private void Update()
-    {
-        if (isEquippedWeapon)
-        {
-            if (isAtkTimerOn && atkTimer > 0.0f)
-            {
-                Debug.Log("공격");
-                weapon.Attack(isAtkSwitchOn, obj.transform);
-                if (isAtkSwitchOn)
-                {   //animator.SetTrigger("attack");
-                    isAtkSwitchOn = false;
-                }
-                this.atkTimer -= Time.deltaTime + (atkSpeed / 50);
-            }
-
-            else
-            {
-                isAtkTimerOn = false;
-            }
-        }
     }
 
     public Weapon Weapon
@@ -52,60 +29,32 @@ public class AtkMng : MonoBehaviour
 
     public void Attack()
     {
-        if (!isAtkTimerOn)
+        if (IsEquippedWeapon && atkTimer <= 0)
         {
-            isAtkSwitchOn = true;
-            isAtkTimerOn = true;
             atkTimer = 2.0f;
+            StartCoroutine(StartAttack());
         }
     }
 
-    //public WeaponMeshCtrl WeaponMeshCtrl
-    //{
-    //    get
-    //    {
-    //        return weaponMesh;
-    //    }
-    //    set
-    //    {
-    //        weaponMesh = value;
-    //    }
-    //}
+    private IEnumerator StartAttack()
+    {
+        while (atkTimer > 0.0f)
+        {
+            if (!isAtkSwitchOn)
+            {
+                //animator.SetTrigger("Attack");
+            }
+            weapon.Attack();
+            this.atkTimer -= Time.deltaTime + (atkSpeed / 50);
+            yield return null;
+        }
+    }
 
-    //public ProjectileCtrl ProjectileCtrl
-    //{
-    //    get
-    //    {
-    //        return projectileCtrl;
-    //    }
-    //    set
-    //    {
-    //        projectileCtrl = value;
-    //    }
-    //}
-
-    //public float AtkStartDist
-    //{
-    //    get
-    //    {
-    //        return atkStartDist;
-    //    }
-    //    set
-    //    {
-    //        atkStartDist = value;
-    //    }
-    //}
-    //public float AtkAngle
-    //{
-    //    get
-    //    {
-    //        return atkAngle;
-    //    }
-    //    set
-    //    {
-    //        atkAngle = value;
-    //    }
-    //}
+    private void WeaponAttack()
+    {
+        isAtkSwitchOn = true;
+        Debug.Log("공격");
+    }
 
     public float AtkPower
     {
@@ -119,18 +68,6 @@ public class AtkMng : MonoBehaviour
         }
     }
 
-    //public float AtkRangeDist
-    //{
-    //    get
-    //    {
-    //        return atkRangeDist;
-    //    }
-    //    set
-    //    {
-    //        atkRangeDist = value;
-    //    }
-    //}
-
     public float AtkSpeed
     {
         get
@@ -143,35 +80,6 @@ public class AtkMng : MonoBehaviour
         }
     }
 
-    //public bool HasProjectile
-    //{
-    //    get
-    //    {
-    //        return hasProjectile;
-    //    }
-    //    set
-    //    {
-    //        hasProjectile = value;
-    //    }
-    //}
-
-    //public void AtkMngOn(bool isAtkTimerOn)
-    //{
-    //    if (!this.isAtkTimerOn)
-    //    {
-    //        //Debug.Log("atkMngOn");
-    //        this.isAtkTimerOn = isAtkTimerOn;
-    //        this.isAtkSwitchOn = isAtkTimerOn;
-    //        atkTimer = 2.0f;
-    //    }
-    //}
-
-
-    //public int Attack()
-    //{
-    //    return atkPower;
-    //}
-
     public bool IsEquippedWeapon
     {
         get
@@ -183,34 +91,4 @@ public class AtkMng : MonoBehaviour
             isEquippedWeapon = value;
         }
     }
-
-    //private void UpdateTransformMesh()
-    //{
-    //    콜리전에 사용할 Mesh를 만든다.
-    //    if (isAtkTimerOn && atkTimer > 0.0f)
-    //    {
-    //        if (isAtkSwitchOn)
-    //        {
-    //            if (weaponMesh != null && !hasProjectile)
-    //            {
-
-    //                Vector3 atkStartPos = this.transform.position + (this.transform.forward * (atkStartDist));
-    //                float[] tmpAngle = new float[] { this.transform.rotation.y - (atkAngle / 2), this.transform.rotation.y + (atkAngle / 2) };
-    //                weaponMesh.makeFanShape(tmpAngle, atkStartPos, atkRangeDist, this.transform);
-    //                isAtkSwitchOn = false;
-
-    //            }
-    //        }
-    //        else
-    //        {
-
-    //            weaponMesh.clearShape();
-    //        }
-    //        this.atkTimer -= Time.deltaTime + (atkSpeed / 50);
-    //    }
-    //    else
-    //    {
-    //        isAtkTimerOn = false;
-    //    }
-    //}
 }

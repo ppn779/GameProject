@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuickSlotImage : MonoBehaviour {
+public class QuickSlotImage : MonoBehaviour
+{
     [SerializeField] private GameObject slot0 = null;
     [SerializeField] private GameObject slot1 = null;
     [SerializeField] private GameObject slot2 = null;
@@ -17,7 +18,8 @@ public class QuickSlotImage : MonoBehaviour {
     private Image imageSlot4 = null;
     private Image imageSlotMain = null;
 
-    private void Start () {
+    private void Start()
+    {
         if (slot0 != null) { imageSlot0 = slot0.GetComponent<Image>(); }
         if (slot1 != null) { imageSlot1 = slot1.GetComponent<Image>(); }
         if (slot2 != null) { imageSlot2 = slot2.GetComponent<Image>(); }
@@ -25,8 +27,9 @@ public class QuickSlotImage : MonoBehaviour {
         if (slot4 != null) { imageSlot4 = slot4.GetComponent<Image>(); }
         if (slotMain != null) { imageSlotMain = slotMain.GetComponent<Image>(); }
     }
-    public void Regist(int slotNum , Sprite spriteImage)
+    public void Regist(int slotNum, Sprite spriteImage)
     {
+        if (spriteImage == null) { return; }
         switch (slotNum)
         {
             case 0:

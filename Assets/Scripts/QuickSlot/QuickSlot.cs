@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuickSlot : MonoBehaviour {
+public class QuickSlot : MonoBehaviour
+{
     [SerializeField] private GameObject itemEmpty = null;
     private const int slotMax = 5;
     private Transform tr = null;
@@ -11,26 +12,30 @@ public class QuickSlot : MonoBehaviour {
     private bool[] isSlotEmpty = null;
     private int SlotCnt = 0;
     private QuickSlotImage slotImage = null;
-    
+
     public List<Item> ItemList { get { return itemList; } }
     public bool IsSlotEmpty(int num) { return isSlotEmpty[num]; }
 
-    private void Awake()
+    private void Start()
     {
         tr = this.transform;
         slotImage = GetComponent<QuickSlotImage>();
-        for (int i=0; i<slotMax; ++i) { itemList.Add(itemEmpty.GetComponent<Item>()); }
-        SlotCnt = 0;
         isSlotEmpty = new bool[5];
+        SlotCnt = 0;
+        for (int i = 0; i < slotMax; ++i)
+        {
+            //itemList.Add(itemEmpty.GetComponent<Item>());
+            AddItemEmpty(i);
+        }
     }
-    public void AddItem(int num , Item goItem)
+    public void AddItem(int num, Item goItem)
     {
         if (SlotCnt >= slotMax) { Debug.Log("QuickSlot is Max : " + SlotCnt); return; }
         itemList.Insert(num, goItem);
         isSlotEmpty[num] = false;
         slotImage.Regist(num, goItem.spriteWeaponIcon);
         ++SlotCnt;
-        
+
     }
     public void AddItemMain(Item goItem)
     {
@@ -40,9 +45,9 @@ public class QuickSlot : MonoBehaviour {
     public void AddItemEmpty(int num)
     {
         if (SlotCnt >= slotMax) { Debug.Log("QuickSlot is Max"); }
-        //Item it = itemEmpty.GetComponent<Item>();
-        //itemList[num] = it;
-        //slotImage.Regist(SlotCnt, it.spriteWeaponIcon);
+        Item it = itemEmpty.GetComponent<Item>();
+        itemList.Insert(num, it);
+        slotImage.Regist(SlotCnt, it.spriteWeaponIcon);
         isSlotEmpty[num] = true;
     }
     public void RemoveItemInNumber(int num)
@@ -50,6 +55,7 @@ public class QuickSlot : MonoBehaviour {
         Item it = itemList[num];
         slotImage.RemoveAt(num);
         itemList.RemoveAt(num);
+        //itemList.Insert(num, itemEmpty.GetComponent<Item>());
         isSlotEmpty[num] = true;
         --SlotCnt;
     }

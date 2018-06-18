@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputMng : MonoBehaviour {
+public class InputMng : MonoBehaviour
+{
     private Transform tr = null;
     private PickUp pickup = null;
     private QuickSlot slot = null;
     private QuickSlotImage slotImage = null;
     private Equipment equipment = null;
 
-	private void Start () {
+    private void Start()
+    {
         tr = this.transform;
         pickup = this.GetComponent<PickUp>();
         if (pickup == null) { pickup = this.gameObject.AddComponent<PickUp>(); }
@@ -19,19 +21,38 @@ public class InputMng : MonoBehaviour {
         slotImage = this.transform.GetComponentInChildren<QuickSlotImage>();
     }
 
-	private void Update () {
+    private void Update()
+    {
         int slotNumber = 0;
         Item it = null;
         bool isPressedNumber = false;
 
-        if (Input.GetKeyDown(KeyCode.F)) { pickup.CheckItemInArea(tr.position); }
+        if (Input.GetKeyDown(KeyCode.F) && slot.IsCanPickUpItem()) { pickup.CheckItemInArea(tr.position); }
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) { slotNumber = 0; isPressedNumber = true; }
         else if (Input.GetKeyDown(KeyCode.Alpha2)) { slotNumber = 1; isPressedNumber = true; }
         else if (Input.GetKeyDown(KeyCode.Alpha3)) { slotNumber = 2; isPressedNumber = true; }
         else if (Input.GetKeyDown(KeyCode.Alpha4)) { slotNumber = 3; isPressedNumber = true; }
         else if (Input.GetKeyDown(KeyCode.Alpha5)) { slotNumber = 4; isPressedNumber = true; }
-        
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            equipment.UnEquip();
+            slot.RemoveItemMain();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("//================//");
+            Debug.Log("Main : " + slot.GetItemMain());
+            for (int i = 0; i < 5; ++i)
+            {
+                Debug.Log("slot[" + i + "] : " + slot.ItemList[i].GetItemType());
+            }
+            Debug.Log("//================//");
+        }
+
+
         if (isPressedNumber)
         {
             isPressedNumber = false;
@@ -55,6 +76,7 @@ public class InputMng : MonoBehaviour {
                 it = slot.GetItemListNumber(slotNumber);
                 slot.AddItemMain(it);
                 slot.RemoveItemInNumber(slotNumber);
+                slot.AddItemEmpty(slotNumber);
                 equipment.Equip(it);
             }
         }

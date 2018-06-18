@@ -8,6 +8,8 @@ public class EnemyManager : MonoBehaviour
     public float spawnTime = 3f;
     public Transform[] spawnPoints;
 
+    public int enemyCount = 0;
+
     // Use this for initialization
     void Start()
     {
@@ -16,13 +18,15 @@ public class EnemyManager : MonoBehaviour
 
     void Spawn()
     {
-        //if (playerHealth.currentHealth <= 0f)){
-        //    return;
-        //}
-        
+        if(enemyCount > 10)
+        {
+            return;
+        }
 
         int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
         Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+
+        enemyCount++;
     }
 }
