@@ -29,7 +29,7 @@ public class AtkMng : MonoBehaviour
                 Debug.Log("공격");
                 weapon.Attack(isAtkSwitchOn, obj.transform);
                 if (isAtkSwitchOn)
-                {   animator.SetTrigger("Attack");
+                {   //animator.SetTrigger("attack");
                     isAtkSwitchOn = false;
                 }
                 this.atkTimer -= Time.deltaTime + (atkSpeed / 50);

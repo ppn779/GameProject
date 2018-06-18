@@ -231,15 +231,7 @@ public class EnemyAIScript01 : MonoBehaviour
 
                     if (targetStats != null)
                     {
-<<<<<<< HEAD
-                        animator.SetTrigger("attack");
-=======
-                        if (atkMng == null) { Debug.LogError(atkMng); }
-                        else
-                        {
-                            atkMng.Attack();
-                        }
->>>>>>> origin/HJS
+                        animator.SetTrigger("attack");                       
                     }
 
                     yield return new WaitForSeconds(attackTime);
@@ -506,7 +498,7 @@ public class EnemyAIScript01 : MonoBehaviour
         if (atkMng == null) { Debug.LogError(atkMng); }
         else
         {
-            atkMng.Attack(enemyCanAttack);
+            atkMng.Attack();
         }
         Debug.Log("ATTACKHIT");
     }
