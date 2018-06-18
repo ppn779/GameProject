@@ -37,6 +37,7 @@ public class KnockBackProcess : MonoBehaviour
     {
         while (time < knockBackTime)
         {
+            direction.y = 0;
             playerCtrl.transform.position += (direction*forcePow)/100;
             time += Time.deltaTime;
             yield return new WaitForFixedUpdate();

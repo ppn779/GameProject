@@ -5,11 +5,9 @@ using UnityEngine.AI;
 
 public class EnemyAIScript01 : MonoBehaviour
 {
-
-    //public Rigidbody rigidbody;
-
-    public bool runAway = false;            // 타겟과 거리 유지
-    public bool runTo = false;              // 타겟 바라보기
+    public bool alive = true;
+    public bool runAway = false;            // 도망
+    public bool runAwayByHp = false;        // 도망에 체력 조건 사용
     public float runAwayDistance = 5.0f;    // 도망 시작 거리
 
     public float speed = 0.0f;
@@ -33,22 +31,25 @@ public class EnemyAIScript01 : MonoBehaviour
     public float huntingTimer = 5.0f;       // 추적 지속 시간
 
     public Transform target;
-    public bool requireTarget = true;
+    public bool targetOn = true;
 
-    private Vector3 lastVisTargetPos;
+    private Vector3 targetPos;
+    private Vector3 startPos;
 
-    private bool playerHasBeenSeen = false;     // 플레이어 발견
+    public bool playerHasBeenSeen = false;     // 플레이어 발견
     private bool enemyCanAttack = false;        // 공격 할 수 있는지
     private bool enemyIsAttacking = false;
-    private bool isRun = false;
+
+    private float delayTime = 2f;
+    private float deltaTime;
 
     private float lastShotFired;
     private float lostPlayerTimer;
     private bool targetIsOutOfSight;
 
     private Vector3 randomDirection;
-    private float randomDirectionTimer = 0.0f;
-    private bool walkInRandomDirection = false;
+
+
 
     private bool waypointCountdown = false;
     private int waypointPatrol = 0;
@@ -59,8 +60,10 @@ public class EnemyAIScript01 : MonoBehaviour
 
     private Animator animator;
     private AtkMng atkMng;
-    private NavMeshAgent agent;
+    private NavMeshAgent nav;
 
+    private string state = "idle";
+    //private string runawayState = "runaway";
 
     void Start()
     {
@@ -69,24 +72,28 @@ public class EnemyAIScript01 : MonoBehaviour
 
     IEnumerator Initialize()
     {
-        //rigidbody = this.gameObject.GetComponent<Rigidbody>();
-        target = GameObject.FindWithTag("Player").GetComponent<Transform>();
         targetStats = target.GetComponent<CharacterStat>();
 
         myStats = this.gameObject.GetComponent<CharacterStat>();
         atkMng = this.gameObject.GetComponent<AtkMng>();
+        nav = this.gameObject.GetComponent<NavMeshAgent>();
         animator = this.gameObject.GetComponentInChildren<Animator>();
-        agent = this.gameObject.GetComponent<NavMeshAgent>();
 
-        speed = agent.speed;
+        this.gameObject.GetComponentInChildren<AnimationEventReceiver>().attackHit = AttackHit;
+
+        startPos = this.transform.position;
+        nav.speed = walkSpeed;
+
 
         yield return null;
     }
 
     void Update()
     {
-        animator.SetBool("isRun", isRun);
-        AIFunctionality();
+        if (alive)
+        {
+            AIFunctionality();
+        }
     }
 
     void AIFunctionality()
@@ -96,96 +103,114 @@ public class EnemyAIScript01 : MonoBehaviour
             return;
         }
 
-        lastVisTargetPos = target.position;
+        targetPos = target.transform.position;
 
-        Vector3 moveToward = lastVisTargetPos - transform.position;     // 추적
-        Vector3 moveAway = transform.position - lastVisTargetPos;       // 도망
+        float distance = Vector3.Distance(transform.position, targetPos);
 
-        float distance = Vector3.Distance(transform.position, target.position);
-
-        // 타겟 시야 반경 내
-        if (TargetIsInSight())
+        if (!runAway)
         {
 
-            LookAtPlayer();
-
-            if ((distance > attackRange) && (!runAway) && (!runTo) && (!enemyIsAttacking))
+            // 타겟 시야 반경 내
+            if (TargetIsInSight())
             {
-                enemyCanAttack = false;
-                MoveTowards(moveToward);
-            }
+                // 타겟 따라가기
+                animator.SetBool("isWalk", true);
 
-            else if ((myStats.currentHealth <= 30) && (!runAway))
-            {
-                runAway = true;
-            }
+                NavStart();
 
-            else if ((distance > runAwayDistance) && (runAway || runTo))
-            {
-                if (runAway)
+                SetNav(target.position);
+
+                // 공격거리보다 멀면
+                if (distance > attackRange)
                 {
-                    WalkNewPath();
+                    Debug.Log(" 3 ");
+                    enemyCanAttack = false;
+                    //MoveTowards(moveToward);
+                }
+
+                // 공격 거리 이내
+                else if (distance < attackRange)
+                {
+                    Debug.Log(" 4 ");
+                    animator.SetBool("isRun", false);
+                    animator.SetBool("isWalk", false);
+                    if (Time.time > lastShotFired + attackTime)
+                    {
+                        StartCoroutine(Attack());
+                    }
+                }
+
+            }
+            // 타겟 시야 반경 밖
+            // 발견 했을 때 지속 추격
+            else if ((playerHasBeenSeen) && (!targetIsOutOfSight))
+            {
+                Debug.Log(" 6 ");
+                animator.SetBool("isWalk", true);
+                lostPlayerTimer = Time.time + huntingTimer;
+
+                StartCoroutine(HuntDownTarget());
+
+            }
+            // 발견 못했거나 moveableRadius가 0 또는 플레이어와의 거리가 moveableRadius보다 작으면
+            else if (((!playerHasBeenSeen)) && ((moveableRadius == 0) || (distance < moveableRadius)))
+            {
+                Debug.Log(" 7 ");
+                Debug.Log("WalkNewPath");
+                WalkNewPath();
+            }
+            else if ((!playerHasBeenSeen) && (distance > moveableRadius))
+            {
+                Debug.Log(" 8 ");
+                animator.SetBool("isWalk", false);
+                animator.SetBool("isRun", false);
+
+                if (useWaypoint)
+                {
+                    Patrol();
                 }
                 else
                 {
-                    MoveTowards(moveToward);
+                    SetNav(startPos);
+
+                    if (nav.remainingDistance <= nav.stoppingDistance)
+                    {
+                        NavStop();
+                    }
                 }
             }
-            else if ((distance < runAwayDistance) && (runAway || runTo))
+        }
+        else if (runAway)
+        {
+            Debug.Log(" 10 ");
+
+            NavStop();
+
+            if (distance < runAwayDistance)
             {
                 enemyCanAttack = false;
-
-                walkInRandomDirection = false;
-
-                if (runAway)
-                {
-                    MoveTowards(moveAway);
-                }
-                else
-                {
-                    MoveTowards(moveToward);
-                }
-
+                nav.speed = runSpeed;
+                RunAway();
             }
-
-            if ((distance < attackRange) && (!runAway))
+            else if (distance > runAwayDistance)
             {
-                if (Time.time > lastShotFired + attackTime)
-                {
-                    //Debug.Log("Attack!!");
-                    StartCoroutine(Attack());
-                    enemyIsAttacking = false;
-                }
+                enemyCanAttack = false;
+                nav.speed = walkSpeed;
+                RunAway();
             }
         }
 
-        // 타겟 시야 반경 밖
-
-        // 발견 했을 때 지속 추격
-        else if ((playerHasBeenSeen) && (!targetIsOutOfSight))
+        // 체력 조건 사용
+        if ((myStats.currentHealth <= 30) && (runAwayByHp))
         {
-            lostPlayerTimer = Time.time + huntingTimer;
-            StartCoroutine(HuntDownTarget(lastVisTargetPos));
-        }
-        // 발견 못했거나 moveableRadius가 0 또는 플레이어와의 거리가 moveableRadius보다 작으면
-        else if (((!playerHasBeenSeen)) && ((moveableRadius == 0) || (distance < moveableRadius)))
-        {
-            WalkNewPath();
-        }
-        // useWaypoint = true 면 패트롤
-        else if (useWaypoint)
-        {
-            Patrol();
-        }
-        else
-        {
-            isRun = false;
+            enemyCanAttack = false;
+            runAway = true;
         }
     }
 
     void LookAtPlayer()
     {
-        Vector3 dir = (target.position - transform.position).normalized;
+        Vector3 dir = (target.transform.position - transform.position).normalized;
         Quaternion lookRot = Quaternion.LookRotation(new Vector3(dir.x, 0, dir.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * rotationSpeed);
     }
@@ -196,7 +221,6 @@ public class EnemyAIScript01 : MonoBehaviour
         {
             enemyCanAttack = true;
 
-            animator.SetTrigger("attack");
             if (!enemyIsAttacking)
             {
                 enemyIsAttacking = true;
@@ -207,14 +231,12 @@ public class EnemyAIScript01 : MonoBehaviour
 
                     if (targetStats != null)
                     {
-                        if (atkMng == null) { Debug.LogError(atkMng); }
-                        else
-                        {
-                            atkMng.Attack(enemyCanAttack);
-                        }
+                        animator.SetTrigger("attack");
                     }
 
                     yield return new WaitForSeconds(attackTime);
+
+                    enemyIsAttacking = false;
                 }
             }
         }
@@ -228,29 +250,35 @@ public class EnemyAIScript01 : MonoBehaviour
             return false;
         }
 
-        float distance = Vector3.Distance(transform.position, target.position);
+        float distance = Vector3.Distance(transform.position, target.transform.position);
 
         if ((moveableRadius > 0) && (distance > moveableRadius))
         {
-            requireTarget = false;
+            return false;
         }
+
+        targetOn = true;
 
         if ((visualRadius > 0) && (distance > visualRadius))
         {
-            requireTarget = false;
+            targetOn = false;
             return false;
         }
-        else
+
+        if ((targetOn) && (distance < visualRadius))
         {
-            requireTarget = true;
+            Debug.Log("Target On");
+            LookAtPlayer();
         }
+
 
         RaycastHit sight;
 
-        if (Physics.Linecast(transform.position, target.position, out sight))
+        if (Physics.Linecast(transform.position, target.transform.position, out sight))
         {
             if (!playerHasBeenSeen && sight.transform == target)
             {
+                Debug.Log("Sight");
                 playerHasBeenSeen = true;
             }
             return sight.transform == target;
@@ -262,19 +290,21 @@ public class EnemyAIScript01 : MonoBehaviour
     }
 
     // 타겟 추적 지속
-    IEnumerator HuntDownTarget(Vector3 position)
+    IEnumerator HuntDownTarget()
     {
         targetIsOutOfSight = true;
 
         while (targetIsOutOfSight)
         {
-            Vector3 moveToward = position - transform.position;
+            Debug.Log("Hunt");
 
-            MoveTowards(moveToward);
+            NavStart();
+            SetNav(target.position);
 
             if (TargetIsInSight())
             {
                 targetIsOutOfSight = false;
+
                 break;
             }
 
@@ -283,6 +313,7 @@ public class EnemyAIScript01 : MonoBehaviour
                 targetIsOutOfSight = false;
                 playerHasBeenSeen = false;
 
+                Debug.Log("Hunt OFF");
                 break;
             }
 
@@ -292,15 +323,17 @@ public class EnemyAIScript01 : MonoBehaviour
     // 순찰
     void Patrol()
     {
-        Debug.Log("Patrol");
+        animator.SetBool("isRun", false);
+        animator.SetBool("isWalk", true);
+
         if (pauseWaypointControl)
         {
             return;
         }
 
         Vector3 destination = CurrentPath();
-        Vector3 moveToward = destination - transform.position;
-        Debug.Log("CurrentPath : " + CurrentPath());
+
+
         float distance = Vector3.Distance(transform.position, destination);
 
         if (distance <= 1.5f)
@@ -312,16 +345,16 @@ public class EnemyAIScript01 : MonoBehaviour
             }
             else
             {
-                NewPath();
+                PatrolNewPath();
             }
         }
-        MoveTowards(moveToward);
+
     }
 
     IEnumerator WaypointPause()
     {
         yield return new WaitForSeconds(Random.Range(pauseMin, pauseMax));
-        NewPath();
+        PatrolNewPath();
         pauseWaypointControl = false;
     }
 
@@ -330,9 +363,8 @@ public class EnemyAIScript01 : MonoBehaviour
         return waypoints[waypointPatrol].position;
     }
 
-    void NewPath()
+    void PatrolNewPath()
     {
-        Debug.Log("NewPath");
         if (!waypointCountdown)
         {
             waypointPatrol++;
@@ -361,59 +393,86 @@ public class EnemyAIScript01 : MonoBehaviour
         }
     }
 
+    // 새로운 길 찾기
     void WalkNewPath()
     {
-        //Debug.Log("WalkNewPath");
+        NavStart();
 
-        if (!walkInRandomDirection)
+        if (state == "idle")
         {
-            walkInRandomDirection = true;
-
-            if (!playerHasBeenSeen)
-            {
-                randomDirection = new Vector3(Random.Range(-0.15f, 0.15f), 0, Random.Range(-0.15f, 0.15f));
-            }
-            else
-            {
-                randomDirection = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
-            }
-
-            randomDirectionTimer = Time.time;
-        }
-        else if (walkInRandomDirection)
-        {
-            MoveTowards(randomDirection);
+            Vector3 randomPos = Random.insideUnitSphere * 10f;
+            NavMeshHit navHit;
+            NavMesh.SamplePosition(transform.position + randomPos, out navHit, 10f, NavMesh.AllAreas);
+            SetNav(navHit.position);
+            state = "walk";
         }
 
-        if ((Time.time - randomDirectionTimer) > 5)
+        if (state == "walk")
         {
-            walkInRandomDirection = false;
+            animator.SetBool("isWalk", true);
+            if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
+            {
+                animator.SetBool("isWalk", false);
+
+                deltaTime += Time.deltaTime;
+
+                if (deltaTime >= delayTime)
+                {
+                    state = "idle";
+
+                    deltaTime = 0f;
+                }
+            }
         }
     }
-
-    void MoveTowards(Vector3 direction)
+    void SetNav(Vector3 target)
     {
-        direction.y = 0;
+        nav.SetDestination(target);
+    }
 
-        isRun = true;
+    void NavStart()
+    {
+        nav.isStopped = false;
+    }
 
-        agent.speed = walkSpeed;
+    void NavStop()
+    {
+        nav.isStopped = true;
+    }
 
-        if (runAway)
-        {
-            agent.speed = runSpeed;
-        }
+    void RunAway()
+    {
+        animator.SetBool("isWalk", false);
+        animator.SetBool("isRun", true);
 
-        float speed = agent.speed;
+        Vector3 runAwayDir = (transform.position - targetPos).normalized;
+       
+        runAwayDir.y = 0;
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(runAwayDir), Time.deltaTime * rotationSpeed);
+        //transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-
-        direction = forward * speed * Time.deltaTime;
+        Vector3 direction = runAwayDir * nav.speed * Time.deltaTime;
 
         this.transform.position += direction;
+
+        //if (runawayState == "runaway")
+        //{
+        //    Vector3 randomPos = Random.insideUnitSphere * 10f;
+
+        //    NavMeshHit navHit;
+        //    NavMesh.SamplePosition(target.position + randomPos, out navHit, 10f, NavMesh.AllAreas);
+        //    SetNav(navHit.position);
+        //    runawayState = "move";
+        //}
+
+        //if (runawayState == "move")
+        //{
+        //    if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
+        //    {
+        //        runawayState = "runaway";
+        //    }
+        //}
     }
 
     public void OnDrawGizmosSelected()
@@ -429,5 +488,18 @@ public class EnemyAIScript01 : MonoBehaviour
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, moveableRadius);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + this.transform.forward);
+    }
+
+    public void AttackHit()
+    {
+        if (atkMng == null) { Debug.LogError(atkMng); }
+        else
+        {
+            atkMng.Attack(enemyCanAttack);
+        }
+        Debug.Log("ATTACKHIT");
     }
 }
