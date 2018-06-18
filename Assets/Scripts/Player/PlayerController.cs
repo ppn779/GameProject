@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
 
     private bool isAlive = true;//죽으면 true
-    private bool isClick = false;//한번 공격하면 일정 시간 이후 공격 가능, 공격속도와 연관
+    //private bool isClick = false;//한번 공격하면 일정 시간 이후 공격 가능, 공격속도와 연관
     private bool isInputSwitchOn = true;
 
     private int floorMask; //raycast Layer 정보를 담을 변수                    
@@ -81,16 +81,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            if (atkMng == null) { Debug.LogError(atkMng); }
-            else
-                isClick = true;
+            atkMng.Attack();
         }
-        else
-        {
-            isClick = false;
-        }
-
-        atkMng.Attack(isClick);
     }
 
     private void Move(float h, float v, float speed)

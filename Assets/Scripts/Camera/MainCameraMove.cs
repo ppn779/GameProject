@@ -11,7 +11,7 @@ public class MainCameraMove : MonoBehaviour {
 	private void Update () {
         Vector3 cameraPos = Camera.main.transform.position;
         cameraPos.x = tr.position.x;
-        cameraPos.z = tr.position.z-1.3f;
+        cameraPos.z = tr.position.z-7.0f;
         Camera.main.transform.position = cameraPos;
 	}
 }

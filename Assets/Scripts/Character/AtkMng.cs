@@ -4,19 +4,43 @@ using UnityEngine;
 
 public class AtkMng : MonoBehaviour
 {
+    private GameObject obj;
+    private Animator animator;
     private Weapon weapon;
-//    private WeaponMeshCtrl weaponMesh = null;
-//    private ProjectileCtrl projectileCtrl = null;
     private float atkPower;
-    //private float atkAngle;
-    //private float atkStartDist;
-    //private float atkRangeDist;
     private float atkSpeed;
-    //private float atkTimer;
-    //private bool isAtkSwitchOn = false;
-    //private bool isAtkTimerOn = false;
+    private float atkTimer;
+    private bool isAtkTimerOn = false;
+    private bool isAtkSwitchOn = false;
     private bool isEquippedWeapon = false;
-    //private bool hasProjectile;
+
+    private void Start()
+    {
+        obj = GameObject.FindGameObjectWithTag("Player");
+        animator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        if (isEquippedWeapon)
+        {
+            if (isAtkTimerOn && atkTimer > 0.0f)
+            {
+                Debug.Log("공격");
+                weapon.Attack(isAtkSwitchOn, obj.transform);
+                if (isAtkSwitchOn)
+                {   animator.SetTrigger("Attack");
+                    isAtkSwitchOn = false;
+                }
+                this.atkTimer -= Time.deltaTime + (atkSpeed / 50);
+            }
+
+            else
+            {
+                isAtkTimerOn = false;
+            }
+        }
+    }
 
     public Weapon Weapon
     {
@@ -26,11 +50,13 @@ public class AtkMng : MonoBehaviour
         }
     }
 
-    public void Attack(bool isClick)
+    public void Attack()
     {
-        if (isEquippedWeapon)
+        if (!isAtkTimerOn)
         {
-            weapon.Attack(isClick,this.transform);
+            isAtkSwitchOn = true;
+            isAtkTimerOn = true;
+            atkTimer = 2.0f;
         }
     }
 

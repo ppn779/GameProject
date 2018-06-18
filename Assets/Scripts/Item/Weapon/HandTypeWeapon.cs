@@ -9,13 +9,11 @@ public class HandTypeWeapon : Weapon {
 
     [SerializeField] private GameObject weaponMesh = null;
     private WeaponMeshCtrl weaponMeshCtrl;
-
-    private float atkTimer;
+    
     private bool isAtkSwitchOn = false;
-    private bool isAtkTimerOn = false;
 
     private Transform tr;
-    private Transform playerTr;
+    private Transform objTr;
 
     private void Start()
     {
@@ -26,7 +24,6 @@ public class HandTypeWeapon : Weapon {
 
     private void Update()
     {
-        UpdateTransformMesh();
         if (Input.GetKeyDown(KeyCode.H))
         {
             if (IsPlayerEquipped)
@@ -37,31 +34,24 @@ public class HandTypeWeapon : Weapon {
         }
     }
 
-    public override void Attack(bool atkSwitch,Transform playerTr)
+    public override void Attack(bool atkSwitch,Transform objTr)
     {
-        if (!this.isAtkTimerOn)
-        {
-            //Debug.Log("atkMngOn");
-            this.isAtkTimerOn = atkSwitch;
             this.isAtkSwitchOn = atkSwitch;
-            atkTimer = 2.0f;
-            this.playerTr = playerTr;
-        }
+            this.objTr = objTr;
+        MakeTransformMesh();
     }
 
-    private void UpdateTransformMesh()
+    public void MakeTransformMesh()
     {
         //콜리전에 사용할 Mesh를 만든다.
-        if (isAtkTimerOn && atkTimer > 0.0f)
-        {
+       
             if (isAtkSwitchOn)
             {
                 if (weaponMeshCtrl != null)
                 {
-                    Vector3 atkStartPos = this.playerTr.position + (this.playerTr.forward * (atkStartDist));
                     //Debug.Log("Start Pos   : " +atkStartPos);
-                    float[] tmpAngle = new float[] { this.playerTr.rotation.y - (weaponAngle / 2), this.playerTr.rotation.y + (weaponAngle / 2) };
-                    weaponMeshCtrl.makeFanShape(tmpAngle, atkStartPos, attackRange, this.playerTr.rotation);
+                    float[] tmpAngle = new float[] { this.objTr.rotation.y - (weaponAngle / 2), this.objTr.rotation.y + (weaponAngle / 2) };
+                    weaponMeshCtrl.makeFanShape(tmpAngle, objTr, attackRange,atkStartDist);
                     isAtkSwitchOn = false;
 
                 }
@@ -70,12 +60,6 @@ public class HandTypeWeapon : Weapon {
             {
 
                 weaponMeshCtrl.clearShape();
-            }
-            atkTimer -= Time.deltaTime + (attackSpeed / 50);
-        }
-        else
-        {
-            isAtkTimerOn = false;
-        }
+            }      
     }
 }

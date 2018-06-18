@@ -9,7 +9,6 @@ public class WeaponMeshCtrl : MonoBehaviour {
     private Mesh mesh;
     private MeshFilter meshFilter;
     private MeshCollider meshCollider;
-    private AtkMng atkMng;
 
     // Use this for initialization
     void Start()
@@ -18,7 +17,6 @@ public class WeaponMeshCtrl : MonoBehaviour {
         meshFilter = GetComponent<MeshFilter>();
         meshCollider = GetComponent<MeshCollider>();
         meshCollider.sharedMesh = mesh;
-        atkMng = gameObject.GetComponentInParent<AtkMng>();
     }
 
     public void clearShape()
@@ -31,10 +29,9 @@ public class WeaponMeshCtrl : MonoBehaviour {
         meshCollider.enabled = true;
     }
 
-    public void makeFanShape(float[] angle, Vector3 atkStartPos, float atkRangeDist,Quaternion rot)
+    public void makeFanShape(float[] angle, Transform objTr, float atkRangeDist, float atkStartDist)
     {
-        this.transform.rotation = rot;
-        this.transform.position = atkStartPos;
+        Vector3 pos = objTr.position+(objTr.forward*atkStartDist);
         float startAngle; //원의 시작 각도.
         float endAngle;   //원의 종료 각도.
         float pieceAngle = PIECE_ANGLE; // 1폴러긴의 각도(원의 완만함).
