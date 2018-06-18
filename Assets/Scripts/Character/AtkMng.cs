@@ -4,36 +4,10 @@ using UnityEngine;
 
 public class AtkMng : MonoBehaviour
 {
-    private GameObject obj;
-    private Animator animator;
     private Weapon weapon;
     private float atkPower;
     private float atkSpeed;
-    private float waitingTimeForAtk;
-    private float time;
-    private bool isAtkTimerOn = false;
-    //private bool isAtkSwitchOn = false;
     private bool isEquippedWeapon = false;
-
-    private void Start()
-    {
-        obj = GameObject.FindGameObjectWithTag("Player");
-        animator = GetComponent<Animator>();
-    }
-
-    private void Update()
-    {
-        if (isAtkTimerOn && waitingTimeForAtk > time)
-        {
-            time += Time.deltaTime;
-        }
-
-        else
-        {
-            isAtkTimerOn = false;
-        }
-
-    }
 
     public Weapon Weapon
     {
@@ -45,13 +19,9 @@ public class AtkMng : MonoBehaviour
 
     public void Attack()
     {
-        if (!isAtkTimerOn && isEquippedWeapon)
+        if (isEquippedWeapon)
         {
-            Debug.Log("공격");
-            animator.SetTrigger("Attack");
-            isAtkTimerOn = true;
-            waitingTimeForAtk = 3.0f - atkSpeed;
-            time = 0.0f;
+            weapon.Attack(this.transform, 1f);
         }
     }
 
@@ -66,6 +36,7 @@ public class AtkMng : MonoBehaviour
             atkPower = value;
         }
     }
+
 
     public float AtkSpeed
     {
@@ -89,10 +60,5 @@ public class AtkMng : MonoBehaviour
         {
             isEquippedWeapon = value;
         }
-    }
-
-    private void WeaponAttack()
-    {
-        weapon.Attack(obj.transform, waitingTimeForAtk);
     }
 }

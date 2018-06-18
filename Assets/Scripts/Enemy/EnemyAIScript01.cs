@@ -72,6 +72,7 @@ public class EnemyAIScript01 : MonoBehaviour
 
     IEnumerator Initialize()
     {
+        Debug.Log(target);
         targetStats = target.GetComponent<CharacterStat>();
 
         myStats = this.gameObject.GetComponent<CharacterStat>();
@@ -123,7 +124,7 @@ public class EnemyAIScript01 : MonoBehaviour
                 // 공격거리보다 멀면
                 if (distance > attackRange)
                 {
-                    Debug.Log(" 3 ");
+                    //Debug.Log(" 3 ");
                     enemyCanAttack = false;
                     //MoveTowards(moveToward);
                 }
@@ -131,7 +132,7 @@ public class EnemyAIScript01 : MonoBehaviour
                 // 공격 거리 이내
                 else if (distance < attackRange)
                 {
-                    Debug.Log(" 4 ");
+                    //Debug.Log(" 4 ");
                     animator.SetBool("isRun", false);
                     animator.SetBool("isWalk", false);
                     if (Time.time > lastShotFired + attackTime)
@@ -145,7 +146,7 @@ public class EnemyAIScript01 : MonoBehaviour
             // 발견 했을 때 지속 추격
             else if ((playerHasBeenSeen) && (!targetIsOutOfSight))
             {
-                Debug.Log(" 6 ");
+                //Debug.Log(" 6 ");
                 animator.SetBool("isWalk", true);
                 lostPlayerTimer = Time.time + huntingTimer;
 
@@ -155,13 +156,13 @@ public class EnemyAIScript01 : MonoBehaviour
             // 발견 못했거나 moveableRadius가 0 또는 플레이어와의 거리가 moveableRadius보다 작으면
             else if (((!playerHasBeenSeen)) && ((moveableRadius == 0) || (distance < moveableRadius)))
             {
-                Debug.Log(" 7 ");
-                Debug.Log("WalkNewPath");
+                //Debug.Log(" 7 ");
+                //Debug.Log("WalkNewPath");
                 WalkNewPath();
             }
             else if ((!playerHasBeenSeen) && (distance > moveableRadius))
             {
-                Debug.Log(" 8 ");
+                //Debug.Log(" 8 ");
                 animator.SetBool("isWalk", false);
                 animator.SetBool("isRun", false);
 
@@ -182,7 +183,7 @@ public class EnemyAIScript01 : MonoBehaviour
         }
         else if (runAway)
         {
-            Debug.Log(" 10 ");
+            //Debug.Log(" 10 ");
 
             NavStop();
 
@@ -267,7 +268,7 @@ public class EnemyAIScript01 : MonoBehaviour
 
         if ((targetOn) && (distance < visualRadius))
         {
-            Debug.Log("Target On");
+            //Debug.Log("Target On");
             LookAtPlayer();
         }
 
@@ -278,7 +279,7 @@ public class EnemyAIScript01 : MonoBehaviour
         {
             if (!playerHasBeenSeen && sight.transform == target)
             {
-                Debug.Log("Sight");
+                //Debug.Log("Sight");
                 playerHasBeenSeen = true;
             }
             return sight.transform == target;
@@ -296,7 +297,7 @@ public class EnemyAIScript01 : MonoBehaviour
 
         while (targetIsOutOfSight)
         {
-            Debug.Log("Hunt");
+            //Debug.Log("Hunt");
 
             NavStart();
             SetNav(target.position);

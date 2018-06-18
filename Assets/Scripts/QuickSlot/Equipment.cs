@@ -7,7 +7,7 @@ public class Equipment : MonoBehaviour
     [SerializeField] private GameObject rightHand = null;
     private Transform tr = null;
     private Weapon equippedItem = null;
-    private AtkMng atkMng = null;
+    private PlayerAtkMng playerAtkMng = null;
     private bool isEquipWeapon = false;
     public bool IsEquipWeapon
     {
@@ -19,7 +19,7 @@ public class Equipment : MonoBehaviour
     private void Start()
     {
         tr = this.transform;
-        atkMng = this.GetComponent<AtkMng>();
+        playerAtkMng = this.GetComponent<PlayerAtkMng>();
     }
 
     public void Equip(Item it)
@@ -44,10 +44,10 @@ public class Equipment : MonoBehaviour
 
             if (equippedItem != null)
             {
-                atkMng.AtkPower += equippedItem.damage;
-                atkMng.AtkSpeed += equippedItem.attackSpeed;
-                atkMng.IsEquippedWeapon = isEquipWeapon;
-                atkMng.Weapon = equippedItem;
+                playerAtkMng.AtkPower += equippedItem.damage;
+                playerAtkMng.AtkSpeed += equippedItem.attackSpeed;
+                playerAtkMng.IsEquippedWeapon = isEquipWeapon;
+                playerAtkMng.Weapon = equippedItem;
             }
         }
     }
@@ -59,10 +59,10 @@ public class Equipment : MonoBehaviour
             if (equippedItem != null)
             {
                 isEquipWeapon = false;
-                atkMng.IsEquippedWeapon = isEquipWeapon;
+                playerAtkMng.IsEquippedWeapon = isEquipWeapon;
 
-                atkMng.AtkPower -= equippedItem.damage;
-                atkMng.AtkSpeed -= equippedItem.attackSpeed;
+                playerAtkMng.AtkPower -= equippedItem.damage;
+                playerAtkMng.AtkSpeed -= equippedItem.attackSpeed;
                 equippedItem.transform.parent = null;
                 equippedItem.transform.parent = null;
                 equippedItem.gameObject.SetActive(false);

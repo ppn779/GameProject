@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 movement; //GetAxisRaw 처리 다음에 반환값을 담을 변수                 
     private Animator playerAnim;
     private PlayerStats playerStats;
-    private AtkMng atkMng;
+    private PlayerAtkMng playerAtkMng;
     private Vector3 direction;
     private Rigidbody rb;
 
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         playerAnim = this.GetComponent<Animator>();
         playerStats = this.GetComponent<PlayerStats>();
-        atkMng = this.GetComponent<AtkMng>();
+        playerAtkMng = this.GetComponent<PlayerAtkMng>();
         floorMask = LayerMask.GetMask("Floor");//"Floor"로 layer 위치값 등록
         //나중에 Update에서 갱신하도록 수정해야 함.
     }
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            atkMng.Attack();
+            playerAtkMng.Attack();
         }
     }
 
