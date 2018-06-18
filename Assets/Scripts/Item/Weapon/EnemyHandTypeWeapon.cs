@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandTypeWeapon : Weapon
+public class EnemyHandTypeWeapon : Weapon
 {
     public float atkStartDist = 0.0f;
     public float attackRange = 0.0f;
     public float weaponAngle = 0.0f;
-    
+
     private WeaponMeshCtrl weaponMeshCtrl;
-    
+
     private Transform objTr;
 
     private float waitingTimeForAtk;
@@ -18,7 +18,7 @@ public class HandTypeWeapon : Weapon
 
     private void Start()
     {
-        weaponMeshCtrl = GameObject.Find("PlayerWeaponMesh").GetComponent<WeaponMeshCtrl>();
+        weaponMeshCtrl = GetComponentInChildren<WeaponMeshCtrl>();
     }
 
     private void Update()

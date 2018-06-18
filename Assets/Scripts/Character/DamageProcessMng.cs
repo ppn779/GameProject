@@ -18,9 +18,9 @@ public class DamageProcessMng : MonoBehaviour
         {
             Debug.Log("데미지");
             CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
-            AtkMng atkMng = other.GetComponentInParent<AtkMng>();
-            Debug.Log(atkMng.AtkPower);
-            objStat.TakeDamage(atkMng.AtkPower);
+            WeaponsSubstance weaponsSubstance = other.GetComponent<WeaponsSubstance>();
+            Debug.Log(weaponsSubstance.CalculatedAtkPow);
+            objStat.TakeDamage(weaponsSubstance.CalculatedAtkPow);
         }
     }
 }

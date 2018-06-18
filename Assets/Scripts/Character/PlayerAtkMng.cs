@@ -92,6 +92,6 @@ public class PlayerAtkMng : MonoBehaviour
 
     private void WeaponAttack()
     {
-        weapon.Attack(objTr, waitingTimeForAtk);
+        weapon.Attack(objTr,atkPower, waitingTimeForAtk);
     }
 }

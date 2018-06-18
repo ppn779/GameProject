@@ -21,7 +21,7 @@ public class AtkMng : MonoBehaviour
     {
         if (isEquippedWeapon)
         {
-            weapon.Attack(this.transform, 1f);
+            weapon.Attack(this.transform, atkPower,1f);
         }
     }
 

@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileCtrl : MonoBehaviour {
+public class ProjectileCtrl : WeaponsSubstance {
     [SerializeField]
     private float projectileSpeed;
-    private float damage;
     private Vector3 direction;
 
     private void Awake()
@@ -16,18 +15,6 @@ public class ProjectileCtrl : MonoBehaviour {
     private void Start()
     {
         GetComponent<Rigidbody>().AddForce(direction * (projectileSpeed * 10));
-    }
-
-    public float Damage
-    {
-        get
-        {
-            return damage;
-        }
-        set
-        {
-            damage = value;
-        }
     }
 
     private void OnTriggerEnter(Collider other)

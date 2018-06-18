@@ -10,8 +10,9 @@ public class Weapon : Item
     public int durability = 100;
     public int usableCount = 5;
     private bool isPlayerEquipped = false;
+    protected float calculatedAtkPow;
 
-    public virtual void Attack(Transform objTr, float waitingTimeForAtk) { }
+    public virtual void Attack(Transform objTr, float atkPow, float waitingTimeForAtk) { }
 
     public bool IsPlayerEquipped
     {
@@ -34,6 +35,14 @@ public class Weapon : Item
     public void OnStartRemainTime(float time)
     {
         StartCoroutine(ExpiredRemainTime());
+    }
+
+    public float CalculatedAtkPow
+    {
+        get
+        {
+            return calculatedAtkPow;
+        }
     }
 
     private IEnumerator ExpiredRemainTime()

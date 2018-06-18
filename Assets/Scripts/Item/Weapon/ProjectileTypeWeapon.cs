@@ -8,9 +8,10 @@ public class ProjectileTypeWeapon : Weapon
 
     private Quaternion objRot;
 
-    public override void Attack(Transform objTr, float waitingTimeForAtk)
+    public override void Attack(Transform objTr, float objAtkPow, float waitingTimeForAtk)
     {
         this.objRot = objTr.rotation;
+        calculatedAtkPow = damage + objAtkPow;
         Fire();
     }
 
@@ -20,7 +21,8 @@ public class ProjectileTypeWeapon : Weapon
         {
             //GameObject go = Instantiate<GameObject>(projectile, this.transform.position, objRot);
             //go.transform.parent = this.transform;
-            Instantiate<GameObject>(projectile, this.transform.position, objRot);
+            GameObject objProjectile=Instantiate<GameObject>(projectile, this.transform.position, objRot);
+            objProjectile.GetComponent<ProjectileCtrl>().CalculatedAtkPow = calculatedAtkPow;
             SubtractUsableCount(1);
         }
     }
