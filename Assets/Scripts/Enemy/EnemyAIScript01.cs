@@ -219,7 +219,7 @@ public class EnemyAIScript01 : MonoBehaviour
     {
         if (target != null)
         {
-            enemyCanAttack = true;
+            enemyCanAttack = true;//이거 없어도 되도록 만듬.
 
             if (!enemyIsAttacking)
             {
@@ -231,7 +231,15 @@ public class EnemyAIScript01 : MonoBehaviour
 
                     if (targetStats != null)
                     {
+<<<<<<< HEAD
                         animator.SetTrigger("attack");
+=======
+                        if (atkMng == null) { Debug.LogError(atkMng); }
+                        else
+                        {
+                            atkMng.Attack();
+                        }
+>>>>>>> origin/HJS
                     }
 
                     yield return new WaitForSeconds(attackTime);
