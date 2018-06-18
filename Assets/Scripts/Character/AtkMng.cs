@@ -9,14 +9,30 @@ public class AtkMng : MonoBehaviour
     private Weapon weapon;
     private float atkPower;
     private float atkSpeed;
-    private float atkTimer;
-    private bool isAtkSwitchOn = false;
+    private float waitingTimeForAtk;
+    private float time;
+    private bool isAtkTimerOn = false;
+    //private bool isAtkSwitchOn = false;
     private bool isEquippedWeapon = false;
 
     private void Start()
     {
         obj = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        if (isAtkTimerOn && waitingTimeForAtk > time)
+        {
+            time += Time.deltaTime;
+        }
+
+        else
+        {
+            isAtkTimerOn = false;
+        }
+
     }
 
     public Weapon Weapon
@@ -29,31 +45,14 @@ public class AtkMng : MonoBehaviour
 
     public void Attack()
     {
-        if (IsEquippedWeapon && atkTimer <= 0)
+        if (!isAtkTimerOn && isEquippedWeapon)
         {
-            atkTimer = 2.0f;
-            StartCoroutine(StartAttack());
+            Debug.Log("공격");
+            animator.SetTrigger("Attack");
+            isAtkTimerOn = true;
+            waitingTimeForAtk = 3.0f - atkSpeed;
+            time = 0.0f;
         }
-    }
-
-    private IEnumerator StartAttack()
-    {
-        while (atkTimer > 0.0f)
-        {
-            if (!isAtkSwitchOn)
-            {
-                //animator.SetTrigger("Attack");
-            }
-            weapon.Attack();
-            this.atkTimer -= Time.deltaTime + (atkSpeed / 50);
-            yield return null;
-        }
-    }
-
-    private void WeaponAttack()
-    {
-        isAtkSwitchOn = true;
-        Debug.Log("공격");
     }
 
     public float AtkPower
@@ -90,5 +89,10 @@ public class AtkMng : MonoBehaviour
         {
             isEquippedWeapon = value;
         }
+    }
+
+    private void WeaponAttack()
+    {
+        weapon.Attack(obj.transform, waitingTimeForAtk);
     }
 }

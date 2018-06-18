@@ -5,16 +5,16 @@ using UnityEngine;
 public class ProjectileTypeWeapon : Weapon
 {
     [SerializeField] private GameObject projectile = null;
-    private Vector3 direction;
 
     private Transform objTr;
 
-    public override void Attack()
+    public override void Attack(Transform objTr, float waitingTimeForAtk)
     {
-        MakeTransformMesh();
+        this.objTr = objTr;
+        Fire();
     }
 
-    private void MakeTransformMesh()
+    private void Fire()
     {
         if (usableCount > 0)
         {

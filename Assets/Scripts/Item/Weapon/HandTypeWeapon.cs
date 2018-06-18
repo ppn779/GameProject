@@ -14,6 +14,10 @@ public class HandTypeWeapon : Weapon
     private Transform tr;
     private Transform objTr;
 
+    private float waitingTimeForAtk;
+    private float time;
+    private bool attackSwitchOn;
+
     private void Start()
     {
         tr = this.transform;
@@ -33,33 +37,36 @@ public class HandTypeWeapon : Weapon
         }
     }
 
-    
-    public override void Attack()
+    public override void Attack(Transform objTr, float waitingTimeForAtk)
     {
-        //StartCoroutine
+        this.objTr = objTr;
+        this.waitingTimeForAtk = waitingTimeForAtk;
+        time = 0.0f;
+        attackSwitchOn = true;
+        StartCoroutine(MakeTransformMesh());
     }
 
-    public void MakeTransformMesh()
+    private IEnumerator MakeTransformMesh()
     {
-        //콜리전에 사용할 Mesh를 만든다.
-        /*
-        if (isAtkSwitchOn)
+        while (waitingTimeForAtk > time)
         {
+            time += Time.deltaTime;
+            //콜리전에 사용할 Mesh를 만든다.
             if (weaponMeshCtrl != null)
             {
-                //Debug.Log("Start Pos   : " +atkStartPos);
-                float[] tmpAngle = new float[] { this.objTr.rotation.y - (weaponAngle / 2), this.objTr.rotation.y + (weaponAngle / 2) };
-                weaponMeshCtrl.makeFanShape(tmpAngle, objTr, attackRange, atkStartDist);
-                isAtkSwitchOn = false;
-
+                if (attackSwitchOn)
+                {
+                    //Debug.Log("Start Pos   : " +atkStartPos);
+                    float[] tmpAngle = new float[] { this.objTr.rotation.y - (weaponAngle / 2), this.objTr.rotation.y + (weaponAngle / 2) };
+                    weaponMeshCtrl.makeFanShape(tmpAngle, objTr, attackRange, atkStartDist);
+                    attackSwitchOn = false;
+                }
+                else
+                {
+                    weaponMeshCtrl.clearShape();
+                }
             }
+            yield return new WaitForFixedUpdate();
         }
-        else
-        {
-
-            weaponMeshCtrl.clearShape();
-        }
-        */
     }
-    
 }

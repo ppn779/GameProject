@@ -11,7 +11,7 @@ public class Weapon : Item
     public int usableCount = 5;
     private bool isPlayerEquipped = false;
 
-    public virtual void Attack() { }
+    public virtual void Attack(Transform objTr, float waitingTimeForAtk) { }
 
     public bool IsPlayerEquipped
     {
@@ -46,5 +46,4 @@ public class Weapon : Item
         IsDestroyed = true;
         //DestroyItem();
     }
-
 }
