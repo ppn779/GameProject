@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAtkMng : MonoBehaviour
 {
-    private GameObject obj;
+    private Transform objTr;
     private Animator animator;
     private Weapon weapon;
     private float atkPower;
@@ -12,12 +12,11 @@ public class PlayerAtkMng : MonoBehaviour
     private float waitingTimeForAtk;
     private float time;
     private bool isAtkTimerOn = false;
-    //private bool isAtkSwitchOn = false;
     private bool isEquippedWeapon = false;
 
     private void Start()
     {
-        obj = GameObject.FindGameObjectWithTag("Player");
+        objTr = GameObject.FindGameObjectWithTag("Player").transform;
         animator = GetComponent<Animator>();
     }
 
@@ -93,6 +92,6 @@ public class PlayerAtkMng : MonoBehaviour
 
     private void WeaponAttack()
     {
-        weapon.Attack(obj.transform, waitingTimeForAtk);
+        weapon.Attack(objTr, waitingTimeForAtk);
     }
 }

@@ -5,12 +5,30 @@ using UnityEngine;
 public class ProjectileCtrl : MonoBehaviour {
     [SerializeField]
     private float projectileSpeed;
+    private float damage;
+    private Vector3 direction;
 
-    private void FixedUpdate()
+    private void Awake()
     {
-        this.transform.position += (this.transform.forward / 10) * projectileSpeed;
+        direction = this.transform.forward;
     }
-   
+
+    private void Start()
+    {
+        GetComponent<Rigidbody>().AddForce(direction * (projectileSpeed * 10));
+    }
+
+    public float Damage
+    {
+        get
+        {
+            return damage;
+        }
+        set
+        {
+            damage = value;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
