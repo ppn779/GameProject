@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public GameObject enemy;
+    public Transform[] spawnPoints = null;
+
+    public GameObject enemy = null;
+    public GameObject target = null;
+
     public float spawnTime = 3f;
-    public Transform[] spawnPoints;
 
     public int enemyCount = 0;
 
@@ -16,16 +19,16 @@ public class EnemyManager : MonoBehaviour
         InvokeRepeating("Spawn", spawnTime, spawnTime);
     }
 
-    void Spawn()
+    private void Spawn()
     {
-        if(enemyCount > 10)
-        {
-            return;
-        }
+        if(spawnPoints == null) { return; }
+        if (enemyCount > 10) { return; }
 
         int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
         Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        EnemyAIScript01 AI = enemy.GetComponent<EnemyAIScript01>();
+        AI.SetTarget(target);
 
         enemyCount++;
     }

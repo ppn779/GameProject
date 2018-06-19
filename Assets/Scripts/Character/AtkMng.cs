@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AtkMng : MonoBehaviour
 {
-    private Weapon weapon;
+    private Weapon weapon = null;
     private float atkPower;
     private float atkSpeed;
     private bool isEquippedWeapon = false;

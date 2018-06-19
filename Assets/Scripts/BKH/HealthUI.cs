@@ -5,20 +5,21 @@ using UnityEngine.UI;
 
 //[RequireComponent(typeof(CharacterStat))]
 public class HealthUI : MonoBehaviour
-{  
-    public GameObject uiPrefab;
-    public Transform target;
+{
+    public GameObject uiPrefab = null;
+    public Transform target = null;
 
-    float visibleTime = 5;
-    float lastMadeVisibleTime;
+    private float visibleTime = 10f;
+    private float lastMadeVisibleTime = 0f;
 
-    Transform ui;
-    Image healthSlider;
-    Transform cam;
+    private Transform ui = null;
+    private Image healthSlider = null;
+    //private Transform cam = null;
 
     private void Start()
     {
-        cam = Camera.main.transform;
+        // if (cam == null) { Debug.LogError("Cam is Empty!"); }
+        // cam = Camera.main.transform;
 
         foreach (Canvas c in FindObjectsOfType<Canvas>())
         {
@@ -32,19 +33,19 @@ public class HealthUI : MonoBehaviour
         }
 
         GetComponent<CharacterStat>().OnHealthChanged += OnHealthChanged;
-    } 
+    }
 
     private void LateUpdate()
     {
         if (ui != null)
         {
             ui.position = target.position;
-            ui.forward = -cam.forward;
+            // ui.forward = -cam.forward;
 
             // 일정 시간 후 체력바 사라짐
             if (Time.time - lastMadeVisibleTime > visibleTime)
             {
-               // ui.gameObject.SetActive(false);
+                //ui.gameObject.SetActive(false); 
             }
         }
     }
@@ -56,10 +57,10 @@ public class HealthUI : MonoBehaviour
             ui.gameObject.SetActive(true);
             lastMadeVisibleTime = Time.time;
 
-            float healthPercent =  (float)currentHealth/ maxHealth;
+            float healthPercent = (float)currentHealth / maxHealth;
             healthSlider.fillAmount = healthPercent;
-            
-            if (currentHealth <= 0)
+
+            if (currentHealth <= 0 || target == null)
             {
                 Destroy(ui.gameObject);
             }

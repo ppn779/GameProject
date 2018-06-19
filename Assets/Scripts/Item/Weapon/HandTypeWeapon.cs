@@ -9,18 +9,21 @@ public class HandTypeWeapon : Weapon
     public float weaponAngle = 0.0f;
 
     [SerializeField] private GameObject weaponMesh = null;
-    private WeaponMeshCtrl weaponMeshCtrl;
+    private WeaponMeshCtrl weaponMeshCtrl = null;
 
-    private Transform tr;
-    private Transform objTr;
+    private Transform tr = null;
+    private Transform objTr = null;
 
     private float waitingTimeForAtk;
     private float time;
     private bool attackSwitchOn;
 
+    private bool isReady = false;
+
     private void Start()
     {
         tr = this.transform;
+        if (weaponMesh == null) Debug.LogError("WeaponMesh is missing!!");
         Instantiate<GameObject>(weaponMesh, tr);
         weaponMeshCtrl = GetComponentInChildren<WeaponMeshCtrl>();
     }
@@ -39,8 +42,19 @@ public class HandTypeWeapon : Weapon
 
     public override void Attack(Transform objTr, float waitingTimeForAtk)
     {
-        this.objTr = objTr;
-        this.waitingTimeForAtk = waitingTimeForAtk;
+        if (!isReady)
+        {
+            this.objTr = objTr;
+            this.waitingTimeForAtk = waitingTimeForAtk;
+
+            float[] tmpAngle = new float[] { this.objTr.rotation.y - (weaponAngle / 2), this.objTr.rotation.y + (weaponAngle / 2) };
+            weaponMeshCtrl.makeFanShape(tmpAngle, objTr, attackRange, atkStartDist);
+
+            isReady = true;
+
+            //StartCoroutine(MakeTransformMesh());
+        }
+
         time = 0.0f;
         attackSwitchOn = true;
         StartCoroutine(MakeTransformMesh());
@@ -57,13 +71,16 @@ public class HandTypeWeapon : Weapon
                 if (attackSwitchOn)
                 {
                     //Debug.Log("Start Pos   : " +atkStartPos);
-                    float[] tmpAngle = new float[] { this.objTr.rotation.y - (weaponAngle / 2), this.objTr.rotation.y + (weaponAngle / 2) };
-                    weaponMeshCtrl.makeFanShape(tmpAngle, objTr, attackRange, atkStartDist);
+                    //float[] tmpAngle = new float[] { this.objTr.rotation.y - (weaponAngle / 2), this.objTr.rotation.y + (weaponAngle / 2) };
+                    //weaponMeshCtrl.makeFanShape(tmpAngle, objTr, attackRange, atkStartDist);
                     attackSwitchOn = false;
+
+                    weaponMeshCtrl.gameObject.SetActive(true);
                 }
                 else
                 {
-                    weaponMeshCtrl.clearShape();
+                    //weaponMeshCtrl.clearShape();
+                    weaponMeshCtrl.gameObject.SetActive(false);
                 }
             }
             yield return new WaitForFixedUpdate();

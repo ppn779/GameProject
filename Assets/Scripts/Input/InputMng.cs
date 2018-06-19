@@ -37,8 +37,10 @@ public class InputMng : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            equipment.UnEquip();
+            Item unequipItem = equipment.UnEquip();
+            if (unequipItem == null) { Debug.LogError("unequipItem is null"); } 
             slot.RemoveItemMain();
+            Destroy(unequipItem.gameObject);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))

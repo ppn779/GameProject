@@ -62,6 +62,9 @@ public class PlayerStats : CharacterStat {
 
         // effect / death animation
 
+        //Canvas canvas = ;
+
+
         Destroy(gameObject);
     }
 }

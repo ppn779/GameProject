@@ -6,7 +6,7 @@ public class ProjectileTypeWeapon : Weapon
 {
     [SerializeField] private GameObject projectile = null;
 
-    private Transform objTr;
+    private Transform objTr = null;
 
     public override void Attack(Transform objTr, float waitingTimeForAtk)
     {

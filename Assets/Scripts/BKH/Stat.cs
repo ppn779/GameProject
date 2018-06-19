@@ -5,18 +5,18 @@ using UnityEngine;
 [System.Serializable]
 public class Stat
 {
-    [SerializeField] private int baseValue;
+    [SerializeField] private float baseValue = 0;
 
-    private List<int> modifiers = new List<int>();
+    private List<float> modifiers = new List<float>();
 
-    public int GetValue()
+    public float GetValue()
     {
-        int finalValue = baseValue;
+        float finalValue = baseValue;
         modifiers.ForEach(x => finalValue += x);
         return finalValue;
     }
 
-    public void AddModifier(int modifier)
+    public void AddModifier(float modifier)
     {
         if (modifier != 0)
         {
@@ -24,7 +24,7 @@ public class Stat
         }
     }
 
-    public void RemoveModifier(int modifier)
+    public void RemoveModifier(float modifier)
     {
         if (modifier != 0)
         {

@@ -5,65 +5,68 @@ using UnityEngine.AI;
 
 public class EnemyAIScript01 : MonoBehaviour
 {
-    public bool alive = true;
-    public bool runAway = false;            // 도망
+    public bool alive = true;               // 생존 여부
+    public bool runAway = false;            // 도망 여부
     public bool runAwayByHp = false;        // 도망에 체력 조건 사용
-    public float runAwayDistance = 5.0f;    // 도망 시작 거리
 
-    public float speed = 0.0f;
-    public float walkSpeed = 3.0f;
-    public float runSpeed = 5.0f;
-    public float rotationSpeed = 1.0f;
-
+    // 거리 설정
     public float moveableRadius = 30.0f;    // 움직이는 범위, 값이 0이거나 설정값 내에서만 움직임
     public float visualRadius = 20.0f;      // 시야 범위
+    public float attackRange = 2.0f;        // 공격 거리
+    public float runAwayDistance = 5.0f;    // 도망 시작 거리
 
-    public float attackRange = 2.0f;
+    // 시간 설정
     public float attackTime = 2.0f;
 
-    public Transform[] waypoints;           // 웨이포인트, 경로 설정
-    public bool useWaypoint = false;
-    public bool reversePatrol = true;
-    public bool pauseAtWaypoints = false;   // 참이면 패트롤 유닛은 도달 할 때마다 각 웨이포인트에서 잠시 멈춤.
-    public float pauseMin = 1.0f;
-    public float pauseMax = 3.0f;           // pauseAtWaypoints가 true 인 경우 이 시간의 최대치를 일시 정지
+    // 속도 설정
+    public float walkSpeed = 3.0f;          // 걷는 속도
+    public float runSpeed = 5.0f;           // 뛰는 속도
+    public float rotationSpeed = 2.0f;      // 회전 속도
+
+    // 웨이포인트 설정
+    public Transform[] waypoints = null;    // 경로 설정
+    public bool useWaypoint = false;        // 웨이포인트 사용
+    public bool reversePatrol = false;       // 역순회
+    public bool pauseAtWaypoints = false;   // 웨이포인트에서 멈춤 여부
+    public float pauseMin = 1.0f;           // 웨이포인트 최소 일시 정지 시간
+    public float pauseMax = 3.0f;           // 웨이포인트 최대 일시 정지 시간
 
     public float huntingTimer = 5.0f;       // 추적 지속 시간
 
-    public Transform target;
-    public bool targetOn = true;
+    public Transform target = null;
+    public bool targetOn = false;
 
-    private Vector3 targetPos;
     private Vector3 startPos;
+    private Vector3 targetPos;
 
     public bool playerHasBeenSeen = false;     // 플레이어 발견
     private bool enemyCanAttack = false;        // 공격 할 수 있는지
     private bool enemyIsAttacking = false;
 
     private float delayTime = 2f;
-    private float deltaTime;
+    private float deltaTime = 0f;
 
-    private float lastShotFired;
-    private float lostPlayerTimer;
-    private bool targetIsOutOfSight;
-
-    private Vector3 randomDirection;
-
-
+    private float lastShotFired = 0f;
+    private float lostPlayerTimer = 0f;
+    private bool targetIsOutOfSight = false;
 
     private bool waypointCountdown = false;
     private int waypointPatrol = 0;
     private bool pauseWaypointControl;
 
-    private CharacterStat targetStats;
-    private CharacterStat myStats;
+    private CharacterStat myStats = null;
+    private CharacterStat targetStats = null;
 
-    private Animator animator;
-    private AtkMng atkMng;
-    private NavMeshAgent nav;
+    private Animator animator = null;
+    private AtkMng atkMng = null;
+    private NavMeshAgent nav = null;
 
     private string state = "idle";
-    //private string runawayState = "runaway";
+
+    public void SetTarget(GameObject _target)
+    {
+        target = _target.transform;
+    }
 
     void Start()
     {
@@ -72,13 +75,14 @@ public class EnemyAIScript01 : MonoBehaviour
 
     IEnumerator Initialize()
     {
-        Debug.Log(target);
+        myStats = this.gameObject.GetComponent<CharacterStat>();
+
+        if (target == null) { Debug.LogError("target is null"); }
         targetStats = target.GetComponent<CharacterStat>();
 
-        myStats = this.gameObject.GetComponent<CharacterStat>();
+        animator = this.gameObject.GetComponentInChildren<Animator>();
         atkMng = this.gameObject.GetComponent<AtkMng>();
         nav = this.gameObject.GetComponent<NavMeshAgent>();
-        animator = this.gameObject.GetComponentInChildren<Animator>();
 
         this.gameObject.GetComponentInChildren<AnimationEventReceiver>().attackHit = AttackHit;
 
@@ -97,7 +101,7 @@ public class EnemyAIScript01 : MonoBehaviour
         }
     }
 
-    void AIFunctionality()
+    private void AIFunctionality()
     {
         if ((!target))
         {
@@ -110,29 +114,24 @@ public class EnemyAIScript01 : MonoBehaviour
 
         if (!runAway)
         {
-
             // 타겟 시야 반경 내
             if (TargetIsInSight())
             {
+
                 // 타겟 따라가기
+                NavStart();
+                SetNav(target.position);
                 animator.SetBool("isWalk", true);
 
-                NavStart();
-
-                SetNav(target.position);
-
-                // 공격거리보다 멀면
+                // 공격거리보다 멀면 공격 X
                 if (distance > attackRange)
                 {
-                    //Debug.Log(" 3 ");
                     enemyCanAttack = false;
-                    //MoveTowards(moveToward);
                 }
 
                 // 공격 거리 이내
                 else if (distance < attackRange)
                 {
-                    //Debug.Log(" 4 ");
                     animator.SetBool("isRun", false);
                     animator.SetBool("isWalk", false);
                     if (Time.time > lastShotFired + attackTime)
@@ -156,13 +155,10 @@ public class EnemyAIScript01 : MonoBehaviour
             // 발견 못했거나 moveableRadius가 0 또는 플레이어와의 거리가 moveableRadius보다 작으면
             else if (((!playerHasBeenSeen)) && ((moveableRadius == 0) || (distance < moveableRadius)))
             {
-                //Debug.Log(" 7 ");
-                //Debug.Log("WalkNewPath");
                 WalkNewPath();
             }
             else if ((!playerHasBeenSeen) && (distance > moveableRadius))
             {
-                //Debug.Log(" 8 ");
                 animator.SetBool("isWalk", false);
                 animator.SetBool("isRun", false);
 
@@ -183,8 +179,6 @@ public class EnemyAIScript01 : MonoBehaviour
         }
         else if (runAway)
         {
-            //Debug.Log(" 10 ");
-
             NavStop();
 
             if (distance < runAwayDistance)
@@ -220,7 +214,7 @@ public class EnemyAIScript01 : MonoBehaviour
     {
         if (target != null)
         {
-            enemyCanAttack = true;//이거 없어도 되도록 만듬.
+            enemyCanAttack = true;
 
             if (!enemyIsAttacking)
             {
@@ -232,7 +226,7 @@ public class EnemyAIScript01 : MonoBehaviour
 
                     if (targetStats != null)
                     {
-                        animator.SetTrigger("attack");                       
+                        animator.SetTrigger("attack");
                     }
 
                     yield return new WaitForSeconds(attackTime);
@@ -244,7 +238,7 @@ public class EnemyAIScript01 : MonoBehaviour
     }
 
     // 시야 반경 내에 있는지 확인
-    bool TargetIsInSight()
+    private bool TargetIsInSight()
     {
         if (target == null)
         {
@@ -268,10 +262,8 @@ public class EnemyAIScript01 : MonoBehaviour
 
         if ((targetOn) && (distance < visualRadius))
         {
-            //Debug.Log("Target On");
             LookAtPlayer();
         }
-
 
         RaycastHit sight;
 
@@ -321,8 +313,9 @@ public class EnemyAIScript01 : MonoBehaviour
             yield return null;
         }
     }
+
     // 순찰
-    void Patrol()
+    private void Patrol()
     {
         animator.SetBool("isRun", false);
         animator.SetBool("isWalk", true);
@@ -359,12 +352,12 @@ public class EnemyAIScript01 : MonoBehaviour
         pauseWaypointControl = false;
     }
 
-    Vector3 CurrentPath()
+    private Vector3 CurrentPath()
     {
         return waypoints[waypointPatrol].position;
     }
 
-    void PatrolNewPath()
+    private void PatrolNewPath()
     {
         if (!waypointCountdown)
         {
@@ -395,10 +388,9 @@ public class EnemyAIScript01 : MonoBehaviour
     }
 
     // 새로운 길 찾기
-    void WalkNewPath()
+    private void WalkNewPath()
     {
         NavStart();
-
         if (state == "idle")
         {
             Vector3 randomPos = Random.insideUnitSphere * 10f;
@@ -426,54 +418,37 @@ public class EnemyAIScript01 : MonoBehaviour
             }
         }
     }
-    void SetNav(Vector3 target)
+
+    private void SetNav(Vector3 target)
     {
         nav.SetDestination(target);
     }
 
-    void NavStart()
+    private void NavStart()
     {
         nav.isStopped = false;
     }
 
-    void NavStop()
+    private void NavStop()
     {
         nav.isStopped = true;
     }
 
-    void RunAway()
+    private void RunAway()
     {
         animator.SetBool("isWalk", false);
         animator.SetBool("isRun", true);
 
         Vector3 runAwayDir = (transform.position - targetPos).normalized;
-       
+
         runAwayDir.y = 0;
 
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(runAwayDir), Time.deltaTime * rotationSpeed);
-        //transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 
         Vector3 direction = runAwayDir * nav.speed * Time.deltaTime;
 
         this.transform.position += direction;
-
-        //if (runawayState == "runaway")
-        //{
-        //    Vector3 randomPos = Random.insideUnitSphere * 10f;
-
-        //    NavMeshHit navHit;
-        //    NavMesh.SamplePosition(target.position + randomPos, out navHit, 10f, NavMesh.AllAreas);
-        //    SetNav(navHit.position);
-        //    runawayState = "move";
-        //}
-
-        //if (runawayState == "move")
-        //{
-        //    if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
-        //    {
-        //        runawayState = "runaway";
-        //    }
-        //}
     }
 
     public void OnDrawGizmosSelected()

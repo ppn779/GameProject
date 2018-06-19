@@ -6,9 +6,8 @@ public class CharacterStat : MonoBehaviour
 {
     public float maxHealth = 100;
     public float currentHealth = 0;// { get; private set; }
-
-    public float damage;
-    public float armor;
+    public float damage = 10f;
+    public float armor = 0f;
 
     public event System.Action<float, float> OnHealthChanged;
 
@@ -17,25 +16,16 @@ public class CharacterStat : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    private void Update()
-    {
-        
-    }
-
     public void TakeDamage(float damage)
     {
         damage -= armor;
 
         currentHealth -= damage;
 
-        //Debug.Log(transform.name + " takes " + damage + " damage ");
-
         if (OnHealthChanged != null)
         {
             OnHealthChanged(maxHealth, currentHealth);
         }
-
-        //Debug.Log(transform.name + "-> " + currentHealth);
 
         if (currentHealth <= 0)
         {
@@ -45,7 +35,6 @@ public class CharacterStat : MonoBehaviour
 
     public virtual void Die()
     {
-        // some way
         Debug.Log(transform.name + " died.");
     }
 }
