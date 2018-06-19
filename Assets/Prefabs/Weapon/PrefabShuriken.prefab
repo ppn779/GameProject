@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 23180519671570508}
   - component: {fileID: 65866192993823744}
   - component: {fileID: 114028124962803728}
-  - component: {fileID: 114181919200273192}
   m_Layer: 0
   m_Name: PrefabShuriken
   m_TagString: Weapon
@@ -38,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1509833293233074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.737, y: 0.2, z: 3.938}
-  m_LocalScale: {x: 0.1, y: 0.2, z: 0.1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -57,9 +56,8 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 020501fe7719a0442b131c251c58af70, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,7 +83,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1509833293233074}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 06c3ccdbe37f9b04db597b88ca56bac6, type: 3}
 --- !u!65 &65866192993823744
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -114,21 +112,7 @@ MonoBehaviour:
   spriteWeaponIcon: {fileID: 21300000, guid: b76e5a1ffdc1fe14cad60ed46bceaf75, type: 3}
   remainTime: 5
   damage: 10
-  attackSpeed: 1
+  attackSpeed: 5
   durability: 100
   usableCount: 5
   projectile: {fileID: 1941739627128864, guid: 47e9ffa2bf11a9941b0fed96068ac541, type: 2}
---- !u!114 &114181919200273192
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1509833293233074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282a532c7a45e814383adba517e3c3c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heightMax: 0.75
-  heightMin: 0.5
-  defaultSpeed: 0.5

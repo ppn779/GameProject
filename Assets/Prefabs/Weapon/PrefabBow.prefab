@@ -9,46 +9,46 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1679818820238594}
+  m_RootGameObject: {fileID: 1295213387744814}
   m_IsPrefabParent: 1
---- !u!1 &1679818820238594
+--- !u!1 &1295213387744814
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4291926115222844}
-  - component: {fileID: 33656774561138242}
-  - component: {fileID: 23760335374782036}
-  - component: {fileID: 65810122117692576}
-  - component: {fileID: 114304055506115790}
+  - component: {fileID: 4646565642084778}
+  - component: {fileID: 33263578558456484}
+  - component: {fileID: 23331631350753380}
+  - component: {fileID: 65496584309238052}
+  - component: {fileID: 114147023455015924}
   m_Layer: 0
-  m_Name: PrefabAxe
+  m_Name: PrefabBow
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4291926115222844
+--- !u!4 &4646565642084778
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1679818820238594}
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_GameObject: {fileID: 1295213387744814}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
---- !u!23 &23760335374782036
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23331631350753380
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1679818820238594}
+  m_GameObject: {fileID: 1295213387744814}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -57,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 512fd4b459512214980b413d086a692d, type: 2}
+  - {fileID: 2100000, guid: e690ca7497003d64f919789ae93e3bfb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,31 +77,31 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33656774561138242
+--- !u!33 &33263578558456484
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1679818820238594}
-  m_Mesh: {fileID: 4300000, guid: 3af41597eeacf6249a40fb922279fa3e, type: 3}
---- !u!65 &65810122117692576
+  m_GameObject: {fileID: 1295213387744814}
+  m_Mesh: {fileID: 4300000, guid: 182c56d6c1c4f2f4daa170d520f9ac86, type: 3}
+--- !u!65 &65496584309238052
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1679818820238594}
+  m_GameObject: {fileID: 1295213387744814}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114304055506115790
+--- !u!114 &114147023455015924
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1679818820238594}
+  m_GameObject: {fileID: 1295213387744814}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7b166468b231d84986587200409dda0, type: 3}
@@ -109,13 +109,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupRange: 3
   remainCount: 3
-  spriteWeaponIcon: {fileID: 21300000, guid: 472c7b62a4d7b264c91c5e04225dc3fb, type: 3}
+  spriteWeaponIcon: {fileID: 0}
   remainTime: 5
-  damage: 20
-  attackSpeed: 0.5
+  damage: 15
+  attackSpeed: 0.1
   durability: 100
   usableCount: 5
-  atkStartDist: 3
+  atkStartDist: 0
   attackRange: 6
-  weaponAngle: 160
+  weaponAngle: 180
   weaponMesh: {fileID: 1893362385657426, guid: 044ef946add40d0498158919bc967327, type: 2}
