@@ -18,7 +18,7 @@ public class QuickSlotImage : MonoBehaviour
     private Image imageSlot4 = null;
     private Image imageSlotMain = null;
 
-    private void Start()
+    private void Awake()
     {
         if (slot0 != null) { imageSlot0 = slot0.GetComponent<Image>(); }
         if (slot1 != null) { imageSlot1 = slot1.GetComponent<Image>(); }

@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4097387148710900}
   - component: {fileID: 33298655538080554}
   - component: {fileID: 23719424702436842}
-  - component: {fileID: 65932433672767366}
   - component: {fileID: 114738039011709570}
   m_Layer: 0
   m_Name: PrefabEmpty
@@ -37,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1099638734758964}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.2480206, y: 0.348721, z: 2.4973483}
+  m_LocalPosition: {x: -2.4268837, y: 0.43780905, z: -3.2963212}
   m_LocalScale: {x: 0.1, y: 0.2, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,18 +83,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1099638734758964}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65932433672767366
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1099638734758964}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114738039011709570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -109,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupRange: 0
   remainCount: 0
-  spriteWeaponIcon: {fileID: 0}
+  spriteWeaponIcon: {fileID: 21300000, guid: 637d341d78dac4723bad77069cf6a5e7, type: 3}
   remainTime: 0
   damage: 0
   attackSpeed: 1.5

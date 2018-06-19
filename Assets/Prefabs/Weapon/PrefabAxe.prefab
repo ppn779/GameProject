@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupRange: 3
   remainCount: 3
-  spriteWeaponIcon: {fileID: 21300000, guid: 472c7b62a4d7b264c91c5e04225dc3fb, type: 3}
+  spriteWeaponIcon: {fileID: 21300000, guid: 3c8fc183b9fc349f982a841dcc563bcd, type: 3}
   remainTime: 5
   damage: 20
   attackSpeed: 0.5
