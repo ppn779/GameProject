@@ -34,7 +34,7 @@ public class LifeGageBarMng : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        lifeGage = (playerStats.currentHealth/playerStats.maxHealth)*width;
+        lifeGage = (playerStats.currentHealth/playerStats.maxHealth);
 
         LifeGageBarCtrl();
 
@@ -72,9 +72,9 @@ public class LifeGageBarMng : MonoBehaviour
         //{
         //    canSpecialAtk = false;
         //}
-
-        lifeGageBarTr.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifeGage);
-
+        
+        //lifeGageBarTr.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifeGage);
+        lifeGageBarImg.fillAmount = lifeGage;
         //색상변화
         Color newColor = lifeGageBarImg.color;
         //green,blue 빼서 red만 남게 만들기

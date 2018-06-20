@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23252150873490502}
   - component: {fileID: 65894114224942376}
   - component: {fileID: 114520878755289560}
+  - component: {fileID: 114786877036059718}
   m_Layer: 0
   m_Name: PrefabSword
   m_TagString: Weapon
@@ -37,8 +38,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111195535892534}
   m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -112,10 +113,24 @@ MonoBehaviour:
   spriteWeaponIcon: {fileID: 21300000, guid: 28643c05b2f474320ad779e7413d4075, type: 3}
   remainTime: 5
   damage: 5
-  attackSpeed: 1
+  attackSpeed: 5
   durability: 100
   usableCount: 5
   atkStartDist: 0
   attackRange: 5
   weaponAngle: 80
   weaponMesh: {fileID: 1893362385657426, guid: 044ef946add40d0498158919bc967327, type: 2}
+--- !u!114 &114786877036059718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1111195535892534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282a532c7a45e814383adba517e3c3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heightMax: 0.75
+  heightMin: 0.5
+  defaultSpeed: 0.3

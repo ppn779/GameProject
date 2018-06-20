@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23180519671570508}
   - component: {fileID: 65866192993823744}
   - component: {fileID: 114028124962803728}
+  - component: {fileID: 114526594216889282}
   m_Layer: 0
   m_Name: PrefabShuriken
   m_TagString: Weapon
@@ -37,8 +38,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1509833293233074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -116,3 +117,17 @@ MonoBehaviour:
   durability: 100
   usableCount: 5
   projectile: {fileID: 1941739627128864, guid: 47e9ffa2bf11a9941b0fed96068ac541, type: 2}
+--- !u!114 &114526594216889282
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1509833293233074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282a532c7a45e814383adba517e3c3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heightMax: 0.75
+  heightMin: 0.5
+  defaultSpeed: 0.3
