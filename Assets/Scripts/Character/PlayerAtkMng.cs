@@ -4,21 +4,30 @@ using UnityEngine;
 
 public class PlayerAtkMng : MonoBehaviour
 {
-    private GameObject obj;
+    private Transform objTr;
     private Animator animator;
-    private Weapon weapon;
-    private float atkPower;
-    private float atkSpeed;
-    private float waitingTimeForAtk;
-    private float time;
+    private WeaponMeshCtrl weaponMeshCtrl;
+    private Weapon equippedWeapon;
+    private Equipment equipment = null;
+    private float atkPower = 0.0f;
+    private float atkSpeed = 0.0f;
+    //private float atkStartDist = 0.0f;
+    //private float attackRange = 0.0f;
+    //private float weaponAngle = 0.0f;
+    private float waitingTimeForAtk = 0.0f;
+    private float time = 0.0f;
     private bool isAtkTimerOn = false;
-    //private bool isAtkSwitchOn = false;
     private bool isEquippedWeapon = false;
+    private bool attackSwitchOn = false;
+    private bool isReady = false;
 
     private void Start()
     {
-        obj = GameObject.FindGameObjectWithTag("Player");
+        objTr = this.transform;
         animator = GetComponent<Animator>();
+        weaponMeshCtrl = GetComponentInChildren<WeaponMeshCtrl>();
+        equipment = GetComponent<Equipment>();
+        if (equipment == null) { gameObject.AddComponent<Equipment>(); }
     }
 
     private void Update()
@@ -35,11 +44,19 @@ public class PlayerAtkMng : MonoBehaviour
 
     }
 
-    public Weapon Weapon
+    public bool IsReady
     {
         set
         {
-            weapon = value;
+            isReady = value;
+        }
+    }
+
+    public Weapon EquippedWeapon
+    {
+        set
+        {
+            equippedWeapon = value;
         }
     }
 
@@ -47,11 +64,17 @@ public class PlayerAtkMng : MonoBehaviour
     {
         if (!isAtkTimerOn && isEquippedWeapon)
         {
-            //Debug.Log("공격");
-            animator.SetTrigger("Attack");
+            
+            
+            if (equippedWeapon.isWeaponTypeMelee)
+            {
+                // 현재 낀 무기가 근접 무기일경우
+                SetForMeleeAtk();
+            }
             isAtkTimerOn = true;
             waitingTimeForAtk = 3.0f - atkSpeed;
             time = 0.0f;
+            animator.SetTrigger("Attack");
         }
     }
 
@@ -93,6 +116,63 @@ public class PlayerAtkMng : MonoBehaviour
 
     private void WeaponAttack()
     {
-        weapon.Attack(obj.transform, waitingTimeForAtk);
+        Debug.Log("웨폰어택 실행");
+        time = 0.0f;
+        attackSwitchOn = true;
+        if (equippedWeapon.isWeaponTypeMelee)
+        {
+            StartCoroutine(MeshActivation());
+        }
+        else
+        {
+            equippedWeapon.Attack(this.transform,atkPower);
+        }
+    }
+
+    private void SetForMeleeAtk()
+    {
+        //while (waitingTimeForAtk > time)
+        //{
+        //    time += Time.deltaTime;
+        //    //콜리전에 사용할 Mesh를 만든다.
+        //if (weaponMeshCtrl != null)
+        //{
+        if (!isReady)
+        {
+            Debug.Log("메쉬 만듬");
+            weaponMeshCtrl.AtkPow = this.atkPower;
+            //Debug.Log("Start Pos   : " +atkStartPos);
+            if (weaponMeshCtrl == null) { Debug.LogError("웨폰메쉬컨트롤 Null"); }
+            float[] tmpAngle = new float[] { objTr.rotation.y - (equippedWeapon.WeaponAngle / 2), objTr.rotation.y + (equippedWeapon.WeaponAngle / 2) };
+            weaponMeshCtrl.gameObject.SetActive(false);
+            weaponMeshCtrl.makeFanShape(tmpAngle, objTr, equippedWeapon.AtkRangeDist, equippedWeapon.AtkStartDist);
+            isReady = true;
+        }
+        //else
+        //{
+        //    weaponMeshCtrl.clearShape();
+        //}
+        //}
+        //}
+    }
+
+    private IEnumerator MeshActivation()
+    {
+        while (waitingTimeForAtk > time)
+        {
+            time += Time.deltaTime;
+            {
+                if (attackSwitchOn)
+                {
+                    weaponMeshCtrl.gameObject.SetActive(true);
+                    attackSwitchOn = false;
+                }
+                else
+                {
+                    weaponMeshCtrl.gameObject.SetActive(false);
+                }
+            }
+            yield return new WaitForFixedUpdate();
+        }
     }
 }

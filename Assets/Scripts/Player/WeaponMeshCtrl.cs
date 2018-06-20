@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponMeshCtrl : MonoBehaviour {
+public class WeaponMeshCtrl : WeaponDamage {
 
-    private const float PIECE_ANGLE = 1f;  // 1폴리곤의 각도(원의 원만한 정도)
+    private const float PIECE_ANGLE = 5f;  // 1폴리곤의 각도(원의 원만한 정도)
     
     private Mesh mesh;
     private MeshFilter meshFilter;
@@ -31,6 +31,8 @@ public class WeaponMeshCtrl : MonoBehaviour {
 
     public void makeFanShape(float[] angle, Transform objTr, float atkRangeDist, float atkStartDist)
     {
+        this.transform.position = objTr.position;
+        this.transform.rotation = objTr.rotation;
         Vector3 pos = objTr.position+(objTr.forward*atkStartDist);
         float startAngle; //원의 시작 각도.
         float endAngle;   //원의 종료 각도.

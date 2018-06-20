@@ -49,7 +49,7 @@ public class Equipment : MonoBehaviour
                 playerAtkMng.AtkPower += equippedItem.damage;
                 playerAtkMng.AtkSpeed += equippedItem.attackSpeed;
                 playerAtkMng.IsEquippedWeapon = isEquipWeapon;
-                playerAtkMng.Weapon = equippedItem;
+                playerAtkMng.EquippedWeapon = equippedItem;
             }
         }
     }
@@ -65,6 +65,8 @@ public class Equipment : MonoBehaviour
 
                 playerAtkMng.AtkPower -= equippedItem.damage;
                 playerAtkMng.AtkSpeed -= equippedItem.attackSpeed;
+                playerAtkMng.EquippedWeapon = null;
+                playerAtkMng.IsReady = false;
                 equippedItem.transform.parent = null;
                 equippedItem.transform.parent = null;
                 equippedItem.gameObject.SetActive(false);

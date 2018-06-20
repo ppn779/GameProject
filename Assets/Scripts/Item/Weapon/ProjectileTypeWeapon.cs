@@ -6,20 +6,23 @@ public class ProjectileTypeWeapon : Weapon
 {
     [SerializeField] private GameObject projectile = null;
 
-    private Transform objTr = null;
+    private Quaternion objRot;
 
-    public override void Attack(Transform objTr, float waitingTimeForAtk)
+    
+    public override void Attack(Transform _objTr, float _objAtkPow)
     {
-        this.objTr = objTr;
+        this.objRot = _objTr.rotation;
+
         Fire();
     }
-
+    
     private void Fire()
     {
         if (usableCount > 0)
         {
-            GameObject go = Instantiate<GameObject>(projectile, (this.transform.position + (this.transform.forward * 10)), objTr.rotation);
-            go.transform.parent = this.transform;
+            //GameObject go = Instantiate<GameObject>(projectile, this.transform.position, objRot);
+            //go.transform.parent = this.transform;
+            GameObject objProjectile=Instantiate<GameObject>(projectile, this.transform.position, objRot);
             SubtractUsableCount(1);
         }
     }
