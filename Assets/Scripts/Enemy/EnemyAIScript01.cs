@@ -478,6 +478,6 @@ public class EnemyAIScript01 : MonoBehaviour
         {
             atkMng.Attack();
         }
-        Debug.Log("ATTACKHIT");
+        //Debug.Log("ATTACKHIT");
     }
 }

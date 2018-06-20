@@ -9,6 +9,8 @@ public class CharacterStat : MonoBehaviour
     public float damage = 10f;
     public float armor = 0f;
 
+    private bool isEnemyDead = false;
+
     public event System.Action<float, float> OnHealthChanged;
 
     private void Awake()
@@ -27,8 +29,9 @@ public class CharacterStat : MonoBehaviour
             OnHealthChanged(maxHealth, currentHealth);
         }
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !isEnemyDead)
         {
+            isEnemyDead = true;
             Die();
         }
     }

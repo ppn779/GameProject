@@ -48,7 +48,7 @@ public class KnockBackProcess : MonoBehaviour
     {
         if (other.tag == "WeaponMesh"&&!isKnockBackOn)
         {
-            Debug.Log(other.transform.forward);
+            //Debug.Log(other.transform.forward);
             direction = other.transform.forward;
             time = 0;
             isKnockBackOn = true;

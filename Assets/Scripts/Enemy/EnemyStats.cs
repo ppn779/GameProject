@@ -47,7 +47,7 @@ public class EnemyStats : CharacterStat
         {
             CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
             PlayerAtkMng playerAtkMng = other.GetComponentInParent<PlayerAtkMng>();
-            Debug.Log("데미지 : " + playerAtkMng.AtkPower);
+            //Debug.Log("데미지 : " + playerAtkMng.AtkPower);
             objStat.TakeDamage(playerAtkMng.AtkPower);
         }
     }
@@ -55,9 +55,10 @@ public class EnemyStats : CharacterStat
     public override void Die()
     {
         base.Die();
-
         // effect
+        Debug.Log(this.gameObject.name);
         nav.isStopped = true;
+        StopAllCoroutines();
         animator.SetBool("isDeath", true);
 
         this.GetComponent<DropTable>().GetRandomItem();

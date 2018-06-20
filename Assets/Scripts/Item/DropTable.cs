@@ -22,7 +22,7 @@ public class DropTable : MonoBehaviour {
         float rand = Random.Range(0f, 1f);
         float tempMin = 0f;
         float tempMax = 0f;
-        Debug.Log(rand);
+        //Debug.Log(rand);
         for (int i = 0; i < dropTable.Count; ++i)
         {
             tempMin = tempMax;

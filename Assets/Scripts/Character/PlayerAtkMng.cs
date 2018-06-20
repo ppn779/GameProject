@@ -47,7 +47,7 @@ public class PlayerAtkMng : MonoBehaviour
     {
         if (!isAtkTimerOn && isEquippedWeapon)
         {
-            Debug.Log("공격");
+            //Debug.Log("공격");
             animator.SetTrigger("Attack");
             isAtkTimerOn = true;
             waitingTimeForAtk = 3.0f - atkSpeed;
