@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemMovement : MonoBehaviour {
-    public float heightMax = 1.5f;
-    public float heightMin = 1f;
-    public float defaultSpeed = 0.5f;
+    public float heightMax = 0.75f;
+    public float heightMin = 0.5f;
+    public float defaultSpeed = 0.3f;
     private Transform tr = null;
     private Weapon weapon = null;
     private bool isSpeedDown = false;

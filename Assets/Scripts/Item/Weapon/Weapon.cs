@@ -9,8 +9,9 @@ public class Weapon : Item
     public float attackSpeed = 0.0f;
     public int durability = 100;
     public int usableCount = 5;
-    private bool isPlayerEquipped = false;
+    public bool isWeaponTypeMelee = true;
 
+    private bool isPlayerEquipped = false;
     public virtual void Attack(Transform objTr, float waitingTimeForAtk) { }
 
     public bool IsPlayerEquipped

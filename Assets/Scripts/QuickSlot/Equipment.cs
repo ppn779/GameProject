@@ -29,6 +29,8 @@ public class Equipment : MonoBehaviour
             //int abc = DebugSystem.Create(it.name);
             //DebugSystem.SetText(abc, "I am Groot");
 
+            if (it == null) { Debug.LogError("it is null"); }
+
             GameObject go = rightHand;
             BoxCollider boxCollider = it.GetComponent<BoxCollider>();
 

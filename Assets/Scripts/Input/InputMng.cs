@@ -26,7 +26,7 @@ public class InputMng : MonoBehaviour
         int slotNumber = 0;
         Item it = null;
         bool isPressedNumber = false;
-
+        
         if (Input.GetKeyDown(KeyCode.F) && slot.IsCanPickUpItem()) { pickup.CheckItemInArea(tr.position); }
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) { slotNumber = 0; isPressedNumber = true; }
@@ -38,9 +38,9 @@ public class InputMng : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Item unequipItem = equipment.UnEquip();
-            if (unequipItem == null) { Debug.LogError("unequipItem is null"); } 
             slot.RemoveItemMain();
-            Destroy(unequipItem.gameObject);
+            slot.AddItemMainEmpty();
+            if (unequipItem != null) { Destroy(unequipItem.gameObject); }
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -49,7 +49,7 @@ public class InputMng : MonoBehaviour
             Debug.Log("Main : " + slot.GetItemMain());
             for (int i = 0; i < 5; ++i)
             {
-                Debug.Log("slot[" + i + "] : " + slot.ItemList[i].GetItemType());
+                if(slot.ItemList[i] != null) Debug.Log("slot[" + i + "] : " + slot.ItemList[i].GetItemType());
             }
             Debug.Log("//================//");
         }
@@ -75,6 +75,7 @@ public class InputMng : MonoBehaviour
             }
             else
             {
+                slot.RemoveItemMain();
                 it = slot.GetItemListNumber(slotNumber);
                 slot.AddItemMain(it);
                 slot.RemoveItemInNumber(slotNumber);

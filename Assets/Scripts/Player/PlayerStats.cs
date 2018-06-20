@@ -15,7 +15,7 @@ public class PlayerStats : CharacterStat {
     {
         if (currentHealth > 0)
         {
-            currentHealth -= (Time.deltaTime + 1.0f);
+            currentHealth -= 1.0f;
         }
         else
         {
