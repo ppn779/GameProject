@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponMeshCtrl : WeaponsSubstance {
+public class WeaponMeshCtrl : WeaponDamage {
 
-    private const float PIECE_ANGLE = 1f;  // 1폴리곤의 각도(원의 원만한 정도)
+    private const float PIECE_ANGLE = 5f;  // 1폴리곤의 각도(원의 원만한 정도)
     
     private Mesh mesh;
     private MeshFilter meshFilter;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileCtrl : WeaponsSubstance {
+public class ProjectileCtrl : WeaponDamage {
     [SerializeField]
     private float projectileSpeed;
     private Vector3 direction;

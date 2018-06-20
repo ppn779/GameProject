@@ -13,14 +13,13 @@ public class DamageProcessMng : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.tag == opponentObjAtkTagName)
         {
-            Debug.Log("데미지");
             CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
-            WeaponsSubstance weaponsSubstance = other.GetComponent<WeaponsSubstance>();
-            Debug.Log(weaponsSubstance.CalculatedAtkPow);
-            objStat.TakeDamage(weaponsSubstance.CalculatedAtkPow);
+            WeaponDamage weaponDamage = other.GetComponent<WeaponDamage>();
+            Debug.Log(weaponDamage.AtkPow);
+            Debug.Log(objStat);
+            objStat.TakeDamage(weaponDamage.AtkPow);
         }
     }
 }

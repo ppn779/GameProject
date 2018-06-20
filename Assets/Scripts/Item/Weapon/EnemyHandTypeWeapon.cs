@@ -33,12 +33,9 @@ public class EnemyHandTypeWeapon : Weapon
         }
     }
 
-    public override void Attack(Transform objTr, float objAtkPow, float waitingTimeForAtk)
+    public override void Attack(Transform objTr, float objAtkPow)
     {
         this.objTr = objTr;
-        calculatedAtkPow = damage + objAtkPow;
-        weaponMeshCtrl.CalculatedAtkPow = calculatedAtkPow;
-        this.waitingTimeForAtk = waitingTimeForAtk;
         time = 0.0f;
         attackSwitchOn = true;
         StartCoroutine(MakeTransformMesh());

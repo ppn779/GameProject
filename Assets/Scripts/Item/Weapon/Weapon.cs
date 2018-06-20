@@ -9,10 +9,16 @@ public class Weapon : Item
     public float attackSpeed = 0.0f;
     public int durability = 100;
     public int usableCount = 5;
-    private bool isPlayerEquipped = false;
-    protected float calculatedAtkPow;
+    public bool isWeaponTypeMelee = true;
 
-    public virtual void Attack(Transform objTr, float atkPow, float waitingTimeForAtk) { }
+    private bool isPlayerEquipped = false;
+    //protected float calculatedAtkPow;
+
+    public virtual void Attack(Transform _objTr, float _atkPow) { }
+
+    public virtual float WeaponAngle { get; set; }
+    public virtual float AtkRangeDist { get; set; }
+    public virtual float AtkStartDist { get; set; }
 
     public bool IsPlayerEquipped
     {
@@ -37,13 +43,13 @@ public class Weapon : Item
         StartCoroutine(ExpiredRemainTime());
     }
 
-    public float CalculatedAtkPow
-    {
-        get
-        {
-            return calculatedAtkPow;
-        }
-    }
+    //public float CalculatedAtkPow
+    //{
+    //    get
+    //    {
+    //        return calculatedAtkPow;
+    //    }
+    //}
 
     private IEnumerator ExpiredRemainTime()
     {

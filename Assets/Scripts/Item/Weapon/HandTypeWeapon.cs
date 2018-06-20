@@ -14,12 +14,6 @@ public class HandTypeWeapon : Weapon
 
     private float waitingTimeForAtk;
     private float time;
-    private bool attackSwitchOn;
-
-    private void Start()
-    {
-        weaponMeshCtrl = GameObject.Find("PlayerWeaponMesh").GetComponent<WeaponMeshCtrl>();
-    }
 
     private void Update()
     {
@@ -32,39 +26,59 @@ public class HandTypeWeapon : Weapon
             }
         }
     }
-
-    public override void Attack(Transform objTr, float objAtkPow, float waitingTimeForAtk)
+    public override float WeaponAngle
     {
-        this.objTr = objTr;
-        calculatedAtkPow = damage + objAtkPow;
-        weaponMeshCtrl.CalculatedAtkPow = calculatedAtkPow;
-        this.waitingTimeForAtk = waitingTimeForAtk;
-        time = 0.0f;
-        attackSwitchOn = true;
-        StartCoroutine(MakeTransformMesh());
-    }
-
-    private IEnumerator MakeTransformMesh()
-    {
-        while (waitingTimeForAtk > time)
+        get
         {
-            time += Time.deltaTime;
-            //콜리전에 사용할 Mesh를 만든다.
-            if (weaponMeshCtrl != null)
-            {
-                if (attackSwitchOn)
-                {
-                    //Debug.Log("Start Pos   : " +atkStartPos);
-                    float[] tmpAngle = new float[] { objTr.rotation.y - (weaponAngle / 2), objTr.rotation.y + (weaponAngle / 2) };
-                    weaponMeshCtrl.makeFanShape(tmpAngle, objTr, attackRange, atkStartDist);
-                    attackSwitchOn = false;
-                }
-                else
-                {
-                    weaponMeshCtrl.clearShape();
-                }
-            }
-            yield return new WaitForFixedUpdate();
+            return weaponAngle;
         }
     }
+
+    public override float AtkRangeDist
+    {
+        get
+        {
+            return attackRange;
+        }
+    }
+
+    public override float AtkStartDist
+    {
+        get
+        {
+            return atkStartDist;
+        }
+    }
+    //public override void Attack(Transform objTr, float objAtkPow, float waitingTimeForAtk)
+    //{
+    //    this.objTr = objTr;
+    //    this.waitingTimeForAtk = waitingTimeForAtk;
+    //    time = 0.0f;
+    //    attackSwitchOn = true;
+    //    StartCoroutine(MakeTransformMesh());
+    //}
+
+    //private IEnumerator MakeTransformMesh()
+    //{
+    //    while (waitingTimeForAtk > time)
+    //    {
+    //        time += Time.deltaTime;
+    //        //콜리전에 사용할 Mesh를 만든다.
+    //        if (weaponMeshCtrl != null)
+    //        {
+    //            if (attackSwitchOn)
+    //            {
+    //                //Debug.Log("Start Pos   : " +atkStartPos);
+    //                float[] tmpAngle = new float[] { objTr.rotation.y - (weaponAngle / 2), objTr.rotation.y + (weaponAngle / 2) };
+    //                weaponMeshCtrl.makeFanShape(tmpAngle, objTr, attackRange, atkStartDist);
+    //                attackSwitchOn = false;
+    //            }
+    //            else
+    //            {
+    //                weaponMeshCtrl.clearShape();
+    //            }
+    //        }
+    //        yield return new WaitForFixedUpdate();
+    //    }
+    //}
 }
