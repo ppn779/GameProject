@@ -60,10 +60,11 @@ public class PlayerStats : CharacterStat {
     {
         base.Die();
 
-        // effect / death animation
+        //CanvasControl canvasControl = GetComponent<CanvasControl>();
+        //if (canvasControl == null) { Debug.LogError("canvasControl is null"); }
+        //canvasControl.ShowResultCanvas(true);
 
-        //Canvas canvas = ;
-
+        GameMng.Instance.SetActiveResultCanvas();
 
         Destroy(gameObject);
     }

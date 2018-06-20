@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class EnemyStats : CharacterStat
@@ -10,15 +11,18 @@ public class EnemyStats : CharacterStat
     private Animator animator = null;
     private AtkMng atkMng = null;
     private Weapon weapon = null;
+    private NavMeshAgent nav = null;
 
     private void Start()
     {
         animator = this.gameObject.GetComponentInChildren<Animator>();
         atkMng = this.gameObject.GetComponent<AtkMng>();
         weapon = this.gameObject.GetComponentInChildren<Weapon>();
+        nav = this.gameObject.GetComponent<NavMeshAgent>();
 
         Equipment();
     }
+
     void Equipment()
     {
         atkMng.IsEquippedWeapon = true;
@@ -53,9 +57,10 @@ public class EnemyStats : CharacterStat
         base.Die();
 
         // effect
+        nav.isStopped = true;
         animator.SetBool("isDeath", true);
 
         this.GetComponent<DropTable>().GetRandomItem();
-        Destroy(gameObject);
+        Destroy(gameObject, 3f);
     }
 }

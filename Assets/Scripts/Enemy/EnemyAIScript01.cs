@@ -65,6 +65,7 @@ public class EnemyAIScript01 : MonoBehaviour
 
     public void SetTarget(GameObject _target)
     {
+        if (_target == null) { return; }
         target = _target.transform;
     }
 
@@ -75,10 +76,11 @@ public class EnemyAIScript01 : MonoBehaviour
 
     IEnumerator Initialize()
     {
+        if (target == null) { Debug.LogError("target is null"); }
+
         myStats = this.gameObject.GetComponent<CharacterStat>();
 
-        if (target == null) { Debug.LogError("target is null"); }
-        targetStats = target.GetComponent<CharacterStat>();
+        if (target != null) { targetStats = target.GetComponent<CharacterStat>(); }
 
         animator = this.gameObject.GetComponentInChildren<Animator>();
         atkMng = this.gameObject.GetComponent<AtkMng>();

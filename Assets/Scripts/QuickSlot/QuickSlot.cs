@@ -47,7 +47,7 @@ public class QuickSlot : MonoBehaviour
         if (SlotCnt >= slotMax) { Debug.Log("QuickSlot is Max"); }
         Item it = itemEmpty.GetComponent<Item>();
         itemList.Insert(num, it);
-        slotImage.Regist(SlotCnt, it.spriteWeaponIcon);
+        slotImage.Regist(num, it.spriteWeaponIcon);
         isSlotEmpty[num] = true;
     }
     public void RemoveItemInNumber(int num)

@@ -4,32 +4,61 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public Transform[] spawnPoints = null;
+    public List<GameObject> enemyPool = new List<GameObject>();
 
     public GameObject enemy = null;
     public GameObject target = null;
+    public Transform[] points = null;
 
-    public float spawnTime = 3f;
+    public float spawnTime = 5f;
+    public static bool isGameOver = false;
 
     public int enemyCount = 0;
+    public int maxEnemy = 10;
 
-    // Use this for initialization
     void Start()
     {
-        InvokeRepeating("Spawn", spawnTime, spawnTime);
+        for (int i = 0; i < maxEnemy; ++i)
+        {
+            enemy = (GameObject)Instantiate(enemy);
+            enemy.name = "Enemy_" + i.ToString();
+            enemy.SetActive(false);
+            enemyPool.Add(enemy);
+        }
+
+        if (points.Length > 0)
+        {
+            StartCoroutine(CreateEnemy());
+        }
     }
 
-    private void Spawn()
+    IEnumerator CreateEnemy()
     {
-        if(spawnPoints == null) { return; }
-        if (enemyCount > 10) { return; }
+        while (!isGameOver)
+        {
+            yield return new WaitForSeconds(spawnTime);
 
-        int spawnPointIndex = Random.Range(0, spawnPoints.Length);
+            if (isGameOver) yield break;
 
-        Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
-        EnemyAIScript01 AI = enemy.GetComponent<EnemyAIScript01>();
-        AI.SetTarget(target);
+            foreach (GameObject enemy in enemyPool)
+            {
+                if (!enemy.activeSelf)
+                {
+                    int spawnPointIndex = Random.Range(0, points.Length);
+                    enemy.transform.position = points[spawnPointIndex].position;
+                    enemy.SetActive(true);
 
-        enemyCount++;
+                    EnemyAIScript01 AI = enemy.GetComponent<EnemyAIScript01>();
+                    if (target != null)
+                    {
+                        AI.SetTarget(target);
+                    }
+
+                    enemyCount++;
+                    //Debug.Log("enemyCount : " + enemyCount);
+                    break;
+                }
+            }
+        }
     }
 }

@@ -1321,7 +1321,7 @@ MonoBehaviour:
   pauseMin: 1
   pauseMax: 3
   huntingTimer: 5
-  target: {fileID: 0}
+  target: {fileID: 4783182505600290, guid: 59b7db848c5bf174d8dbea9671c41de0, type: 2}
   targetOn: 1
   playerHasBeenSeen: 0
 --- !u!114 &114523680844058200
