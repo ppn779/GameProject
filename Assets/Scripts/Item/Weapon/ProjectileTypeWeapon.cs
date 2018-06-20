@@ -22,7 +22,9 @@ public class ProjectileTypeWeapon : Weapon
         {
             //GameObject go = Instantiate<GameObject>(projectile, this.transform.position, objRot);
             //go.transform.parent = this.transform;
-            GameObject objProjectile=Instantiate<GameObject>(projectile, this.transform.position, objRot);
+            Vector3 newPos = this.transform.position;
+            newPos.y = 1f;
+            GameObject objProjectile=Instantiate<GameObject>(projectile, newPos, objRot);
             SubtractUsableCount(1);
         }
     }

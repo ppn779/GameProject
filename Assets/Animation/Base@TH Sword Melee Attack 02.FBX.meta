@@ -141,7 +141,7 @@ ModelImporter:
       - time: 0.29535863
         functionName: WeaponAttack
         data: 
-        objectReferenceParameter: {fileID: 1596400160549634, guid: 59b7db848c5bf174d8dbea9671c41de0,
+        objectReferenceParameter: {fileID: 1002236080891446, guid: 59b7db848c5bf174d8dbea9671c41de0,
           type: 2}
         floatParameter: 0
         intParameter: 0

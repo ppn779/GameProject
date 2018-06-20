@@ -15,10 +15,12 @@ public class EnemyHandTypeWeapon : Weapon
     private float waitingTimeForAtk;
     private float time;
     private bool attackSwitchOn;
+    private bool isReady = false;
 
     private void Start()
     {
         weaponMeshCtrl = GetComponentInChildren<WeaponMeshCtrl>();
+        waitingTimeForAtk=3.0f-attackSpeed;
     }
 
     private void Update()
@@ -38,11 +40,21 @@ public class EnemyHandTypeWeapon : Weapon
         this.objTr = objTr;
         time = 0.0f;
         attackSwitchOn = true;
+        if (!isReady)
+        {
+            weaponMeshCtrl.gameObject.SetActive(false);
+            float[] tmpAngle = new float[] { objTr.rotation.y - (weaponAngle / 2), objTr.rotation.y + (weaponAngle / 2) };
+            weaponMeshCtrl.makeFanShape(tmpAngle, objTr, attackRange, atkStartDist);
+
+            isReady = true;
+        }
         StartCoroutine(MakeTransformMesh());
     }
 
     private IEnumerator MakeTransformMesh()
     {
+        Debug.Log("기다리는시간: " + waitingTimeForAtk);
+        Debug.Log("시간 : " + time);
         while (waitingTimeForAtk > time)
         {
             time += Time.deltaTime;
@@ -52,13 +64,12 @@ public class EnemyHandTypeWeapon : Weapon
                 if (attackSwitchOn)
                 {
                     //Debug.Log("Start Pos   : " +atkStartPos);
-                    float[] tmpAngle = new float[] { objTr.rotation.y - (weaponAngle / 2), objTr.rotation.y + (weaponAngle / 2) };
-                    weaponMeshCtrl.makeFanShape(tmpAngle, objTr, attackRange, atkStartDist);
+                    weaponMeshCtrl.gameObject.SetActive(true);
                     attackSwitchOn = false;
                 }
                 else
                 {
-                    weaponMeshCtrl.clearShape();
+                    weaponMeshCtrl.gameObject.SetActive(false);
                 }
             }
             yield return new WaitForFixedUpdate();

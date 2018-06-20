@@ -12,6 +12,7 @@ public class EnemyStats : CharacterStat
     private AtkMng atkMng = null;
     private Weapon weapon = null;
     private NavMeshAgent nav = null;
+    private EnemyAIScript01 ai = null;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class EnemyStats : CharacterStat
         atkMng = this.gameObject.GetComponent<AtkMng>();
         weapon = this.gameObject.GetComponentInChildren<Weapon>();
         nav = this.gameObject.GetComponent<NavMeshAgent>();
+        ai = this.gameObject.GetComponent<EnemyAIScript01>();
 
         Equipment();
     }
@@ -56,12 +58,13 @@ public class EnemyStats : CharacterStat
     {
         base.Die();
         // effect
-        Debug.Log(this.gameObject.name);
+        ai.isSwitchOn = false;
         nav.isStopped = true;
-        StopAllCoroutines();
-        animator.SetBool("isDeath", true);
+        animator.SetTrigger("Death");
 
         this.GetComponent<DropTable>().GetRandomItem();
+
+        Debug.Log(this.gameObject.name);
         Destroy(gameObject, 3f);
     }
 }

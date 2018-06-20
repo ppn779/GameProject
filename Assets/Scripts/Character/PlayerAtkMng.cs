@@ -65,7 +65,7 @@ public class PlayerAtkMng : MonoBehaviour
         if (!isAtkTimerOn && isEquippedWeapon)
         {
             
-            
+          
             if (equippedWeapon.isWeaponTypeMelee)
             {
                 // 현재 낀 무기가 근접 무기일경우
@@ -73,6 +73,7 @@ public class PlayerAtkMng : MonoBehaviour
             }
             isAtkTimerOn = true;
             waitingTimeForAtk = 3.0f - atkSpeed;
+            if (waitingTimeForAtk <= 0.1f) { waitingTimeForAtk = 0.1f; }
             time = 0.0f;
             animator.SetTrigger("Attack");
         }

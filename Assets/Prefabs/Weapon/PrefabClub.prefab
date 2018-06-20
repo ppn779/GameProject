@@ -57,6 +57,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 2201df2a8a32dfd4fb404ccdc774d59b, type: 2}
   m_StaticBatchInfo:
@@ -126,11 +127,11 @@ MonoBehaviour:
   remainCount: 3
   spriteWeaponIcon: {fileID: 21300000, guid: 52c6207a3a91840d5965379c897083ca, type: 3}
   remainTime: 5
-  damage: 5
+  damage: 75
   attackSpeed: 5
   durability: 100
   usableCount: 5
+  isWeaponTypeMelee: 1
   atkStartDist: 0
   attackRange: 6
   weaponAngle: 30
-  weaponMesh: {fileID: 1893362385657426, guid: 044ef946add40d0498158919bc967327, type: 2}

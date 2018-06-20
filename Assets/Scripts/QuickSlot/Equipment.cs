@@ -68,7 +68,6 @@ public class Equipment : MonoBehaviour
                 playerAtkMng.EquippedWeapon = null;
                 playerAtkMng.IsReady = false;
                 equippedItem.transform.parent = null;
-                equippedItem.transform.parent = null;
                 equippedItem.gameObject.SetActive(false);
                 return equippedItem;
             }

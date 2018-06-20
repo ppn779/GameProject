@@ -19,8 +19,9 @@ public class ProjectileCtrl : WeaponDamage {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Player")
+        if (other.tag != "Player" && other.tag != "Weapon")
         {
+            Debug.Log(other.name);
             Destroy(this.gameObject);
         }
     }

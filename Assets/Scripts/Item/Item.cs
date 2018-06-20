@@ -11,17 +11,20 @@ public class Item : MonoBehaviour {
     
     public Item GetItemType() { return this; }
     static public Item Create(GameObject itemGo) {
+        if (itemGo == null) { Debug.LogError("itemGo is null"); }
         GameObject go = Instantiate(itemGo);
         Item it = go.AddComponent<Item>();
         return it;
     }
     static public Item Create(GameObject itemGo, Transform trParent) {
+        if (itemGo == null) { Debug.LogError("itemGo is null"); }
         GameObject go = Instantiate(itemGo , trParent);
         Item it = go.AddComponent<Item>();
         AddComponent(go);
         return it;
     }
     static public Item Create(GameObject itemGo, Vector3 pos , Quaternion rot) {
+        if (itemGo == null) { Debug.LogError("itemGo is null"); }
         GameObject go = Instantiate(itemGo, pos , rot);
         Item it = go.AddComponent<Item>();
         return it;

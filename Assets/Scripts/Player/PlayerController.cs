@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
                           //공격 애니메이션 bool값 여기서 바꿀 예정.
     {
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             playerAtkMng.Attack();
         }
