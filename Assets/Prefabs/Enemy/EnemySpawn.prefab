@@ -110,9 +110,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPool: []
-  enemy: {fileID: 1165891046193738, guid: 1344abe2092a7fe47aeb7b78138b8b23, type: 2}
+  enemy: {fileID: 1113959399987006, guid: 1344abe2092a7fe47aeb7b78138b8b23, type: 2}
   target: {fileID: 1002236080891446, guid: 59b7db848c5bf174d8dbea9671c41de0, type: 2}
-  points: []
+  points:
+  - {fileID: 4500380688538866}
+  - {fileID: 4598474285879452}
   spawnTime: 3
   enemyCount: 0
   maxEnemy: 10

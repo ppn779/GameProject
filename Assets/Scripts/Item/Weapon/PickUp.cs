@@ -37,7 +37,7 @@ public class PickUp : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Weapon"))
         {
-            Debug.Log(collider.gameObject.name + "아이템이 근처에 있다");
+            //Debug.Log(collider.gameObject.name + "아이템이 근처에 있다");
             Item it = collider.gameObject.GetComponent<Item>();
             if (it == null) { collider.gameObject.AddComponent<Item>(); }
             listAround.Add(it);
@@ -47,7 +47,7 @@ public class PickUp : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Weapon"))
         {
-            Debug.Log(collider.gameObject.name + "아이템이 근처에서 벗어났다");
+            //Debug.Log(collider.gameObject.name + "아이템이 근처에서 벗어났다");
             Item it = collider.gameObject.GetComponent<Item>();
             if (it == null) { collider.gameObject.AddComponent<Item>(); }
             listAround.Remove(it);

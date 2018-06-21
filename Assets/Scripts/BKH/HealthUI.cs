@@ -99,8 +99,8 @@ public class HealthUI : MonoBehaviour
     }
     private void DisplayHP()
     {
-        Debug.Log(stat.currentHealth + "  /  " + stat.maxHealth);
-        healthText.text = "";
-        healthText.text = stat.currentHealth + " / " + stat.maxHealth;
+        //Debug.Log(stat.currentHealth + "  /  " + stat.maxHealth);
+        //healthText.text = "";
+        //healthText.text = stat.currentHealth + " / " + stat.maxHealth;
     }
 }

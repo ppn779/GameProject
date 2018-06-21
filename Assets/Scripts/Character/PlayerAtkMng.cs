@@ -7,7 +7,7 @@ public class PlayerAtkMng : MonoBehaviour
     private Transform objTr=null;
     private Animator animator = null;
     private WeaponMeshCtrl weaponMeshCtrl = null;
-    private WeaponMeshCtrl debugWeaponMesh = null;//디버그용
+    private DebugWeaponMeshCtrl debugWeaponMesh = null;//디버그용
     private Weapon equippedWeapon = null;
     private Equipment equipment = null;
     private float atkPower = 0.0f;
@@ -28,7 +28,7 @@ public class PlayerAtkMng : MonoBehaviour
         animator = GetComponent<Animator>();
         weaponMeshCtrl = GameObject.FindGameObjectWithTag("PlayerWeaponMesh").GetComponent<WeaponMeshCtrl>();
         if (weaponMeshCtrl == null) { Debug.LogError("어택매니져 웨폰메쉬 Null"); }
-        debugWeaponMesh = GameObject.Find("DebugWeaponMesh").GetComponentInChildren<WeaponMeshCtrl>();//디버그용 지워야 하는 코드.
+        debugWeaponMesh = GameObject.Find("DebugWeaponMesh").GetComponent<DebugWeaponMeshCtrl>();//디버그용 지워야 하는 코드.
         equipment = GetComponent<Equipment>();
         if (equipment == null) { gameObject.AddComponent<Equipment>(); }
     }
@@ -177,6 +177,8 @@ public class PlayerAtkMng : MonoBehaviour
             {
                 if (attackSwitchOn)
                 {
+                    weaponMeshCtrl.transform.position = this.transform.position;
+                    weaponMeshCtrl.transform.rotation = this.transform.rotation;
                     weaponMeshCtrl.gameObject.SetActive(true);
                     attackSwitchOn = false;
                 }
