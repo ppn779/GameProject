@@ -41,6 +41,8 @@ public class InputMng : MonoBehaviour
             slot.RemoveItemMain();
             slot.AddItemMainEmpty();
             if (unequipItem != null) { Destroy(unequipItem.gameObject); }
+
+            DebugSystem.GetInstance().HideQuickSlotMain();
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -71,7 +73,7 @@ public class InputMng : MonoBehaviour
                 slot.AddItemMain(slot.ItemList[slotNumber]);
                 slot.RemoveItemInNumber(slotNumber);
                 slot.AddItem(slotNumber, itMain);
-                equipment.Equip(it);
+                equipment.Equip(it);                
             }
             else
             {
@@ -81,6 +83,8 @@ public class InputMng : MonoBehaviour
                 slot.RemoveItemInNumber(slotNumber);
                 slot.AddItemEmpty(slotNumber);
                 equipment.Equip(it);
+
+                DebugSystem.GetInstance().HideQuickSlot(slotNumber);
             }
         }
     }

@@ -1,41 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+// This Component For Player
 public class ComboSystemMng : MonoBehaviour
 {
-    GameObject playerObj = null;
-    EnemyStats[] enemies = null;
-    WeaponMeshCtrl playerWeaponMesh = null;
-    ComboUIMng comboUIMng = null;
-
+    [SerializeField] private GameObject comboTextUi = null;
+    private static ComboSystemMng instance = null;
+    private Text textUi = null; 
     private int comboCount = 0;
-    private bool resetComboCountTimer = false;
-    private float countTimer = 0.0f;
-    private void Awake()
-    {
-        playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj == null) { Debug.LogError("콤보시스템 매니져의 플레이어 오브젝트가 Null"); }
-        enemies = GameObject.FindObjectsOfType<EnemyStats>();
-        if (enemies == null) { Debug.LogError("콤보시스템 매니져의 에너미들이 NUll"); }
-        playerWeaponMesh = GameObject.FindGameObjectWithTag("PlayerWeaponMesh").GetComponentInChildren<WeaponMeshCtrl>();
-        if (playerWeaponMesh == null) { Debug.LogError("콤보시스템 매니져의 플레이어 웨폰 메쉬 Null"); }
-        comboUIMng = GetComponent<ComboUIMng>();
-        if (comboUIMng == null) { Debug.LogError("콤보유아이매니져 Null"); }
-    }
 
-    private void Update()
+    private void Start()
     {
-        if (!resetComboCountTimer && countTimer > 0)
+        if (!comboTextUi)
+            Debug.LogError("comboTextUi is Null , This var Must have GameObject what TextUI for use ComboSystem");
+        if (comboTextUi)
         {
-            countTimer -= Time.deltaTime;
+            textUi = comboTextUi.GetComponent<Text>();
+            if (!textUi)
+                Debug.LogError("textUi is Null , Maybe comboTextUi dont have Text Component");
         }
-        else if (!resetComboCountTimer && countTimer <= 0)
+    }
+    public static ComboSystemMng GetInstance()
+    {
+        if (!instance)
         {
-            comboCount = 0;
-            countTimer = 2.5f;
-            resetComboCountTimer = false;
+            instance = (ComboSystemMng)GameObject.FindObjectOfType(typeof(ComboSystemMng));
+            if (!instance)
+                Debug.LogError("instance is Null,, Can't Find GameObject what Have ComboSystemMng Component");
         }
-        comboUIMng.FollowPlayerComboPrint(playerObj.transform.position,comboCount);
+        return instance;
+    }
+    
+    public void AddCombo(int num)
+    {
+        ++comboCount;
+        textUi.text = comboCount.ToString();
     }
 }
