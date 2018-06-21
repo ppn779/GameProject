@@ -1,49 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+// This Component For Player
 public class ComboSystemMng : MonoBehaviour
 {
-    private PlayerStats playerStats;
+    [SerializeField] private GameObject comboTextUi = null;
+    private static ComboSystemMng instance = null;
+    private Text textUi = null; 
+    private int comboCount = 0;
 
-    private int count = 0;
-    private bool resetComboCountTimer = false;
-    private bool attackSuccessed = false;
-    private float countTimer = 0.0f;
-    private void Awake()
+    private void Start()
     {
-        playerStats = this.GetComponentInParent<PlayerStats>();
-    }
-
-    private void Update()
-    {
-        if (resetComboCountTimer && countTimer > 0)
+        if (!comboTextUi)
+            Debug.LogError("comboTextUi is Null , This var Must have GameObject what TextUI for use ComboSystem");
+        if (comboTextUi)
         {
-            countTimer -= Time.deltaTime;
-        }
-        else if (resetComboCountTimer && countTimer <= 0)
-        {
-            count = 0;
-            countTimer = 2.5f;
-            resetComboCountTimer = false;
+            textUi = comboTextUi.GetComponent<Text>();
+            if (!textUi)
+                Debug.LogError("textUi is Null , Maybe comboTextUi dont have Text Component");
         }
     }
-    public int Count
+    public static ComboSystemMng GetInstance()
     {
-        get
+        if (!instance)
         {
-            return count;
+            instance = (ComboSystemMng)GameObject.FindObjectOfType(typeof(ComboSystemMng));
+            if (!instance)
+                Debug.LogError("instance is Null,, Can't Find GameObject what Have ComboSystemMng Component");
         }
+        return instance;
     }
-
-    private void OnTriggerEnter(Collider other)
+    
+    public void AddCombo(int num)
     {
-        if (other.tag == "Enemy")
-        {
-            count++;
-            resetComboCountTimer = true;
-            countTimer = 2.5f;
-            playerStats.HealthUp(300);
-        }
+        ++comboCount;
+        textUi.text = comboCount.ToString();
     }
 }

@@ -5,9 +5,9 @@ using UnityEngine;
 public class QuickSlot : MonoBehaviour
 {
     [SerializeField] private GameObject itemEmpty = null;
-    private const int slotMax = 5;
+    public static int SLOTMAX = 5;
     private Transform tr = null;
-    private Item[] itemList = new Item[slotMax];
+    private Item[] itemList = new Item[SLOTMAX];
     private Item itemMain = null;
     private bool[] isSlotEmpty = null;
     private int SlotCnt = 0;
@@ -24,7 +24,7 @@ public class QuickSlot : MonoBehaviour
         SlotCnt = 0;
 
         AddItemMainEmpty();
-        for (int i = 0; i < slotMax; ++i)
+        for (int i = 0; i < SLOTMAX; ++i)
         {
             //itemList.Add(itemEmpty.GetComponent<Item>());
             AddItemEmpty(i);
@@ -33,22 +33,27 @@ public class QuickSlot : MonoBehaviour
     }
     public void AddItem(int num, Item goItem)
     {
-        if (SlotCnt >= slotMax) { Debug.Log("QuickSlot is Max : " + SlotCnt); return; }
+        if (SlotCnt >= SLOTMAX) { Debug.Log("QuickSlot is Max : " + SlotCnt); return; }
         itemList[num] = goItem;
         //itemList.Insert(num, goItem);
         isSlotEmpty[num] = false;
         slotImage.Regist(num, goItem.spriteWeaponIcon);
         ++SlotCnt;
-
+        
+        Weapon weapon = goItem.GetComponent<Weapon>();
+        DebugSystem.GetInstance().ShowQuickSlot(num, "Name : " + goItem.name + "\nDamage : " + weapon.damage + "\nAtkSpeed : " + weapon.attackSpeed + "\nDurability : " + weapon.durability + "\nRemainCnt : " + weapon.usableCount + "\nIsTypeMelee : " + weapon.isWeaponTypeMelee.ToString());
     }
     public void AddItemMain(Item goItem)
     {
         itemMain = goItem;
         slotImage.RegistMain(goItem.spriteWeaponIcon);
+
+        Weapon weapon = itemMain.GetComponent<Weapon>();
+        DebugSystem.GetInstance().ShowQuickSlotMain("Name : " + itemMain.name + "\nDamage : " + weapon.damage + "\nAtkSpeed : " + weapon.attackSpeed + "\nDurability : " + weapon.durability + "\nRemainCnt : " + weapon.usableCount + "\nIsTypeMelee : " + weapon.isWeaponTypeMelee.ToString());
     }
     public void AddItemEmpty(int num)
     {
-        if (SlotCnt >= slotMax) { Debug.Log("QuickSlot is Max"); }
+        if (SlotCnt >= SLOTMAX) { Debug.Log("QuickSlot is Max"); }
         Item it = itemEmpty.GetComponent<Item>();
         itemList[num] = it;
         slotImage.Regist(num, it.spriteWeaponIcon);
@@ -78,8 +83,8 @@ public class QuickSlot : MonoBehaviour
     public Item GetItemMain() { return itemMain; }
     public int GetEmptySlot()
     {
-        for (int i = 0; i < slotMax; ++i) { if (isSlotEmpty[i]) { return i; } }
+        for (int i = 0; i < SLOTMAX; ++i) { if (isSlotEmpty[i]) { return i; } }
         return -1;
     }
-    public bool IsCanPickUpItem() { return SlotCnt < slotMax; }
+    public bool IsCanPickUpItem() { return SlotCnt < SLOTMAX; }
 }
