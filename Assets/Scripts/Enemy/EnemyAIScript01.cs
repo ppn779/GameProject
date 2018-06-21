@@ -78,8 +78,9 @@ public class EnemyAIScript01 : MonoBehaviour
 
     IEnumerator Initialize()
     {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         if (target == null) { Debug.LogError("target is null"); }
-
+        
         myStats = this.gameObject.GetComponent<CharacterStat>();
 
         if (target != null) { targetStats = target.GetComponent<CharacterStat>(); }

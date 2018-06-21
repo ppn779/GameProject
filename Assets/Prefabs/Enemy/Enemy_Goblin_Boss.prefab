@@ -2317,10 +2317,10 @@ MonoBehaviour:
   attackSpeed: 5
   durability: 100
   usableCount: 5
+  isWeaponTypeMelee: 1
   atkStartDist: 1
   attackRange: 5
   weaponAngle: 60
-  weaponMesh: {fileID: 1893362385657426, guid: 9021c5f0d0b65de489a4284dd7646495, type: 2}
 --- !u!114 &114155897304337668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2376,6 +2376,7 @@ MonoBehaviour:
   alive: 1
   runAway: 0
   runAwayByHp: 0
+  isSwitchOn: 1
   moveableRadius: 20
   visualRadius: 12
   attackRange: 5
@@ -2391,7 +2392,7 @@ MonoBehaviour:
   pauseMin: 1
   pauseMax: 3
   huntingTimer: 5
-  target: {fileID: 4783182505600290, guid: 59b7db848c5bf174d8dbea9671c41de0, type: 2}
+  target: {fileID: 0}
   targetOn: 1
   playerHasBeenSeen: 0
 --- !u!114 &114882765798588930
@@ -2405,7 +2406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575b80410caabc345b3623f1c824cb8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiPrefab: {fileID: 1906394710654446, guid: 683790ac86a457843a87dd19328ac552, type: 2}
+  uiPrefab: {fileID: 1545045132140404, guid: 683790ac86a457843a87dd19328ac552, type: 2}
   target: {fileID: 4535061701460092}
 --- !u!114 &114900375144947152
 MonoBehaviour:
