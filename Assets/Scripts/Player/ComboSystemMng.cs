@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ComboSystemMng : MonoBehaviour
 {
@@ -19,7 +18,7 @@ public class ComboSystemMng : MonoBehaviour
         if (playerObj == null) { Debug.LogError("콤보시스템 매니져의 플레이어 오브젝트가 Null"); }
         enemies = GameObject.FindObjectsOfType<EnemyStats>();
         if (enemies == null) { Debug.LogError("콤보시스템 매니져의 에너미들이 NUll"); }
-        playerWeaponMesh = playerObj.GetComponentInChildren<WeaponMeshCtrl>();
+        playerWeaponMesh = GameObject.FindGameObjectWithTag("PlayerWeaponMesh").GetComponentInChildren<WeaponMeshCtrl>();
         if (playerWeaponMesh == null) { Debug.LogError("콤보시스템 매니져의 플레이어 웨폰 메쉬 Null"); }
         comboUIMng = GetComponent<ComboUIMng>();
         if (comboUIMng == null) { Debug.LogError("콤보유아이매니져 Null"); }

@@ -48,9 +48,9 @@ public class EnemyStats : CharacterStat
         if (other.tag == opponentObjAtkTagName)
         {
             CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
-            PlayerAtkMng playerAtkMng = other.GetComponentInParent<PlayerAtkMng>();
+            WeaponDamage weaponDamage = other.GetComponent<WeaponDamage>();
             //Debug.Log("데미지 : " + playerAtkMng.AtkPower);
-            objStat.TakeDamage(playerAtkMng.AtkPower);
+            objStat.TakeDamage(weaponDamage.AtkPow);
         }
     }
 

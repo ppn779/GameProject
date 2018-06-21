@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerAtkMng : MonoBehaviour
 {
-    private Transform objTr;
-    private Animator animator;
-    private WeaponMeshCtrl weaponMeshCtrl;
-    private Weapon equippedWeapon;
+    private Transform objTr=null;
+    private Animator animator = null;
+    private WeaponMeshCtrl weaponMeshCtrl = null;
+    private WeaponMeshCtrl debugWeaponMesh = null;//디버그용
+    private Weapon equippedWeapon = null;
     private Equipment equipment = null;
     private float atkPower = 0.0f;
     private float atkSpeed = 0.0f;
@@ -25,7 +26,9 @@ public class PlayerAtkMng : MonoBehaviour
     {
         objTr = this.transform;
         animator = GetComponent<Animator>();
-        weaponMeshCtrl = GetComponentInChildren<WeaponMeshCtrl>();
+        weaponMeshCtrl = GameObject.FindGameObjectWithTag("PlayerWeaponMesh").GetComponent<WeaponMeshCtrl>();
+        if (weaponMeshCtrl == null) { Debug.LogError("어택매니져 웨폰메쉬 Null"); }
+        debugWeaponMesh = GameObject.Find("DebugWeaponMesh").GetComponentInChildren<WeaponMeshCtrl>();//디버그용 지워야 하는 코드.
         equipment = GetComponent<Equipment>();
         if (equipment == null) { gameObject.AddComponent<Equipment>(); }
     }
@@ -115,6 +118,14 @@ public class PlayerAtkMng : MonoBehaviour
         }
     }
 
+    public void MakeDebugWeaponMesh()//삭제해야 함.
+    {
+        float[] tmpAngle = new float[] { objTr.rotation.y - (equippedWeapon.WeaponAngle / 2), objTr.rotation.y + (equippedWeapon.WeaponAngle / 2) };
+        debugWeaponMesh.makeFanShape(tmpAngle, objTr, equippedWeapon.AtkRangeDist, equippedWeapon.AtkStartDist);//디버그용
+        debugWeaponMesh.gameObject.SetActive(false);
+        debugWeaponMesh.gameObject.SetActive(true);//디버그용
+    }
+
     private void WeaponAttack()
     {
         Debug.Log("웨폰어택 실행");
@@ -147,6 +158,7 @@ public class PlayerAtkMng : MonoBehaviour
             float[] tmpAngle = new float[] { objTr.rotation.y - (equippedWeapon.WeaponAngle / 2), objTr.rotation.y + (equippedWeapon.WeaponAngle / 2) };
             weaponMeshCtrl.gameObject.SetActive(false);
             weaponMeshCtrl.makeFanShape(tmpAngle, objTr, equippedWeapon.AtkRangeDist, equippedWeapon.AtkStartDist);
+           
             isReady = true;
         }
         //else

@@ -12,6 +12,7 @@ TagManager:
   - LifeGageBar
   - ComboText
   - UI Mng
+  - DebugText
   layers:
   - Default
   - TransparentFX
