@@ -53,8 +53,6 @@ public class EnemyHandTypeWeapon : Weapon
 
     private IEnumerator MakeTransformMesh()
     {
-        Debug.Log("기다리는시간: " + waitingTimeForAtk);
-        Debug.Log("시간 : " + time);
         while (waitingTimeForAtk > time)
         {
             time += Time.deltaTime;
