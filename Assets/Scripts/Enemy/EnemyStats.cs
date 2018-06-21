@@ -13,8 +13,7 @@ public class EnemyStats : CharacterStat
     private Weapon weapon = null;
     private NavMeshAgent nav = null;
     private EnemyAIScript01 ai = null;
-    private CharacterStat myStat = null;
-    
+
     private void Start()
     {
         animator = this.gameObject.GetComponentInChildren<Animator>();
@@ -22,7 +21,6 @@ public class EnemyStats : CharacterStat
         weapon = this.gameObject.GetComponentInChildren<Weapon>();
         nav = this.gameObject.GetComponent<NavMeshAgent>();
         ai = this.gameObject.GetComponent<EnemyAIScript01>();
-        myStat = this.gameObject.GetComponent<CharacterStat>();
 
         Equipment();
     }
@@ -49,9 +47,10 @@ public class EnemyStats : CharacterStat
         if (opponentObjAtkTagName == null) { Debug.LogError("WeaponTag Name is null"); }
         if (other.tag == opponentObjAtkTagName)
         {
-            PlayerAtkMng playerAtkMng = other.GetComponentInParent<PlayerAtkMng>();
+            CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
+            WeaponDamage weaponDamage = other.GetComponent<WeaponDamage>();
             //Debug.Log("데미지 : " + playerAtkMng.AtkPower);
-            myStat.TakeDamage(playerAtkMng.AtkPower);
+            objStat.TakeDamage(weaponDamage.AtkPow);
         }
     }
 
@@ -66,6 +65,6 @@ public class EnemyStats : CharacterStat
         this.GetComponent<DropTable>().GetRandomItem();
 
         Debug.Log(this.gameObject.name);
-        Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length + 1);
+        Destroy(gameObject, 3f);
     }
 }

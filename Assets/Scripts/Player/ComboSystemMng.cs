@@ -4,46 +4,38 @@ using UnityEngine;
 
 public class ComboSystemMng : MonoBehaviour
 {
-    private PlayerStats playerStats;
+    GameObject playerObj = null;
+    EnemyStats[] enemies = null;
+    WeaponMeshCtrl playerWeaponMesh = null;
+    ComboUIMng comboUIMng = null;
 
-    private int count = 0;
+    private int comboCount = 0;
     private bool resetComboCountTimer = false;
-    private bool attackSuccessed = false;
     private float countTimer = 0.0f;
     private void Awake()
     {
-        playerStats = this.GetComponentInParent<PlayerStats>();
+        playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj == null) { Debug.LogError("콤보시스템 매니져의 플레이어 오브젝트가 Null"); }
+        enemies = GameObject.FindObjectsOfType<EnemyStats>();
+        if (enemies == null) { Debug.LogError("콤보시스템 매니져의 에너미들이 NUll"); }
+        playerWeaponMesh = GameObject.FindGameObjectWithTag("PlayerWeaponMesh").GetComponentInChildren<WeaponMeshCtrl>();
+        if (playerWeaponMesh == null) { Debug.LogError("콤보시스템 매니져의 플레이어 웨폰 메쉬 Null"); }
+        comboUIMng = GetComponent<ComboUIMng>();
+        if (comboUIMng == null) { Debug.LogError("콤보유아이매니져 Null"); }
     }
 
     private void Update()
     {
-        if (resetComboCountTimer && countTimer > 0)
+        if (!resetComboCountTimer && countTimer > 0)
         {
             countTimer -= Time.deltaTime;
         }
-        else if (resetComboCountTimer && countTimer <= 0)
+        else if (!resetComboCountTimer && countTimer <= 0)
         {
-            count = 0;
+            comboCount = 0;
             countTimer = 2.5f;
             resetComboCountTimer = false;
         }
-    }
-    public int Count
-    {
-        get
-        {
-            return count;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Enemy")
-        {
-            count++;
-            resetComboCountTimer = true;
-            countTimer = 2.5f;
-            playerStats.HealthUp(300);
-        }
+        comboUIMng.FollowPlayerComboPrint(playerObj.transform.position,comboCount);
     }
 }

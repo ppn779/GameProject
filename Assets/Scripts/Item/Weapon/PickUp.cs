@@ -22,7 +22,8 @@ public class PickUp : MonoBehaviour
     {
         foreach (Item item in listAround)
         {
-            if (Vector3.Distance(pos, item.transform.position) < PICKUP_RANGE)
+            
+            if (item != null && Vector3.Distance(pos, item.transform.position) < PICKUP_RANGE)
             {
                 IsExistAroundItem = true;
                 pickupItem = item;

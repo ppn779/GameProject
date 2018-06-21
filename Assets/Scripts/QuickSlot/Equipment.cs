@@ -50,6 +50,7 @@ public class Equipment : MonoBehaviour
                 playerAtkMng.AtkSpeed += equippedItem.attackSpeed;
                 playerAtkMng.IsEquippedWeapon = isEquipWeapon;
                 playerAtkMng.EquippedWeapon = equippedItem;
+                playerAtkMng.MakeDebugWeaponMesh();//디버그용
             }
         }
     }
