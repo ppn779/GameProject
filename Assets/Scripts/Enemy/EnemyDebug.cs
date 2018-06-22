@@ -41,9 +41,14 @@ public class EnemyDebug : MonoBehaviour
 
     private void DisplayHP()
     {
+        if (enemyText == null)
+        {
+            return;
+        }
+
         enemyText.text = ("HP : " + stat.currentHealth + " / " + stat.maxHealth +
                           "\nStatus\n" + "Range : " + enemy.attackRange +
-                          "\nAttackTime : " +enemy.attackTime);
+                          "\nAttackTime : " + enemy.attackTime);
         enemyText.fontSize = 14;
         enemyText.color = Color.red;
         enemyText.fontStyle = FontStyle.Bold;
@@ -51,7 +56,7 @@ public class EnemyDebug : MonoBehaviour
 
         enemyText.transform.position = new Vector3(pos.x, pos.y, pos.z);
 
-        if(stat.currentHealth <= 0)
+        if (stat.currentHealth <= 0)
         {
             Destroy(enemyText);
         }
