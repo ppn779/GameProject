@@ -64,7 +64,6 @@ public class EnemyStats : CharacterStat
 
         this.GetComponent<DropTable>().GetRandomItem();
 
-        Debug.Log(this.gameObject.name);
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length + 1);
     }
 }

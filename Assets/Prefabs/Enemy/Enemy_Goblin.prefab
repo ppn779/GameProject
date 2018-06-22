@@ -466,6 +466,7 @@ GameObject:
   - component: {fileID: 114556231114785766}
   - component: {fileID: 114374343309510972}
   - component: {fileID: 114960300042129014}
+  - component: {fileID: 114122582204974484}
   m_Layer: 0
   m_Name: Enemy_Goblin
   m_TagString: Enemy
@@ -2387,6 +2388,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114122582204974484
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1344928656480258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f409e1d8bfafbe44a2fe62a4f07a3bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textPrefab: {fileID: 1246682396083508, guid: b1a39d66d66c61446a64e43e82a771e3, type: 2}
+  target: {fileID: 4605063461633638}
+  textTr: {fileID: 4605063461633638}
 --- !u!114 &114244694787770744
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2534,8 +2549,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiPrefab: {fileID: 1370459759072142, guid: 683790ac86a457843a87dd19328ac552, type: 2}
-  debugPrefab: {fileID: 1087215214993724, guid: 913d979cff41ade4ea705df9f96c180b,
-    type: 2}
   target: {fileID: 4605063461633638}
 --- !u!136 &136066385727429756
 CapsuleCollider:

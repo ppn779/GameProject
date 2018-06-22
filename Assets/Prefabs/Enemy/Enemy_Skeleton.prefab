@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 114087397933719054}
   - component: {fileID: 114576293719820206}
   - component: {fileID: 136472473548491072}
-  - component: {fileID: 114084151174100054}
+  - component: {fileID: 114697359685849504}
   m_Layer: 0
   m_Name: Enemy_Skeleton
   m_TagString: Enemy
@@ -1381,17 +1381,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e30577513cac4054bb471a72d53bb6ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114084151174100054
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1113959399987006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed3d285be46406e4b89b59668b90f83a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114087397933719054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1476,8 +1465,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiPrefab: {fileID: 1370459759072142, guid: 683790ac86a457843a87dd19328ac552, type: 2}
-  debugPrefab: {fileID: 1087215214993724, guid: 913d979cff41ade4ea705df9f96c180b,
-    type: 2}
   target: {fileID: 4060426864131352}
 --- !u!114 &114588512136837780
 MonoBehaviour:
@@ -1523,6 +1510,20 @@ MonoBehaviour:
   - name: bow
     item: {fileID: 1295213387744814, guid: b86e5358337f47245bc6cb30e338080d, type: 2}
     dropDice: 0.5
+--- !u!114 &114697359685849504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1113959399987006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f409e1d8bfafbe44a2fe62a4f07a3bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textPrefab: {fileID: 1246682396083508, guid: b1a39d66d66c61446a64e43e82a771e3, type: 2}
+  target: {fileID: 4060426864131352}
+  textTr: {fileID: 4060426864131352}
 --- !u!114 &114771354371536092
 MonoBehaviour:
   m_ObjectHideFlags: 1
