@@ -11,6 +11,7 @@ public class ComboSystemMng : MonoBehaviour
     [SerializeField] private GameObject comboUiText = null;
     [SerializeField] private GameObject comboUiBar = null;
     public const float comboTimeDefault = 4f;
+    private const float textUiHeight = 4f;
     private static ComboSystemMng instance = null;
     private Transform tr = null;
     private RectTransform comboUiTextRct = null;
@@ -65,12 +66,19 @@ public class ComboSystemMng : MonoBehaviour
         {
             Vector2 vecSize = comboUiBarRctOver.sizeDelta;
             Vector3 newPos = tr.position;
+            float remainTime = (comboCurTime / comboMaxTime);
 
             comboCurTime -= fps60;
-            newPos.y += 4f;
+            newPos.y += textUiHeight;
             comboUiTextRct.position = Camera.main.WorldToScreenPoint(newPos);
-            vecSize.y = (comboCurTime / comboMaxTime) * 100f;
+            vecSize.y = remainTime * 100f;
             comboUiBarRctOver.sizeDelta = vecSize;
+            if (remainTime > 0.6f)
+                imageUiOver.color = Color.green;
+            else if (remainTime > 0.3f)
+                imageUiOver.color = Color.yellow;
+            else
+                imageUiOver.color = Color.red;
             yield return new WaitForSeconds(fps60);
         }
         SetTextCount(0);
