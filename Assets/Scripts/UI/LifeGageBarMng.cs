@@ -23,6 +23,7 @@ public class LifeGageBarMng : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        Debug.Log(this.gameObject);
         lifeGageBar = GameObject.FindGameObjectWithTag("LifeGageBar");
         playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
         //enemies = GameObject.FindGameObjectsWithTag("Enemy");

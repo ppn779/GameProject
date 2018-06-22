@@ -14,10 +14,15 @@ public class PlayerStats : CharacterStat {
     public float customSec = 0.0f;
     private float elapsedTime = 0.0f;
 
+    private void Start()
+    {
+        currentHealth = maxHealth;
+    }
     private void Update()
     {
         //Debug.Log("커스톰시간 : "+customSec);
         //Debug.Log("지나간시간 : " + elapsedTime);
+        Debug.Log(elapsedTime);
         if (elapsedTime > customSec)
         {
             if (currentHealth > 0)
