@@ -51,6 +51,8 @@ public class EnemyStats : CharacterStat
             WeaponDamage weaponDamage = other.GetComponent<WeaponDamage>();
             //Debug.Log("데미지 : " + playerAtkMng.AtkPower);
             objStat.TakeDamage(weaponDamage.AtkPow);
+
+            ComboSystemMng.GetInstance().AddCombo(1);
         }
     }
 

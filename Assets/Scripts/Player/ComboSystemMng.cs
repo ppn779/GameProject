@@ -4,24 +4,40 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // This Component For Player
+// comboUiText is only use GUI Text GameObject
+// comboUiBar is only use GUI Image GameObject
 public class ComboSystemMng : MonoBehaviour
 {
-    [SerializeField] private GameObject comboTextUi = null;
+    [SerializeField] private GameObject comboUiText = null;
+    [SerializeField] private GameObject comboUiBar = null;
+    public const float comboTimeDefault = 4f;
     private static ComboSystemMng instance = null;
-    private Text textUi = null; 
+    private Transform tr = null;
+    private RectTransform comboUiTextRct = null;
+    private RectTransform comboUiBarRctOver = null;
+    private Text textUi = null;
     private int comboCount = 0;
+    private float comboMaxTime = comboTimeDefault;
+    private float comboCurTime = comboTimeDefault;
 
     private void Start()
     {
-        if (!comboTextUi)
-            Debug.LogError("comboTextUi is Null , This var Must have GameObject what TextUI for use ComboSystem");
-        if (comboTextUi)
+        tr = this.transform;
+        if (!comboUiText)
+            Debug.LogError("comboUiText is Null , This var Must have GameObject what TextUI for use ComboSystem");
+        if (!comboUiBar)
+            Debug.LogError("comboUiBar is NULL , This var Must have GameObject what BarUI for use ComboSystem");
+        if (comboUiText)
         {
-            textUi = comboTextUi.GetComponent<Text>();
+            textUi = comboUiText.GetComponent<Text>();
             if (!textUi)
                 Debug.LogError("textUi is Null , Maybe comboTextUi dont have Text Component");
+            comboUiTextRct = comboUiText.GetComponent<RectTransform>();
+            comboUiBarRctOver = comboUiBar.GetComponent<RectTransform>();
         }
+        StartCoroutine(CoroutineReduceLife());
     }
+
     public static ComboSystemMng GetInstance()
     {
         if (!instance)
@@ -36,6 +52,31 @@ public class ComboSystemMng : MonoBehaviour
     public void AddCombo(int num)
     {
         ++comboCount;
-        textUi.text = comboCount.ToString();
+        SetTextCount(comboCount);
+        comboCurTime = comboMaxTime;
+    }
+    private IEnumerator CoroutineReduceLife()
+    {
+        float fps60 = 1 / 60f;
+        Image imageUiOver = comboUiBarRctOver.GetComponent<Image>();
+        if (!imageUiOver)   
+            Debug.LogError("imageUiOver is NULL,,");
+        while (comboCurTime > 0f)
+        {
+            Vector2 vecSize = comboUiBarRctOver.sizeDelta;
+            Vector3 newPos = tr.position;
+
+            comboCurTime -= fps60;
+            newPos.y += 4f;
+            comboUiTextRct.position = Camera.main.WorldToScreenPoint(newPos);
+            vecSize.y = (comboCurTime / comboMaxTime) * 100f;
+            comboUiBarRctOver.sizeDelta = vecSize;
+            yield return new WaitForSeconds(fps60);
+        }
+        SetTextCount(0);
+    }
+    private void SetTextCount(int num)
+    {
+        textUi.text = "Combo " + num.ToString();
     }
 }
