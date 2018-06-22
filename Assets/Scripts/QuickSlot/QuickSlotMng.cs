@@ -43,7 +43,10 @@ public class QuickSlotMng : MonoBehaviour
         {
             Debug.Log("파괴되었다");
             Item itMainTemp = slot.GetItemMain();
-            equipment.IsEquipWeapon = false;
+            //Weapon weaponMainTemp = itMainTemp.GetComponent<Weapon>();
+            //if (!weaponMainTemp)
+            //    Debug.LogError("weaponMainTemp is NULL,,");
+            equipment.UnEquip();
             slot.RemoveItemMain();
             itMainTemp.DestroyItem();
         }

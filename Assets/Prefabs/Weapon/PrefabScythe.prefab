@@ -113,14 +113,14 @@ MonoBehaviour:
   remainCount: 3
   spriteWeaponIcon: {fileID: 21300000, guid: de5c268255c1a45e2a61cf6f21cd2c9e, type: 3}
   remainTime: 5
-  damage: 120
-  attackSpeed: 2.9
+  damage: 60
+  attackSpeed: 2
   durability: 100
   usableCount: 5
   isWeaponTypeMelee: 1
   atkStartDist: 0
-  attackRange: 7
-  weaponAngle: 160
+  attackRange: 2
+  weaponAngle: 80
 --- !u!114 &114190360349403438
 MonoBehaviour:
   m_ObjectHideFlags: 1

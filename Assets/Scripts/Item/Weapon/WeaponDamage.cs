@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponDamage : MonoBehaviour {
 
-    protected float atkPow;
+    protected float atkPow=0.0f;
 
     public float AtkPow
     {

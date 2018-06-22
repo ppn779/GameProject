@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
                           //공격 애니메이션 bool값 여기서 바꿀 예정.
     {
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             playerAtkMng.Attack();
         }
@@ -101,12 +101,12 @@ public class PlayerController : MonoBehaviour
     {
         //카메라에서 마우스 포지션으로 Ray 발사
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+        
 
         RaycastHit floorHit;
 
 
-        if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
+        if (Physics.Raycast(camRay, out floorHit, camRayLength , floorMask))
         {
             //플레이어와 마우스의 거리 값 구함.
             Vector3 playerToMouse = floorHit.point - transform.position;

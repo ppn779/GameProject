@@ -30,11 +30,7 @@ public class DebugWeaponMeshCtrl : WeaponDamage
         this.transform.position = player.transform.position;
         this.transform.rotation = player.transform.rotation;
     }
-    private void Update()
-    {
-        this.transform.position = player.transform.position;
-        this.transform.rotation = player.transform.rotation;
-    }
+   
     public void clearShape()
     {
         //Debug.Log("실행");
@@ -45,11 +41,11 @@ public class DebugWeaponMeshCtrl : WeaponDamage
         meshCollider.enabled = true;
     }
 
-    public void makeFanShape(float[] angle, Transform objTr, float atkRangeDist, float atkStartDist)
+    public void makeFanShape(float[] angle, Transform objTr, float atkRangeDist) //float atkStartDist)
     {
-        this.transform.position = objTr.position;
-        this.transform.rotation = objTr.rotation;
-        Vector3 pos = objTr.position + (objTr.forward * atkStartDist);
+    //    Debug
+    //    this.transform.position = objTr.position+(objTr.forward * atkStartDist);
+    //    this.transform.rotation = objTr.rotation;
         float startAngle; //원의 시작 각도.
         float endAngle;   //원의 종료 각도.
         float pieceAngle = PIECE_ANGLE; // 1폴러긴의 각도(원의 완만함).
