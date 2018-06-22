@@ -57,6 +57,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 020501fe7719a0442b131c251c58af70, type: 2}
   m_StaticBatchInfo:
@@ -112,11 +113,12 @@ MonoBehaviour:
   remainCount: 3
   spriteWeaponIcon: {fileID: 21300000, guid: 7b13ac1b811a543668d526c779baef66, type: 3}
   remainTime: 5
-  damage: 10
+  damage: 30
   attackSpeed: 5
   durability: 100
-  usableCount: 5
-  projectile: {fileID: 1941739627128864, guid: 47e9ffa2bf11a9941b0fed96068ac541, type: 2}
+  usableCount: 30
+  isWeaponTypeMelee: 0
+  projectile: {fileID: 1941739627128864, guid: ec1aaa1385537334e9c4779f523cf6a3, type: 2}
 --- !u!114 &114526594216889282
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -31,20 +31,28 @@ public class PlayerAtkMng : MonoBehaviour
         debugWeaponMesh = GameObject.Find("DebugWeaponMesh").GetComponent<DebugWeaponMeshCtrl>();//디버그용 지워야 하는 코드.
         equipment = GetComponent<Equipment>();
         if (equipment == null) { gameObject.AddComponent<Equipment>(); }
+
+        weaponMeshCtrl.gameObject.SetActive(false);
     }
 
     private void Update()
     {
         if (isAtkTimerOn && waitingTimeForAtk > time)
         {
+            //Debug.Log("웨이팅타임" + waitingTimeForAtk);
+            //Debug.Log("시간" + time);
             time += Time.deltaTime;
         }
-
         else
         {
             isAtkTimerOn = false;
         }
 
+        if (equippedWeapon !=  null)//디버그용 조건문. 다 지워야 함.
+        {
+            debugWeaponMesh.transform.position = this.transform.position + (this.transform.forward * equippedWeapon.AtkStartDist);
+            debugWeaponMesh.transform.rotation = this.transform.rotation;
+        }
     }
 
     public bool IsReady
@@ -67,16 +75,22 @@ public class PlayerAtkMng : MonoBehaviour
     {
         if (!isAtkTimerOn && isEquippedWeapon)
         {
-            
-          
-            if (equippedWeapon.isWeaponTypeMelee)
+                   
+            if (!isReady)
             {
-                // 현재 낀 무기가 근접 무기일경우
-                SetForMeleeAtk();
+                if (equippedWeapon.isWeaponTypeMelee)
+                {
+                    // 현재 낀 무기가 근접 무기일경우
+                    SetForMeleeAtk();
+                }
+
+                waitingTimeForAtk = 3.0f - atkSpeed;
+                Debug.Log(waitingTimeForAtk);
+                if (waitingTimeForAtk <= 0.1f) { waitingTimeForAtk = 0.1f; }
+                isReady = true;
             }
             isAtkTimerOn = true;
-            waitingTimeForAtk = 3.0f - atkSpeed;
-            if (waitingTimeForAtk <= 0.1f) { waitingTimeForAtk = 0.1f; }
+            
             time = 0.0f;
             animator.SetTrigger("Attack");
         }
@@ -121,7 +135,7 @@ public class PlayerAtkMng : MonoBehaviour
     public void MakeDebugWeaponMesh()//삭제해야 함.
     {
         float[] tmpAngle = new float[] { objTr.rotation.y - (equippedWeapon.WeaponAngle / 2), objTr.rotation.y + (equippedWeapon.WeaponAngle / 2) };
-        debugWeaponMesh.makeFanShape(tmpAngle, objTr, equippedWeapon.AtkRangeDist, equippedWeapon.AtkStartDist);//디버그용
+        debugWeaponMesh.makeFanShape(tmpAngle, objTr, equippedWeapon.AtkRangeDist);//디버그용
         debugWeaponMesh.gameObject.SetActive(false);
         debugWeaponMesh.gameObject.SetActive(true);//디버그용
     }
@@ -129,55 +143,39 @@ public class PlayerAtkMng : MonoBehaviour
     private void WeaponAttack()
     {
         Debug.Log("웨폰어택 실행");
-        time = 0.0f;
         attackSwitchOn = true;
-        if (equippedWeapon.isWeaponTypeMelee)
+        if (equippedWeapon != null)
         {
-            StartCoroutine(MeshActivation());
-        }
-        else
-        {
-            equippedWeapon.Attack(this.transform,atkPower);
+            if (equippedWeapon.isWeaponTypeMelee)
+            {
+                StartCoroutine(MeshActivation());
+            }
+            else
+            {
+                equippedWeapon.Attack(this.transform, atkPower);
+            }
         }
     }
 
     private void SetForMeleeAtk()
     {
-        //while (waitingTimeForAtk > time)
-        //{
-        //    time += Time.deltaTime;
-        //    //콜리전에 사용할 Mesh를 만든다.
-        //if (weaponMeshCtrl != null)
-        //{
-        if (!isReady)
-        {
             Debug.Log("메쉬 만듬");
             weaponMeshCtrl.AtkPow = this.atkPower;
             //Debug.Log("Start Pos   : " +atkStartPos);
             if (weaponMeshCtrl == null) { Debug.LogError("웨폰메쉬컨트롤 Null"); }
             float[] tmpAngle = new float[] { objTr.rotation.y - (equippedWeapon.WeaponAngle / 2), objTr.rotation.y + (equippedWeapon.WeaponAngle / 2) };
-            weaponMeshCtrl.gameObject.SetActive(false);
-            weaponMeshCtrl.makeFanShape(tmpAngle, objTr, equippedWeapon.AtkRangeDist, equippedWeapon.AtkStartDist);
-           
-            isReady = true;
-        }
-        //else
-        //{
-        //    weaponMeshCtrl.clearShape();
-        //}
-        //}
-        //}
+            weaponMeshCtrl.makeFanShape(tmpAngle, objTr, equippedWeapon.AtkRangeDist);
+        
     }
 
     private IEnumerator MeshActivation()
     {
         while (waitingTimeForAtk > time)
         {
-            time += Time.deltaTime;
             {
                 if (attackSwitchOn)
                 {
-                    weaponMeshCtrl.transform.position = this.transform.position;
+                    weaponMeshCtrl.transform.position = this.transform.position+ (this.transform.forward * equippedWeapon.AtkStartDist);
                     weaponMeshCtrl.transform.rotation = this.transform.rotation;
                     weaponMeshCtrl.gameObject.SetActive(true);
                     attackSwitchOn = false;

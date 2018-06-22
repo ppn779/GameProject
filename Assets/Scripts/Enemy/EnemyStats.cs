@@ -49,7 +49,7 @@ public class EnemyStats : CharacterStat
         {
             CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
             WeaponDamage weaponDamage = other.GetComponent<WeaponDamage>();
-            //Debug.Log("데미지 : " + playerAtkMng.AtkPower);
+            Debug.Log("데미지 : " + weaponDamage.AtkPow);
             objStat.TakeDamage(weaponDamage.AtkPow);
         }
     }
