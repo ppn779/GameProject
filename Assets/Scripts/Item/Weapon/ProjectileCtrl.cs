@@ -19,9 +19,9 @@ public class ProjectileCtrl : WeaponDamage {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Player" && other.tag != "Weapon")
+        if (other.tag != "Weapon")
         {
-            Debug.Log(other.name);
+            Debug.Log("발사체 충돌 = "+other.name);
             Destroy(this.gameObject);
         }
     }
