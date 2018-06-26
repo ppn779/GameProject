@@ -33,23 +33,32 @@ public class QuickSlot : MonoBehaviour
     }
     public void AddItem(int num, Item goItem)
     {
-        if (SlotCnt >= SLOTMAX) { Debug.Log("QuickSlot is Max : " + SlotCnt); return; }
+        if (SlotCnt >= SLOTMAX)
+        {
+            Debug.Log("QuickSlot is Max : " + SlotCnt);
+            return;
+        }
+            
+        Weapon weapon = goItem.GetComponent<Weapon>();
         itemList[num] = goItem;
         //itemList.Insert(num, goItem);
         isSlotEmpty[num] = false;
         slotImage.Regist(num, goItem.spriteWeaponIcon);
+        slotImage.SetColor(num, weapon.SlotColor);
+        
         ++SlotCnt;
         
-        Weapon weapon = goItem.GetComponent<Weapon>();
-        DebugSystem.GetInstance().ShowQuickSlot(num, "Name : " + goItem.name + "\nDamage : " + weapon.damage + "\nAtkSpeed : " + weapon.attackSpeed + "\nDurability : " + weapon.durability + "\nRemainCnt : " + weapon.usableCount + "\nIsTypeMelee : " + weapon.isWeaponTypeMelee.ToString());
+        DebugSystem.GetInstance().ShowQuickSlot(num, "Name : " + goItem.name + "\nDamage : " + weapon.damage + "\nAtkSpeed : " + weapon.attackSpeed + "\nDurability : " + weapon.durabilityCur + "\nRemainCnt : " + weapon.usableCount + "\nIsTypeMelee : " + weapon.isWeaponTypeMelee.ToString());
     }
     public void AddItemMain(Item goItem)
     {
+        Weapon weapon = goItem.GetComponent<Weapon>();
         itemMain = goItem;
+        Debug.Log(weapon.SlotColor);
         slotImage.RegistMain(goItem.spriteWeaponIcon);
-
-        Weapon weapon = itemMain.GetComponent<Weapon>();
-        DebugSystem.GetInstance().ShowQuickSlotMain("Name : " + itemMain.name + "\nDamage : " + weapon.damage + "\nAtkSpeed : " + weapon.attackSpeed + "\nDurability : " + weapon.durability + "\nRemainCnt : " + weapon.usableCount + "\nIsTypeMelee : " + weapon.isWeaponTypeMelee.ToString());
+        slotImage.SetColorMain(weapon.SlotColor);
+        
+        DebugSystem.GetInstance().ShowQuickSlotMain("Name : " + itemMain.name + "\nDamage : " + weapon.damage + "\nAtkSpeed : " + weapon.attackSpeed + "\nDurability : " + weapon.durabilityCur + "\nRemainCnt : " + weapon.usableCount + "\nIsTypeMelee : " + weapon.isWeaponTypeMelee.ToString());
     }
     public void AddItemEmpty(int num)
     {
@@ -68,15 +77,16 @@ public class QuickSlot : MonoBehaviour
     public void RemoveItemInNumber(int num)
     {
         Item it = itemList[num];
+        slotImage.SetColor(num, Color.white);
         slotImage.RemoveAt(num);
         itemList[num] = null;
-        //itemList.Insert(num, itemEmpty.GetComponent<Item>());
         isSlotEmpty[num] = true;
         --SlotCnt;
     }
     public void RemoveItemMain()
     {
         slotImage.RemoveMain();
+        slotImage.SetColorMain(Color.white);
         itemMain = null;
     }
     public Item GetItemListNumber(int num) { return itemList[num]; }

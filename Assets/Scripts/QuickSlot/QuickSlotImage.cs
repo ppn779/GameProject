@@ -20,12 +20,12 @@ public class QuickSlotImage : MonoBehaviour
 
     private void Awake()
     {
-        if (slot0 != null) { imageSlot0 = slot0.GetComponent<Image>(); }
-        if (slot1 != null) { imageSlot1 = slot1.GetComponent<Image>(); }
-        if (slot2 != null) { imageSlot2 = slot2.GetComponent<Image>(); }
-        if (slot3 != null) { imageSlot3 = slot3.GetComponent<Image>(); }
-        if (slot4 != null) { imageSlot4 = slot4.GetComponent<Image>(); }
-        if (slotMain != null) { imageSlotMain = slotMain.GetComponent<Image>(); }
+        if (slot0 != null) imageSlot0 = slot0.GetComponent<Image>();
+        if (slot1 != null) imageSlot1 = slot1.GetComponent<Image>();
+        if (slot2 != null) imageSlot2 = slot2.GetComponent<Image>();
+        if (slot3 != null) imageSlot3 = slot3.GetComponent<Image>();
+        if (slot4 != null) imageSlot4 = slot4.GetComponent<Image>();
+        if (slotMain != null) imageSlotMain = slotMain.GetComponent<Image>();
     }
     public void Regist(int slotNum, Sprite spriteImage)
     {
@@ -53,6 +53,52 @@ public class QuickSlotImage : MonoBehaviour
     {
         imageSlotMain.sprite = spriteImage;
     }
+    public void SetColor(int slotNum , Color color)
+    {
+        switch (slotNum)
+        {
+            case 0:
+                imageSlot0.color = color;
+                break;
+            case 1:
+                imageSlot1.color = color;
+                break;
+            case 2:
+                imageSlot2.color = color;
+                break;
+            case 3:
+                imageSlot3.color = color;
+                break;
+            case 4:
+                imageSlot4.color = color;
+                break;
+        }
+    }
+    public void SetColorMain(Color color)
+    {
+        imageSlotMain.color = color;
+    }
+    public Color GetColor(int slotNum)
+    {
+        switch (slotNum)
+        {
+            case 0:
+                return imageSlot0.color;
+            case 1:
+                return imageSlot1.color;
+            case 2:
+                return imageSlot2.color;
+            case 3:
+                return imageSlot3.color;
+            case 4:
+                return imageSlot4.color;
+        }
+        return Color.black;
+    }
+    public Color GetColorMain()
+    {
+        return imageSlotMain.color;
+    }
     public void RemoveAt(int slotNum)
     {
         switch (slotNum)
@@ -63,7 +109,6 @@ public class QuickSlotImage : MonoBehaviour
             case 3: imageSlot3.sprite = null; break;
             case 4: imageSlot4.sprite = null; break;
         }
-
     }
     public void RemoveMain()
     {

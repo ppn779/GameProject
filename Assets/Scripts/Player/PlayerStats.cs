@@ -10,31 +10,10 @@ public class PlayerStats : CharacterStat {
     private float movementSpeed = 0f;
     [SerializeField]
     private float resistance = 0f;//저항력
-    public float downLifeValueForCustomSec = 0.0f;//정해진 초당 체력을 깍는 수치
-    public float customSec = 0.0f;
-    private float elapsedTime = 0.0f;
 
     private void Start()
     {
         currentHealth = maxHealth;
-    }
-    private void Update()
-    {
-        //Debug.Log("커스톰시간 : "+customSec);
-        //Debug.Log("지나간시간 : " + elapsedTime);
-        if (elapsedTime > customSec)
-        {
-            if (currentHealth > 0)
-            {
-                currentHealth -= downLifeValueForCustomSec;
-            }
-            else
-            {
-                Die();
-            }
-            elapsedTime = 0.0f;
-        }
-        elapsedTime += Time.deltaTime;
     }
 
     public void HealthUp(float HP)

@@ -21,8 +21,7 @@ public class DebugPrint : MonoBehaviour {
     private void Update()
     {
         debugText.text = "플레이어 공격력  : " + playerAtkMng.AtkPower + "\n" + "플레이어 공격속도: " + playerAtkMng.AtkSpeed + "\n"
-            + "플레이어 전체체력 :  " + playerStats.maxHealth + "\n" + "플레이어 현재체력 : " + playerStats.currentHealth + "\n"
-            + "플레이어 체력은 " + playerStats.customSec + "초마다 " + playerStats.downLifeValueForCustomSec + "씩 떨어짐";
+            + "플레이어 전체체력 :  " + playerStats.maxHealth + "\n" + "플레이어 현재체력 : " + playerStats.currentHealth;
 
 
 

@@ -8,6 +8,7 @@ public class EnemyStats : CharacterStat
 {
     [SerializeField]
     private string opponentObjAtkTagName = null;
+    private static bool isAttackedByWeapon = false;
     private Animator animator = null;
     private AtkMng atkMng = null;
     private Weapon weapon = null;
@@ -48,12 +49,22 @@ public class EnemyStats : CharacterStat
         if (other.tag == opponentObjAtkTagName)
         {
             CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
-            WeaponDamage weaponDamage = other.GetComponent<WeaponDamage>();
-            Debug.Log("데미지 : " + weaponDamage.AtkPow);
-            objStat.TakeDamage(weaponDamage.AtkPow);
-
+            Weapon weapon = other.GetComponent<WeaponMeshCtrl>().WeaponGameObject;
+            Debug.Log("데미지 : " + weapon.damage);
+            objStat.TakeDamage(weapon.damage);
+            if (!isAttackedByWeapon)
+            {
+                isAttackedByWeapon = true;
+                weapon.SubtractDurability(50);
+                Debug.Log("durability : " + weapon.durabilityCur);
+            }
             ComboSystemMng.GetInstance().AddCombo(1);
         }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (isAttackedByWeapon)
+            isAttackedByWeapon = false;
     }
 
     public override void Die()

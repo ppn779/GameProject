@@ -13,7 +13,6 @@ public class GameMng : MonoBehaviour
     private void Awake()
     {
         resultUI = this.transform.GetComponentInChildren<RectTransform>();
-        Debug.Log(resultUI);
         resultUI.gameObject.SetActive(false);
     }
 

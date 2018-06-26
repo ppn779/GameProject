@@ -313,8 +313,7 @@ public class EnemyAIScript01 : MonoBehaviour
             {
                 targetIsOutOfSight = false;
                 playerHasBeenSeen = false;
-
-                Debug.Log("Hunt OFF");
+                
                 break;
             }
 
