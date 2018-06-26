@@ -6,12 +6,13 @@ public class ProjectileTypeWeapon : Weapon
 {
     [SerializeField] private GameObject projectile = null;
 
-    private Quaternion objRot=Quaternion.identity;
+    private Transform tr;
 
     
     public override void Attack(Transform _objTr, float _objAtkPow)
     {
-        this.objRot = _objTr.rotation;
+        Debug.Log("발사체 공격 실행");
+        this.tr = _objTr;
 
         Fire(_objAtkPow);
     }
@@ -23,8 +24,11 @@ public class ProjectileTypeWeapon : Weapon
             //GameObject go = Instantiate<GameObject>(projectile, this.transform.position, objRot);
             //go.transform.parent = this.transform;
             Vector3 newPos = this.transform.position;
-            newPos.y = 1f;
-            GameObject objProjectile=Instantiate<GameObject>(projectile, newPos, objRot);
+            newPos += (tr.forward * 1.2f);
+            newPos.y = 1.0f;
+
+            GameObject objProjectile=Instantiate<GameObject>(projectile, newPos, tr.transform.rotation);
+            //Debug.Log("objProjectile = " + objProjectile);
             objProjectile.GetComponent<ProjectileCtrl>().AtkPow = _objAtkPow;
             SubtractUsableCount(1);
             
