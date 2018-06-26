@@ -71,7 +71,7 @@ public class EnemyStats : CharacterStat
     {
         base.Die();
         // effect
-        ai.isSwitchOn = false;
+        IsDead = true;
         nav.isStopped = true;
         animator.SetTrigger("Death");
 
