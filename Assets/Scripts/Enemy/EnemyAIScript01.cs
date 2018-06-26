@@ -203,7 +203,7 @@ public class EnemyAIScript01 : MonoBehaviour
             }
 
             // 체력 조건 사용
-            if ((myStats.currentHealth <= 60) && (runAwayByHp))
+            if ((myStats.currentHealth <= 30) && (runAwayByHp))
             {
                 enemyCanAttack = false;
                 runAway = true;
