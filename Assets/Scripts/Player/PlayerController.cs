@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
             if (this.isInputSwitchOn)
             {
                 this.AtkCtrl();
-
                 float h = Input.GetAxisRaw("Horizontal");//가로 값
                 float v = Input.GetAxisRaw("Vertical");//세로 값
 

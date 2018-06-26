@@ -141,7 +141,6 @@ public class PlayerAtkMng : MonoBehaviour
 
     private void WeaponAttack()
     {
-        Debug.Log("웨폰어택 실행");
         attackSwitchOn = true;
         if (equippedWeapon != null)
         {
@@ -158,13 +157,15 @@ public class PlayerAtkMng : MonoBehaviour
 
     private void SetForMeleeAtk()
     {
-            Debug.Log("메쉬 만듬");
-            weaponMeshCtrl.AtkPow = this.atkPower;
-            //Debug.Log("Start Pos   : " +atkStartPos);
-            if (weaponMeshCtrl == null) { Debug.LogError("웨폰메쉬컨트롤 Null"); }
-            float[] tmpAngle = new float[] { objTr.rotation.y - (equippedWeapon.WeaponAngle / 2), objTr.rotation.y + (equippedWeapon.WeaponAngle / 2) };
-            weaponMeshCtrl.makeFanShape(tmpAngle, objTr, equippedWeapon.AtkRangeDist);
-        
+        Debug.Log("메쉬 만듬");
+        weaponMeshCtrl.damage = this.atkPower;
+        //Debug.Log("Start Pos   : " +atkStartPos);
+        if (weaponMeshCtrl == null) { Debug.LogError("웨폰메쉬컨트롤 Null"); }
+        float[] tmpAngle = new float[] { objTr.rotation.y - (equippedWeapon.WeaponAngle / 2), objTr.rotation.y + (equippedWeapon.WeaponAngle / 2) };
+
+        weaponMeshCtrl.makeFanShape(tmpAngle, objTr, equippedWeapon.AtkRangeDist);
+        if (equippedWeapon != null)
+            weaponMeshCtrl.WeaponGameObject = equippedWeapon;
     }
 
     private IEnumerator MeshActivation()

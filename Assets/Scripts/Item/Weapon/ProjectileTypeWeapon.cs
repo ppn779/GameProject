@@ -11,7 +11,6 @@ public class ProjectileTypeWeapon : Weapon
     
     public override void Attack(Transform _objTr, float _objAtkPow)
     {
-        Debug.Log("발사체 공격 실행");
         this.tr = _objTr;
 
         Fire(_objAtkPow);
@@ -29,7 +28,7 @@ public class ProjectileTypeWeapon : Weapon
 
             GameObject objProjectile=Instantiate<GameObject>(projectile, newPos, tr.transform.rotation);
             //Debug.Log("objProjectile = " + objProjectile);
-            objProjectile.GetComponent<ProjectileCtrl>().AtkPow = _objAtkPow;
+            objProjectile.GetComponent<ProjectileCtrl>().damage = _objAtkPow;
             SubtractUsableCount(1);
             
         }

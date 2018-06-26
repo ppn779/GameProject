@@ -14,18 +14,7 @@ public class HandTypeWeapon : Weapon
 
     private float waitingTimeForAtk;
     private float time;
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            if (IsPlayerEquipped)
-            {
-                SubtractDurability(25);
-                Debug.Log(durability);
-            }
-        }
-    }
+    
     public override float WeaponAngle
     {
         get

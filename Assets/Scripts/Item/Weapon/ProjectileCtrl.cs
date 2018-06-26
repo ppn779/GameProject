@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileCtrl : WeaponDamage {
+public class ProjectileCtrl : Weapon {
     [SerializeField]
     private float projectileSpeed;
     private Vector3 direction;
@@ -21,7 +21,6 @@ public class ProjectileCtrl : WeaponDamage {
     {
         if (other.tag != "Weapon")
         {
-            Debug.Log("발사체 충돌 = "+other.name);
             Destroy(this.gameObject);
         }
     }

@@ -10,7 +10,7 @@ public class ComboSystemMng : MonoBehaviour
 {
     [SerializeField] private GameObject comboUiText = null;
     [SerializeField] private GameObject comboUiBar = null;
-    public const float comboTimeDefault = 4f;
+    public const float comboTimeDefault = 7f;
     private const float textUiHeight = 4f;
     private static ComboSystemMng instance = null;
     private Transform tr = null;
@@ -62,13 +62,22 @@ public class ComboSystemMng : MonoBehaviour
         Image imageUiOver = comboUiBarRctOver.GetComponent<Image>();
         if (!imageUiOver)   
             Debug.LogError("imageUiOver is NULL,,");
-        while (true)
+        while (comboUiBar)
         {
             Vector2 vecSize = comboUiBarRctOver.sizeDelta;
             Vector3 newPos = tr.position;
             float remainTime = (comboCurTime / comboMaxTime);
             if (remainTime <= 0f)
+            {
                 SetTextCount(0);
+                PlayerStats playerStats = GetComponent<PlayerStats>();
+                if (!playerStats)
+                    Debug.LogError("playerStats is NULL,,");
+                playerStats.Die();
+                Destroy(comboUiText.gameObject);
+                Destroy(comboUiBar.gameObject);
+            }
+                
             comboCurTime -= fps60;
             newPos.y += textUiHeight;
             comboUiTextRct.position = Camera.main.WorldToScreenPoint(newPos);

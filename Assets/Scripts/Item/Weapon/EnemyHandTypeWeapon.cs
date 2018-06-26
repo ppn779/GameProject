@@ -24,18 +24,6 @@ public class EnemyHandTypeWeapon : Weapon
         waitingTimeForAtk=3.0f-attackSpeed;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            if (IsPlayerEquipped)
-            {
-                SubtractDurability(25);
-                Debug.Log(durability);
-            }
-        }
-    }
-
     public override void Attack(Transform objTr, float objAtkPow)
     {
         this.objTr = objTr;

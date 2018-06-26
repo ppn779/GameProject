@@ -8,7 +8,7 @@ using UnityEngine;
 //
 //
 
-public class DebugWeaponMeshCtrl : WeaponDamage
+public class DebugWeaponMeshCtrl : MonoBehaviour
 {
 
     private const float PIECE_ANGLE = 5f;  // 1폴리곤의 각도(원의 원만한 정도)

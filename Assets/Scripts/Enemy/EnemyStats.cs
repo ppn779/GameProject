@@ -8,6 +8,7 @@ public class EnemyStats : CharacterStat
 {
     [SerializeField]
     private string opponentObjAtkTagName = null;
+    private static bool isAttackedByWeapon = false;
     private Animator animator = null;
     private AtkMng atkMng = null;
     private Weapon weapon = null;
@@ -44,29 +45,33 @@ public class EnemyStats : CharacterStat
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!IsDead)
+        if (opponentObjAtkTagName == null) { Debug.LogError("WeaponTag Name is null"); }
+        if (other.tag == opponentObjAtkTagName)
         {
-            if (opponentObjAtkTagName == null) { Debug.LogError("WeaponTag Name is null"); }
-
-            if (other.tag == opponentObjAtkTagName)
+            CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
+            Weapon weapon = other.GetComponent<WeaponMeshCtrl>().WeaponGameObject;
+            Debug.Log("데미지 : " + weapon.damage);
+            objStat.TakeDamage(weapon.damage);
+            if (!isAttackedByWeapon)
             {
-                CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
-                WeaponDamage weaponDamage = other.GetComponent<WeaponDamage>();
-
-                if(objStat.TakeDamage(weaponDamage.AtkPow)) animator.SetTrigger("damage");
-
-                ComboSystemMng.GetInstance().AddCombo(1);
+                isAttackedByWeapon = true;
+                weapon.SubtractDurability(50);
+                Debug.Log("durability : " + weapon.durabilityCur);
             }
+            ComboSystemMng.GetInstance().AddCombo(1);
         }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (isAttackedByWeapon)
+            isAttackedByWeapon = false;
     }
 
     public override void Die()
     {
         base.Die();
-
-        Debug.Log("Die ! ");
         // effect
-        IsDead = true;
+        ai.isSwitchOn = false;
         nav.isStopped = true;
         animator.SetTrigger("Death");
 

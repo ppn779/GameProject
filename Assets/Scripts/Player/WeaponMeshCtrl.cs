@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponMeshCtrl : WeaponDamage {
+public class WeaponMeshCtrl : Weapon {
 
     private const float PIECE_ANGLE = 5f;  // 1폴리곤의 각도(원의 원만한 정도)
     
     private Mesh mesh;
     private MeshFilter meshFilter;
     private MeshCollider meshCollider;
+    private Weapon weaponGameObject = null;
+    public Weapon WeaponGameObject
+    {
+        get { return weaponGameObject; }
+        set { weaponGameObject = value; }
+    }
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
         mesh = new Mesh();
         meshFilter = GetComponent<MeshFilter>();
@@ -31,6 +37,7 @@ public class WeaponMeshCtrl : WeaponDamage {
 
     public void makeFanShape(float[] angle, Transform objTr, float atkRangeDist) //float atkStartDist)
     {
+        Debug.Log("만들었다");
         //this.transform.position = objTr.position;
         //this.transform.rotation = objTr.rotation;
         //Vector3 pos = objTr.position+(objTr.forward*atkStartDist);
