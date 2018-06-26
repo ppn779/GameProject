@@ -2466,7 +2466,7 @@ MonoBehaviour:
   runAway: 0
   runAwayByHp: 1
   isSwitchOn: 1
-  moveableRadius: 30
+  moveableRadius: 0
   visualRadius: 15
   attackRange: 2
   runAwayDistance: 5

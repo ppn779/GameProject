@@ -58,7 +58,7 @@ public class EnemyDebug : MonoBehaviour
         enemyText.fontStyle = FontStyle.Bold;
         Vector3 pos = Camera.main.WorldToScreenPoint(textTr.position);
 
-        enemyText.transform.position = new Vector3(pos.x, pos.y, pos.z);
+        enemyText.transform.position = new Vector3(pos.x, pos.y+5, pos.z);
 
         if (stat.currentHealth <= 0)
         {

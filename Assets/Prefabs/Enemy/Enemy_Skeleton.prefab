@@ -1424,7 +1424,7 @@ MonoBehaviour:
   runAway: 0
   runAwayByHp: 0
   isSwitchOn: 1
-  moveableRadius: 80
+  moveableRadius: 0
   visualRadius: 0
   attackRange: 2
   runAwayDistance: 9
@@ -1522,7 +1522,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textPrefab: {fileID: 1246682396083508, guid: b1a39d66d66c61446a64e43e82a771e3, type: 2}
-  target: {fileID: 4060426864131352}
   textTr: {fileID: 4060426864131352}
 --- !u!114 &114771354371536092
 MonoBehaviour:
