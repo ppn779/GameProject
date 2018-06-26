@@ -29,6 +29,7 @@ public class GameMng : MonoBehaviour
                 if(instance == null)
                 {
                     Debug.LogError("GameMng is null");
+                    return null;
                 }
             }
             return instance;

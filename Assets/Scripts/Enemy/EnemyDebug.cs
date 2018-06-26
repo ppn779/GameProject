@@ -11,16 +11,19 @@ public class EnemyDebug : MonoBehaviour
     private Text enemyText = null;
     private CharacterStat stat = null;
     private EnemyAIScript01 enemy = null;
+    private Transform player = null;
+
+    private int enemyCnt = 0;
 
     void Start()
     {
         target = this.GetComponent<Transform>();
         stat = this.gameObject.GetComponent<CharacterStat>();
         enemy = this.gameObject.GetComponent<EnemyAIScript01>();
-        if (target == null)
-        {
-            Debug.LogError("Target is null");
-        }
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        if (target == null) { Debug.LogError("Target is null"); }
+        if (player == null) { Debug.LogError("player is null"); }
 
         foreach (Canvas c in FindObjectsOfType<Canvas>())
         {
@@ -46,7 +49,8 @@ public class EnemyDebug : MonoBehaviour
             return;
         }
 
-        enemyText.text = ("HP : " + stat.currentHealth + " / " + stat.maxHealth +
+        enemyText.text = ("Target :" + player.name +
+                          "\nHP : " + stat.currentHealth + " / " + stat.maxHealth +
                           "\nStatus\n" + "Range : " + enemy.attackRange +
                           "\nAttackTime : " + enemy.attackTime);
         enemyText.fontSize = 14;

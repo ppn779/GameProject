@@ -42,6 +42,10 @@ public class EnemyManager : MonoBehaviour
 
             foreach (GameObject enemy in enemyPool)
             {
+                if(enemy == null)
+                {
+                    yield return null;
+                }
                 if (!enemy.activeSelf)
                 {
                     int spawnPointIndex = Random.Range(0, points.Length);

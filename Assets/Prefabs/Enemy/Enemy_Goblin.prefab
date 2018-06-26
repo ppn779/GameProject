@@ -2400,7 +2400,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textPrefab: {fileID: 1246682396083508, guid: b1a39d66d66c61446a64e43e82a771e3, type: 2}
-  target: {fileID: 4605063461633638}
   textTr: {fileID: 4605063461633638}
 --- !u!114 &114244694787770744
 MonoBehaviour:
@@ -2465,10 +2464,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alive: 1
   runAway: 0
-  runAwayByHp: 0
+  runAwayByHp: 1
   isSwitchOn: 1
-  moveableRadius: 15
-  visualRadius: 4
+  moveableRadius: 30
+  visualRadius: 15
   attackRange: 2
   runAwayDistance: 5
   attackTime: 2
