@@ -69,7 +69,7 @@ public class DebugSystem : MonoBehaviour
         txtTextUi.verticalOverflow = VerticalWrapMode.Overflow;
         txtTextUi.color = Color.red;
         txtTextUi.text = strTxt;
-        
+
         uiPos.x += 512f;
         uiPos.y += 384f;
         rctTextUi.position = uiPos;

@@ -15,7 +15,7 @@ public class ComboUIMng : MonoBehaviour
                                                          // Use this for initialization
     void Awake()
     {
-        ComboText = GameObject.FindGameObjectWithTag("ComboText").GetComponent<Text>();
+        //ComboText = GameObject.FindGameObjectWithTag("ComboText").GetComponent<Text>();
     }
 
     // Update is called once per frame

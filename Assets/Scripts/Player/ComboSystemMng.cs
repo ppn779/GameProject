@@ -62,12 +62,13 @@ public class ComboSystemMng : MonoBehaviour
         Image imageUiOver = comboUiBarRctOver.GetComponent<Image>();
         if (!imageUiOver)   
             Debug.LogError("imageUiOver is NULL,,");
-        while (comboCurTime > 0f)
+        while (true)
         {
             Vector2 vecSize = comboUiBarRctOver.sizeDelta;
             Vector3 newPos = tr.position;
             float remainTime = (comboCurTime / comboMaxTime);
-
+            if (remainTime <= 0f)
+                SetTextCount(0);
             comboCurTime -= fps60;
             newPos.y += textUiHeight;
             comboUiTextRct.position = Camera.main.WorldToScreenPoint(newPos);
@@ -81,7 +82,6 @@ public class ComboSystemMng : MonoBehaviour
                 imageUiOver.color = Color.red;
             yield return new WaitForSeconds(fps60);
         }
-        SetTextCount(0);
     }
     private void SetTextCount(int num)
     {
