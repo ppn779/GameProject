@@ -462,10 +462,10 @@ GameObject:
   - component: {fileID: 195014749484502068}
   - component: {fileID: 114867118956921818}
   - component: {fileID: 114749541236550868}
+  - component: {fileID: 114960300042129014}
   - component: {fileID: 114739646231070970}
   - component: {fileID: 114556231114785766}
   - component: {fileID: 114374343309510972}
-  - component: {fileID: 114960300042129014}
   - component: {fileID: 114122582204974484}
   m_Layer: 0
   m_Name: Enemy_Goblin
@@ -2462,7 +2462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbeae0c913bcf8845ba9894819050728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alive: 1
+  isDead: 0
   runAway: 0
   runAwayByHp: 1
   isSwitchOn: 1

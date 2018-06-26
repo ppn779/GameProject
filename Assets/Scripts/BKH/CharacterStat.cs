@@ -9,8 +9,19 @@ public class CharacterStat : MonoBehaviour
     public float damage = 10f;
     public float armor = 0f;
 
-    private bool isEnemyDead = false;
+    private bool isDead = false;
 
+    public bool IsDead
+    {
+        get
+        {
+            return isDead;
+        }
+        set
+        {
+            isDead = value;
+        }
+    }
     public event System.Action<float, float> OnHealthChanged;
 
     private void Awake()
@@ -18,7 +29,7 @@ public class CharacterStat : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(float damage)
+    public bool TakeDamage(float damage)
     {
         damage -= armor;
 
@@ -29,11 +40,13 @@ public class CharacterStat : MonoBehaviour
             OnHealthChanged(maxHealth, currentHealth);
         }
 
-        if (currentHealth <= 0 && !isEnemyDead)
+        if (currentHealth <= 0 && !isDead)
         {
-            isEnemyDead = true;
             Die();
+            return false;
         }
+
+        return true;
     }
 
     public virtual void Die()

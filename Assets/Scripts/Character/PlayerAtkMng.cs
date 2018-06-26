@@ -85,7 +85,6 @@ public class PlayerAtkMng : MonoBehaviour
                 }
 
                 waitingTimeForAtk = 3.0f - atkSpeed;
-                Debug.Log(waitingTimeForAtk);
                 if (waitingTimeForAtk <= 0.8f) { waitingTimeForAtk = 0.8f; }
                 isReady = true;
             }

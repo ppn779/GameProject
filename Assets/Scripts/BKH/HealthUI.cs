@@ -62,8 +62,7 @@ public class HealthUI : MonoBehaviour
             lastMadeVisibleTime = Time.time;
             float healthPercent = (float)currentHealth / maxHealth;
             healthSlider.fillAmount = healthPercent;
-
-            if (currentHealth <= 0 || target == null)
+            if (currentHealth <= 0)
             {
                 Destroy(ui.gameObject);
             }

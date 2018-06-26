@@ -42,25 +42,24 @@ public class EnemyManager : MonoBehaviour
 
             foreach (GameObject enemy in enemyPool)
             {
-                if(enemy == null)
+                if (!enemy)
                 {
-                    yield return null;
-                }
-                if (!enemy.activeSelf)
-                {
-                    int spawnPointIndex = Random.Range(0, points.Length);
-                    enemy.transform.position = points[spawnPointIndex].position;
-                    enemy.SetActive(true);
-
-                    EnemyAIScript01 AI = enemy.GetComponent<EnemyAIScript01>();
-                    if (target != null)
+                    if (!enemy.activeSelf)
                     {
-                        AI.SetTarget(target);
-                    }
+                        int spawnPointIndex = Random.Range(0, points.Length);
+                        enemy.transform.position = points[spawnPointIndex].position;
+                        enemy.SetActive(true);
 
-                    enemyCount++;
-                    //Debug.Log("enemyCount : " + enemyCount);
-                    break;
+                        EnemyAIScript01 AI = enemy.GetComponent<EnemyAIScript01>();
+                        if (target != null)
+                        {
+                            AI.SetTarget(target);
+                        }
+
+                        enemyCount++;
+                        //Debug.Log("enemyCount : " + enemyCount);
+                        break;
+                    }
                 }
             }
         }

@@ -44,26 +44,29 @@ public class EnemyStats : CharacterStat
 
     private void OnTriggerEnter(Collider other)
     {
-        if (opponentObjAtkTagName == null) { Debug.LogError("WeaponTag Name is null"); }
-        if (other.tag == opponentObjAtkTagName)
+        if (!IsDead)
         {
-            CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
-            WeaponDamage weaponDamage = other.GetComponent<WeaponDamage>();
-            Debug.Log("데미지 : " + weaponDamage.AtkPow);
+            if (opponentObjAtkTagName == null) { Debug.LogError("WeaponTag Name is null"); }
 
-            animator.SetTrigger("damage");
+            if (other.tag == opponentObjAtkTagName)
+            {
+                CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
+                WeaponDamage weaponDamage = other.GetComponent<WeaponDamage>();
 
-            objStat.TakeDamage(weaponDamage.AtkPow);
+                if(objStat.TakeDamage(weaponDamage.AtkPow)) animator.SetTrigger("damage");
 
-            ComboSystemMng.GetInstance().AddCombo(1);
+                ComboSystemMng.GetInstance().AddCombo(1);
+            }
         }
     }
 
     public override void Die()
     {
         base.Die();
+
+        Debug.Log("Die ! ");
         // effect
-        ai.isSwitchOn = false;
+        IsDead = true;
         nav.isStopped = true;
         animator.SetTrigger("Death");
 

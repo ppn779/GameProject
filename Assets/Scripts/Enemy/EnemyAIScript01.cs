@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyAIScript01 : MonoBehaviour
 {
-    public bool alive = true;               // 생존 여부
+    public bool isDead = false;               // 생존 여부
     public bool runAway = false;            // 도망 여부
     public bool runAwayByHp = false;        // 도망에 체력 조건 사용
     public bool isSwitchOn = true;
@@ -93,14 +93,16 @@ public class EnemyAIScript01 : MonoBehaviour
 
         startPos = this.transform.position;
         nav.speed = walkSpeed;
-
+        nav.stoppingDistance = attackRange;
 
         yield return null;
     }
 
     void Update()
     {
-        if (alive)
+        isDead = myStats.IsDead;
+
+        if (!isDead)
         {
             AIFunctionality();
         }
@@ -108,15 +110,15 @@ public class EnemyAIScript01 : MonoBehaviour
 
     private void AIFunctionality()
     {
-        if (isSwitchOn)
-        {
+        //if (isSwitchOn)
+        //{
             if ((!target))
             {
                 return;
             }
 
             targetPos = target.transform.position;
-
+            nav.stoppingDistance = 2f;
             float distance = Vector3.Distance(transform.position, targetPos);
 
             if (!runAway)
@@ -141,6 +143,8 @@ public class EnemyAIScript01 : MonoBehaviour
                     {
                         animator.SetBool("isRun", false);
                         animator.SetBool("isWalk", false);
+                        nav.stoppingDistance = attackRange;
+
                         if (Time.time > lastShotFired + attackTime)
                         {
                             StartCoroutine(Attack());
@@ -152,10 +156,9 @@ public class EnemyAIScript01 : MonoBehaviour
                 // 발견 했을 때 지속 추격
                 else if ((playerHasBeenSeen) && (!targetIsOutOfSight))
                 {
-                    //Debug.Log(" 6 ");
                     animator.SetBool("isWalk", true);
                     lostPlayerTimer = Time.time + huntingTimer;
-
+                    
                     StartCoroutine(HuntDownTarget());
 
                 }
@@ -166,7 +169,7 @@ public class EnemyAIScript01 : MonoBehaviour
                 }
                 else if ((!playerHasBeenSeen) && (distance > moveableRadius))
                 {
-                    animator.SetBool("isWalk", false);
+                    //animator.SetBool("isWalk", false);
                     animator.SetBool("isRun", false);
 
                     if (useWaypoint)
@@ -208,7 +211,7 @@ public class EnemyAIScript01 : MonoBehaviour
                 enemyCanAttack = false;
                 runAway = true;
             }
-        }
+    //    }
     }
 
     void LookAtPlayer()
