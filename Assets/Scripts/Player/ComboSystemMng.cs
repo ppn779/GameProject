@@ -85,6 +85,8 @@ public class ComboSystemMng : MonoBehaviour
     }
     private void SetTextCount(int num)
     {
+        if (num == 0)
+            comboCount = num;
         textUi.text = "Combo " + num.ToString();
     }
 }

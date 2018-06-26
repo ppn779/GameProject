@@ -22,7 +22,6 @@ public class PlayerStats : CharacterStat {
     {
         //Debug.Log("커스톰시간 : "+customSec);
         //Debug.Log("지나간시간 : " + elapsedTime);
-        Debug.Log(elapsedTime);
         if (elapsedTime > customSec)
         {
             if (currentHealth > 0)

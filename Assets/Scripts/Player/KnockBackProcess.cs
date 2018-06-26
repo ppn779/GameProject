@@ -26,7 +26,7 @@ public class KnockBackProcess : MonoBehaviour
     //질문 필요.
     private void Update()
     {
-        if (this.isKnockBackOn && time < knockBackTime)
+        if (this.isKnockBackOn && time > knockBackTime)
         {
             isKnockBackOn = false;
             playerCtrl.IsInputSwitchOn = true;

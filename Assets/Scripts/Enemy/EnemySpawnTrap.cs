@@ -37,10 +37,10 @@ public class EnemySpawnTrap : MonoBehaviour {
             
             newPos.x += 3f * Mathf.Cos(count * 45f * Mathf.Deg2Rad);
             newPos.z += 3f * Mathf.Sin(count * 45f * Mathf.Deg2Rad);
-            Debug.Log(newPos);
             Instantiate(enemyPrefab, newPos, tr.rotation);
             --count;
             yield return new WaitForSeconds(0.15f);
         }
+        Destroy(this.gameObject);
     }
 }

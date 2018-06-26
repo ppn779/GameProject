@@ -44,7 +44,7 @@ public class EnemyDebug : MonoBehaviour
 
     private void DisplayHP()
     {
-        if (enemyText == null)
+        if (!enemyText || !player)
         {
             return;
         }
