@@ -34,12 +34,13 @@ public class PlayerController : MonoBehaviour
             if (this.isInputSwitchOn)
             {
                 this.AtkCtrl();
-                float h = Input.GetAxisRaw("Horizontal");//가로 값
-                float v = Input.GetAxisRaw("Vertical");//세로 값
 
+                float h = Input.GetAxis("Horizontal");//가로 값
+                float v = Input.GetAxis("Vertical");//세로 값
 
+                Vector3 camDir = Camera.main.transform.forward;
 
-                Move(h, v, playerStats.MovementSpeed);
+                Move(h, v, playerStats.MovementSpeed,camDir);
                 Turning();
                 Animating(h, v);
             }
@@ -84,16 +85,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Move(float h, float v, float speed)
+    private void Move(float h, float v, float speed,Vector3 _camDir)
     {
         //방향 값 담음.
-        movement.Set(h, 0f, v);
+        //movement.Set(_camDir.x*h, 0f, _camDir.z*v);      
 
         //정규화 처리
-        movement = movement.normalized * speed * Time.deltaTime;
+        //movement = movement.normalized * speed * Time.deltaTime;
 
         //캐릭터 이동
-        this.transform.position += movement;
+        //this.transform.position += movement;
+
+        Camera main = Camera.main;
+        Vector3 newPos = this.transform.position;
+        newPos += ((main.transform.forward * v) + (main.transform.right * h)) * speed * Time.deltaTime;
+        newPos.y = this.transform.position.y;
+        this.transform.position = newPos;
     }
 
     private void Turning()
