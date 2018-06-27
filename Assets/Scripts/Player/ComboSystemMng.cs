@@ -10,7 +10,7 @@ public class ComboSystemMng : MonoBehaviour
 {
     [SerializeField] private GameObject comboUiText = null;
     [SerializeField] private GameObject comboUiBar = null;
-    public const float comboTimeDefault = 7f;
+    public float comboTimeDefault = 20f;
     private const float textUiHeight = 4f;
     private static ComboSystemMng instance = null;
     private Transform tr = null;
@@ -18,12 +18,14 @@ public class ComboSystemMng : MonoBehaviour
     private RectTransform comboUiBarRctOver = null;
     private Text textUi = null;
     private int comboCount = 0;
-    private float comboMaxTime = comboTimeDefault;
-    private float comboCurTime = comboTimeDefault;
+    private float comboMaxTime = 0;
+    private float comboCurTime = 0;
 
     private void Start()
     {
         tr = this.transform;
+        comboMaxTime = comboTimeDefault;
+        comboCurTime = comboTimeDefault;
         if (!comboUiText)
             Debug.LogError("comboUiText is Null , This var Must have GameObject what TextUI for use ComboSystem");
         if (!comboUiBar)

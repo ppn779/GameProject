@@ -80,7 +80,7 @@ public class EnemyAIScript01 : MonoBehaviour
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         if (target == null) { Debug.LogError("target is null"); }
-        
+
         myStats = this.gameObject.GetComponent<CharacterStat>();
 
         if (target != null) { targetStats = target.GetComponent<CharacterStat>(); }
@@ -94,124 +94,127 @@ public class EnemyAIScript01 : MonoBehaviour
         startPos = this.transform.position;
         nav.speed = walkSpeed;
         nav.stoppingDistance = attackRange;
-
+                
         yield return null;
     }
 
     void Update()
     {
-        isDead = myStats.IsDead;
-
-        if (!isDead)
-        {
-            AIFunctionality();
-        }
+        AIFunctionality();
     }
 
     private void AIFunctionality()
     {
-        //if (isSwitchOn)
-        //{
-            if ((!target))
+        if ((!target) || (isDead))
+        {
+            return;
+        }
+
+        isDead = myStats.IsDead;
+
+        targetPos = target.transform.position;
+        nav.stoppingDistance = 2f;
+        float distance = Vector3.Distance(transform.position, targetPos);
+
+        if (enemyIsAttacking || isDead)
+        {
+            NavStop();
+        }
+        else
+        {
+            NavStart();
+        }
+
+        if (!runAway)
+        {
+            // 타겟 시야 반경 내
+            if (TargetIsInSight())
             {
-                return;
-            }
 
-            targetPos = target.transform.position;
-            nav.stoppingDistance = 2f;
-            float distance = Vector3.Distance(transform.position, targetPos);
+                // 타겟 따라가기
+                NavStart();
+                SetNav(target.position);
+                animator.SetBool("isWalk", true);
 
-            if (!runAway)
-            {
-                // 타겟 시야 반경 내
-                if (TargetIsInSight())
+                // 공격거리보다 멀면 공격 X
+                if (distance > attackRange)
                 {
-
-                    // 타겟 따라가기
-                    NavStart();
-                    SetNav(target.position);
-                    animator.SetBool("isWalk", true);
-
-                    // 공격거리보다 멀면 공격 X
-                    if (distance > attackRange)
-                    {
-                        enemyCanAttack = false;
-                    }
-
-                    // 공격 거리 이내
-                    else if (distance < attackRange)
-                    {
-                        animator.SetBool("isRun", false);
-                        animator.SetBool("isWalk", false);
-                        nav.stoppingDistance = attackRange;
-
-                        if (Time.time > lastShotFired + attackTime)
-                        {
-                            StartCoroutine(Attack());
-                        }
-                    }
-
+                    enemyCanAttack = false;
                 }
-                // 타겟 시야 반경 밖
-                // 발견 했을 때 지속 추격
-                else if ((playerHasBeenSeen) && (!targetIsOutOfSight))
-                {
-                    animator.SetBool("isWalk", true);
-                    lostPlayerTimer = Time.time + huntingTimer;
-                    
-                    StartCoroutine(HuntDownTarget());
 
-                }
-                // 발견 못했거나 moveableRadius가 0 또는 플레이어와의 거리가 moveableRadius보다 작으면
-                else if (((!playerHasBeenSeen)) && ((moveableRadius == 0) || (distance < moveableRadius)))
+                // 공격 거리 이내
+                else if (distance < attackRange)
                 {
-                    WalkNewPath();
-                }
-                else if ((!playerHasBeenSeen) && (distance > moveableRadius))
-                {
-                    //animator.SetBool("isWalk", false);
                     animator.SetBool("isRun", false);
+                    animator.SetBool("isWalk", false);
+                    nav.stoppingDistance = attackRange;
 
-                    if (useWaypoint)
+                    if (Time.time > lastShotFired + attackTime)
                     {
-                        Patrol();
-                    }
-                    else
-                    {
-                        SetNav(startPos);
-
-                        if (nav.remainingDistance <= nav.stoppingDistance)
-                        {
-                            NavStop();
-                        }
+                        StartCoroutine(Attack());
                     }
                 }
+
             }
-            else if (runAway)
+
+            // 타겟 시야 반경 밖
+            // 발견 했을 때 지속 추격
+            else if ((playerHasBeenSeen) && (!targetIsOutOfSight))
             {
-                NavStop();
+                animator.SetBool("isWalk", true);
+                lostPlayerTimer = Time.time + huntingTimer;
 
-                if (distance < runAwayDistance)
+                StartCoroutine(HuntDownTarget());
+
+            }
+            // 발견 못했거나 moveableRadius가 0 또는 플레이어와의 거리가 moveableRadius보다 작으면
+            else if (((!playerHasBeenSeen)) && ((moveableRadius == 0) || (distance < moveableRadius)))
+            {
+                WalkNewPath();
+            }
+            else if ((!playerHasBeenSeen) && (distance > moveableRadius))
+            {
+                //animator.SetBool("isWalk", false);
+                animator.SetBool("isRun", false);
+                if (useWaypoint)
                 {
-                    enemyCanAttack = false;
-                    nav.speed = runSpeed;
-                    RunAway();
+                    Patrol();
                 }
-                else if (distance > runAwayDistance)
+                else
                 {
-                    enemyCanAttack = false;
-                    nav.speed = walkSpeed;
-                    RunAway();
+                    SetNav(startPos);
+
+                    if (nav.remainingDistance <= nav.stoppingDistance)
+                    {
+                        NavStop();
+                    }
                 }
             }
+        }
+        else if (runAway)
+        {
+            NavStop();
 
-            // 체력 조건 사용
-            if ((myStats.currentHealth <= 30) && (runAwayByHp))
+            if (distance < runAwayDistance)
             {
                 enemyCanAttack = false;
-                runAway = true;
+                nav.speed = runSpeed;
+                RunAway();
             }
-    //    }
+            else if (distance > runAwayDistance)
+            {
+                enemyCanAttack = false;
+                nav.speed = walkSpeed;
+                RunAway();
+            }
+        }
+
+        // 체력 조건 사용
+        if (((myStats.currentHealth) / (myStats.maxHealth) <= 0.3f) && (runAwayByHp))
+        {
+            enemyCanAttack = false;
+            runAway = true;
+        }
     }
 
     void LookAtPlayer()
@@ -296,6 +299,7 @@ public class EnemyAIScript01 : MonoBehaviour
     // 타겟 추적 지속
     IEnumerator HuntDownTarget()
     {
+
         targetIsOutOfSight = true;
 
         while (targetIsOutOfSight)
@@ -303,7 +307,10 @@ public class EnemyAIScript01 : MonoBehaviour
             //Debug.Log("Hunt");
 
             NavStart();
-            SetNav(target.position);
+            if (target != null)
+            {
+                SetNav(target.position);
+            }
 
             if (TargetIsInSight())
             {
@@ -316,7 +323,7 @@ public class EnemyAIScript01 : MonoBehaviour
             {
                 targetIsOutOfSight = false;
                 playerHasBeenSeen = false;
-                
+
                 break;
             }
 

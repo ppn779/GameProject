@@ -71,9 +71,9 @@ public class EnemyStats : CharacterStat
     {
         base.Die();
         // effect
+        animator.SetTrigger("Death");
         IsDead = true;
         nav.isStopped = true;
-        animator.SetTrigger("Death");
 
         this.GetComponent<DropTable>().GetRandomItem();
 

@@ -57,7 +57,7 @@ public class PlayerStats : CharacterStat {
         //if (canvasControl == null) { Debug.LogError("canvasControl is null"); }
         //canvasControl.ShowResultCanvas(true);
 
-        GameMng.Instance.SetActiveResultCanvas();
+        GameMng.Instance.GameOver();
 
         Destroy(gameObject);
     }
