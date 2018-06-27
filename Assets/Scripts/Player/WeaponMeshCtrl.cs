@@ -37,7 +37,6 @@ public class WeaponMeshCtrl : Weapon {
 
     public void makeFanShape(float[] angle, Transform objTr, float atkRangeDist) //float atkStartDist)
     {
-        Debug.Log("만들었다");
         //this.transform.position = objTr.position;
         //this.transform.rotation = objTr.rotation;
         //Vector3 pos = objTr.position+(objTr.forward*atkStartDist);

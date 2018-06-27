@@ -50,13 +50,12 @@ public class EnemyStats : CharacterStat
         {
             CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
             Weapon weapon = other.GetComponent<WeaponMeshCtrl>().WeaponGameObject;
-            Debug.Log("데미지 : " + weapon.damage);
+            //Debug.Log("데미지 : " + weapon.damage);
             objStat.TakeDamage(weapon.damage);
             if (!isAttackedByWeapon)
             {
                 isAttackedByWeapon = true;
-                weapon.SubtractDurability(50);
-                Debug.Log("durability : " + weapon.durabilityCur);
+                weapon.SubtractDurability(weapon.durabilityReduce);
             }
             ComboSystemMng.GetInstance().AddCombo(1);
         }

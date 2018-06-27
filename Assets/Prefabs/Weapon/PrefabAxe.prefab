@@ -114,10 +114,12 @@ MonoBehaviour:
   remainTime: 5
   damage: 120
   attackSpeed: 0.3
-  durability: 100
+  durabilityMax: 100
+  durabilityCur: 100
   usableCount: 5
-  durabilityReduce: 50
+  durabilityReduce: 40
   isWeaponTypeMelee: 1
+  SlotColor: {r: 0, g: 1, b: 0, a: 1}
   atkStartDist: 0
   attackRange: 2.5
   weaponAngle: 160

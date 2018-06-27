@@ -54,7 +54,6 @@ public class QuickSlot : MonoBehaviour
     {
         Weapon weapon = goItem.GetComponent<Weapon>();
         itemMain = goItem;
-        Debug.Log(weapon.SlotColor);
         slotImage.RegistMain(goItem.spriteWeaponIcon);
         slotImage.SetColorMain(weapon.SlotColor);
         
