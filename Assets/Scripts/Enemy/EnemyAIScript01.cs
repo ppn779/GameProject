@@ -76,8 +76,9 @@ public class EnemyAIScript01 : MonoBehaviour
         StartCoroutine(Initialize());
     }
 
-    IEnumerator Initialize()
+    private IEnumerator Initialize()
     {
+        
         target = GameObject.FindGameObjectWithTag("Player").transform;
         if (target == null) { Debug.LogError("target is null"); }
 

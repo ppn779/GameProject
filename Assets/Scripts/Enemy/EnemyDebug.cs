@@ -20,7 +20,14 @@ public class EnemyDebug : MonoBehaviour
         target = this.GetComponent<Transform>();
         stat = this.gameObject.GetComponent<CharacterStat>();
         enemy = this.gameObject.GetComponent<EnemyAIScript01>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject goPlayer = GameObject.FindGameObjectWithTag("Player");
+        if (goPlayer == null)
+        {
+            Debug.LogError("Cant Find Player...");
+            Debug.Break();
+        }
+        player = goPlayer.transform;
+        
 
         if (target == null) { Debug.LogError("Target is null"); }
         if (player == null) { Debug.LogError("player is null"); }
