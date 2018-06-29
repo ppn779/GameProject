@@ -20,8 +20,10 @@ public class WeaponMeshCtrl : Weapon {
     private void Start()
     {
         mesh = new Mesh();
+        Debug.Log("메쉬: " + mesh);
         meshFilter = GetComponent<MeshFilter>();
         meshCollider = GetComponent<MeshCollider>();
+        Debug.Log("메쉬 콜라이더 : " + meshCollider);
         meshCollider.sharedMesh = mesh;
     }
 

@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 23117768809601236}
   - component: {fileID: 135119021185292524}
   - component: {fileID: 114094013062802590}
-  - component: {fileID: 54136287970267676}
   - component: {fileID: 114792395514885616}
+  - component: {fileID: 54184852521970762}
   m_Layer: 0
   m_Name: PrefabArrow
   m_TagString: PlayerWeaponMesh
@@ -58,6 +58,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 06627b2c0c38d4446aab6e366857c7a9, type: 2}
   m_StaticBatchInfo:
@@ -86,7 +87,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1941739627128864}
   m_Mesh: {fileID: 4300000, guid: 87c5f17cc4df74d4ea9a518ea15435da, type: 3}
---- !u!54 &54136287970267676
+--- !u!54 &54184852521970762
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -94,12 +95,12 @@ Rigidbody:
   m_GameObject: {fileID: 1941739627128864}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 20
+  m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &114094013062802590
 MonoBehaviour:

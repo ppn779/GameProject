@@ -13,7 +13,8 @@ public class GameMng : MonoBehaviour
     private void Awake()
     {
         resultUI = this.transform.GetComponentInChildren<RectTransform>();
-        resultUI.gameObject.SetActive(false);
+        if (resultUI == null) { return; }
+        //resultUI.gameObject.SetActive(false);
     }
 
 
@@ -21,11 +22,11 @@ public class GameMng : MonoBehaviour
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = FindObjectOfType(typeof(GameMng)) as GameMng;
 
-                if(instance == null)
+                if (instance == null)
                 {
                     Debug.LogError("GameMng is null");
                     return null;
@@ -34,29 +35,30 @@ public class GameMng : MonoBehaviour
             return instance;
         }
     }
-
-    public void ReGame()
+   
+    public void GameOver()
     {
-        StartCoroutine(GameMng.Instance.Restart(1));
+        Debug.Log("REGAME ");
+        StartCoroutine(GameMng.Instance.GameOver(1));
     }
 
-    public IEnumerator Restart(int wait)
+    public IEnumerator GameOver(int wait)
     {
         yield return new WaitForSeconds(wait);
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("EndingScene");
     }
 
-    public void SetActiveResultCanvas()
-    {
-        Debug.Log("SetActive Canvas");
-        StartCoroutine(GameMng.Instance.SetActiveResultCavasCoroutine());
-    }
+    //public void SetActiveResultCanvas()
+    //{
+    //    Debug.Log("SetActive Canvas");
+    //    StartCoroutine(GameMng.Instance.SetActiveResultCavasCoroutine());
+    //}
 
-    private IEnumerator SetActiveResultCavasCoroutine()
-    {
-        yield return new WaitForSeconds(1);
+    //private IEnumerator SetActiveResultCavasCoroutine()
+    //{
+    //    yield return new WaitForSeconds(1);
 
-        Debug.Log(resultUI);
-        resultUI.gameObject.SetActive(true);
-    }
+    //    Debug.Log(resultUI);
+    //    resultUI.gameObject.SetActive(true);
+    //}
 }
