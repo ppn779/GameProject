@@ -57,12 +57,16 @@ public class PlayerStats : CharacterStat {
         //if (canvasControl == null) { Debug.LogError("canvasControl is null"); }
         //canvasControl.ShowResultCanvas(true);
 
-        GameMng.Instance.SetActiveResultCanvas();
+        //GameMng.Instance.SetActiveResultCanvas();
+
         Vector3 newPos = this.transform.position;
         Quaternion quater = this.transform.rotation;
         newPos.y += 1f;
         Instantiate(ParticleMng.GetInstance().EffectSmallExp(), newPos, quater);
-        
+
+        GameMng.Instance.GameOver();
+
+
         Destroy(gameObject);
     }
 }

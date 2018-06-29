@@ -57,6 +57,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 93ed97538ee05ea4f814288ded7e9550, type: 2}
   m_StaticBatchInfo:
@@ -121,7 +122,7 @@ MonoBehaviour:
   isWeaponTypeMelee: 1
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
   atkStartDist: 0
-  attackRange: 2
+  attackRange: 8
   weaponAngle: 80
 --- !u!114 &114190360349403438
 MonoBehaviour:

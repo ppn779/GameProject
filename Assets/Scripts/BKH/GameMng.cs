@@ -48,17 +48,17 @@ public class GameMng : MonoBehaviour
         SceneManager.LoadScene("EndingScene");
     }
 
-    public void SetActiveResultCanvas()
-    {
-        Debug.Log("SetActive Canvas");
-        StartCoroutine(GameMng.Instance.SetActiveResultCavasCoroutine());
-    }
+    //public void SetActiveResultCanvas()
+    //{
+    //    Debug.Log("SetActive Canvas");
+    //    StartCoroutine(GameMng.Instance.SetActiveResultCavasCoroutine());
+    //}
 
-    private IEnumerator SetActiveResultCavasCoroutine()
-    {
-        yield return new WaitForSeconds(1);
+    //private IEnumerator SetActiveResultCavasCoroutine()
+    //{
+    //    yield return new WaitForSeconds(1);
 
-        Debug.Log(resultUI);
-        resultUI.gameObject.SetActive(true);
-    }
+    //    Debug.Log(resultUI);
+    //    resultUI.gameObject.SetActive(true);
+    //}
 }
