@@ -10,7 +10,7 @@ public class ComboSystemMng : MonoBehaviour
 {
     [SerializeField] private GameObject comboUiText = null;
     [SerializeField] private GameObject comboUiBar = null;
-    public float comboTimeDefault = 20f;
+    public float comboTimeDefault = 7f;
     private const float textUiHeight = 4f;
     private static ComboSystemMng instance = null;
     private Transform tr = null;

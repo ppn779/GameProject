@@ -57,7 +57,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: e690ca7497003d64f919789ae93e3bfb, type: 2}
   m_StaticBatchInfo:
@@ -115,9 +114,12 @@ MonoBehaviour:
   remainTime: 5
   damage: 300
   attackSpeed: 1
-  durability: 100
+  durabilityMax: 100
+  durabilityCur: 100
   usableCount: 5
+  durabilityReduce: 40
   isWeaponTypeMelee: 0
+  SlotColor: {r: 0, g: 1, b: 0, a: 1}
   projectile: {fileID: 1941739627128864, guid: 4f4c95a93a662ad438fb1e99e2c11f94, type: 2}
 --- !u!114 &114442604262620054
 MonoBehaviour:

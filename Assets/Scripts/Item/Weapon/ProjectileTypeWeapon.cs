@@ -20,7 +20,7 @@ public class ProjectileTypeWeapon : Weapon
     {
         if (usableCount > 0)
         {
-            //GameObject go = Instantiate<GameObject>(projectile, this.transform.position, objRot);
+            GameObject go = Instantiate<GameObject>(projectile, this.transform.position, this.transform.rotation);
             //go.transform.parent = this.transform;
             Vector3 newPos = this.transform.position;
             newPos += (tr.forward * 1.2f);

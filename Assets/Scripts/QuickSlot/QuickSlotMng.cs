@@ -39,7 +39,13 @@ public class QuickSlotMng : MonoBehaviour
             }
         }
         
-        if (slot.GetItemMain() != null && slot.GetItemMain().IsDestroyed)
+        if (slot.GetItemMain())
+        {
+            Weapon weapon = slot.GetItemMain().GetComponent<Weapon>();
+            slotImage.SetColorMain(weapon.SlotColor);
+        }
+
+        if (slot.GetItemMain() && slot.GetItemMain().IsDestroyed)
         {
             Debug.Log("파괴되었다");
             Item itMainTemp = slot.GetItemMain();

@@ -16,9 +16,11 @@ public class KnockBackProcess : MonoBehaviour
     [SerializeField]
     private float forcePow;
     private float time;
+    private Transform tr = null;
 
     private void Awake()
     {
+        tr = this.transform;
         playerCtrl = this.GetComponent<PlayerController>();
         time = knockBackTime;
     }
@@ -35,6 +37,12 @@ public class KnockBackProcess : MonoBehaviour
 
     IEnumerator KnockBack()
     {
+        Vector3 newPos = tr.position;
+        Quaternion quater = tr.rotation;
+        newPos.y += 1f;
+        Instantiate(ParticleMng.GetInstance().EffectBloodSprray(), newPos, quater);
+        Instantiate(ParticleMng.GetInstance().EffectBulletImpactFleshBig(), newPos, quater);
+        
         while (time < knockBackTime)
         {
             direction.y = 0;

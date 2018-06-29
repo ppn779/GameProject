@@ -48,17 +48,16 @@ public class QuickSlot : MonoBehaviour
         
         ++SlotCnt;
         
-        DebugSystem.GetInstance().ShowQuickSlot(num, "Name : " + goItem.name + "\nDamage : " + weapon.damage + "\nAtkSpeed : " + weapon.attackSpeed + "\nDurability : " + weapon.durabilityCur + "\nRemainCnt : " + weapon.usableCount + "\nIsTypeMelee : " + weapon.isWeaponTypeMelee.ToString());
+        //DebugSystem.GetInstance().ShowQuickSlot(num, "Name : " + goItem.name + "\nDamage : " + weapon.damage + "\nAtkSpeed : " + weapon.attackSpeed + "\nDurability : " + weapon.durabilityCur + "\nRemainCnt : " + weapon.usableCount + "\nIsTypeMelee : " + weapon.isWeaponTypeMelee.ToString());
     }
     public void AddItemMain(Item goItem)
     {
         Weapon weapon = goItem.GetComponent<Weapon>();
         itemMain = goItem;
-        Debug.Log(weapon.SlotColor);
         slotImage.RegistMain(goItem.spriteWeaponIcon);
         slotImage.SetColorMain(weapon.SlotColor);
         
-        DebugSystem.GetInstance().ShowQuickSlotMain("Name : " + itemMain.name + "\nDamage : " + weapon.damage + "\nAtkSpeed : " + weapon.attackSpeed + "\nDurability : " + weapon.durabilityCur + "\nRemainCnt : " + weapon.usableCount + "\nIsTypeMelee : " + weapon.isWeaponTypeMelee.ToString());
+        //DebugSystem.GetInstance().ShowQuickSlotMain("Name : " + itemMain.name + "\nDamage : " + weapon.damage + "\nAtkSpeed : " + weapon.attackSpeed + "\nDurability : " + weapon.durabilityCur + "\nRemainCnt : " + weapon.usableCount + "\nIsTypeMelee : " + weapon.isWeaponTypeMelee.ToString());
     }
     public void AddItemEmpty(int num)
     {

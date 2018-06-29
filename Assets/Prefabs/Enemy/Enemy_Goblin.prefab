@@ -2228,7 +2228,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: e46ba702d60f24fe18d6ac82d2b0aa4d, type: 2}
   m_StaticBatchInfo:
@@ -2263,7 +2262,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -2298,7 +2296,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: e46ba702d60f24fe18d6ac82d2b0aa4d, type: 2}
   m_StaticBatchInfo:
@@ -2387,7 +2384,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114122582204974484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2495,6 +2491,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eaafec1c2e9a3145ab40167383f5103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupRange: 3
+  remainCount: 3
+  spriteWeaponIcon: {fileID: 0}
+  remainTime: 5
+  damage: 0
+  attackSpeed: 0
+  durabilityMax: 100
+  durabilityCur: 100
+  usableCount: 5
+  durabilityReduce: 50
+  isWeaponTypeMelee: 1
+  SlotColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &114867118956921818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2509,10 +2517,10 @@ MonoBehaviour:
   dropTable:
   - name: Axe
     item: {fileID: 1679818820238594, guid: 5ebcace05f40e294ea99512cb13fe4c0, type: 2}
-    dropDice: 0.5
+    dropDice: 0.1
   - name: sword
     item: {fileID: 1111195535892534, guid: 2356a41d8d88b7a41a55fc47836d0f26, type: 2}
-    dropDice: 0.5
+    dropDice: 0.3
 --- !u!114 &114946265019907440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2530,9 +2538,12 @@ MonoBehaviour:
   remainTime: 5
   damage: 50
   attackSpeed: 2
-  durability: 1000
+  durabilityMax: 100
+  durabilityCur: 100
   usableCount: 5
+  durabilityReduce: 50
   isWeaponTypeMelee: 1
+  SlotColor: {r: 0, g: 1, b: 0, a: 1}
   atkStartDist: 0
   attackRange: 5
   weaponAngle: 20
@@ -2588,7 +2599,6 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 1be3481fb50cd494fbacbfb4227b2d8b, type: 2}
   m_StaticBatchInfo:

@@ -14,6 +14,7 @@ public class Weapon : Item
     public bool isWeaponTypeMelee = true;
 
     private bool isPlayerEquipped = false;
+    private bool isChangedSlotColor = false;
     public Color SlotColor = Color.green;
 
     public virtual void Attack(Transform _objTr, float _atkPow) { }
@@ -22,18 +23,30 @@ public class Weapon : Item
     public virtual float AtkStartDist { get; set; }
     
     public bool IsPlayerEquipped { get; set; }
+    public bool IsChangedSlotColor { get; set; }
 
     public void SubtractDurability(int amount)
     {
         durabilityCur -= amount;
         if (durabilityCur > 66)
+        {
             SlotColor = Color.green;
+            isChangedSlotColor = true;
+        }
         else if (durabilityCur > 33)
+        {
             SlotColor = Color.yellow;
+            isChangedSlotColor = true;
+        }
         else
+        {
             SlotColor = Color.red;
+            isChangedSlotColor = true;
+        }
+            
         if (durabilityCur <= 0) {
             SlotColor = Color.white;
+            isChangedSlotColor = true;
             DestroyWeapon();
         }
     }

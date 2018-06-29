@@ -11,12 +11,14 @@ public class QuickSlotImage : MonoBehaviour
     [SerializeField] private GameObject slot3 = null;
     [SerializeField] private GameObject slot4 = null;
     [SerializeField] private GameObject slotMain = null;
+    [SerializeField] private Sprite defaultSprite = null;
     private Image imageSlot0 = null;
     private Image imageSlot1 = null;
     private Image imageSlot2 = null;
     private Image imageSlot3 = null;
     private Image imageSlot4 = null;
     private Image imageSlotMain = null;
+    
 
     private void Awake()
     {
@@ -103,15 +105,15 @@ public class QuickSlotImage : MonoBehaviour
     {
         switch (slotNum)
         {
-            case 0: imageSlot0.sprite = null; break;
-            case 1: imageSlot1.sprite = null; break;
-            case 2: imageSlot2.sprite = null; break;
-            case 3: imageSlot3.sprite = null; break;
-            case 4: imageSlot4.sprite = null; break;
+            case 0: imageSlot0.sprite = defaultSprite; break;
+            case 1: imageSlot1.sprite = defaultSprite; break;
+            case 2: imageSlot2.sprite = defaultSprite; break;
+            case 3: imageSlot3.sprite = defaultSprite; break;
+            case 4: imageSlot4.sprite = defaultSprite; break;
         }
     }
     public void RemoveMain()
     {
-        imageSlotMain.sprite = null;
+        imageSlotMain.sprite = defaultSprite;
     }
 }

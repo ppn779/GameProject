@@ -29,7 +29,7 @@ public class WeaponMeshCtrl : Weapon {
 
     public void clearShape()
     {
-        //Debug.Log("실행");
+        Debug.Log("실행");
         mesh.Clear();
         meshFilter.mesh = mesh;
         //mesh 변경 후 false->true로 설정해야 반영된다.
@@ -39,7 +39,6 @@ public class WeaponMeshCtrl : Weapon {
 
     public void makeFanShape(float[] angle, Transform objTr, float atkRangeDist) //float atkStartDist)
     {
-        Debug.Log("만들었다");
         //this.transform.position = objTr.position;
         //this.transform.rotation = objTr.rotation;
         //Vector3 pos = objTr.position+(objTr.forward*atkStartDist);
@@ -120,7 +119,7 @@ public class WeaponMeshCtrl : Weapon {
         //
 
 
-
+        Debug.Log(mesh);
         mesh.Clear();
 
         mesh.vertices = circleVertices;

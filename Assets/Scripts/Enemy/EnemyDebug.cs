@@ -39,7 +39,7 @@ public class EnemyDebug : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DisplayHP();
+        //DisplayHP();
     }
 
     private void DisplayHP()

@@ -9,6 +9,7 @@ public class EnemyStats : CharacterStat
     [SerializeField]
     private string opponentObjAtkTagName = null;
     private static bool isAttackedByWeapon = false;
+    private Transform tr = null;
     private Animator animator = null;
     private AtkMng atkMng = null;
     private Weapon weapon = null;
@@ -17,6 +18,7 @@ public class EnemyStats : CharacterStat
 
     private void Start()
     {
+        tr = this.transform;
         animator = this.gameObject.GetComponentInChildren<Animator>();
         atkMng = this.gameObject.GetComponent<AtkMng>();
         weapon = this.gameObject.GetComponentInChildren<Weapon>();
@@ -48,15 +50,27 @@ public class EnemyStats : CharacterStat
         if (opponentObjAtkTagName == null) { Debug.LogError("WeaponTag Name is null"); }
         if (other.tag == opponentObjAtkTagName)
         {
+
+        
             CharacterStat objStat = this.gameObject.GetComponent<CharacterStat>();
-            Weapon weapon = other.GetComponent<WeaponMeshCtrl>().WeaponGameObject;
-            Debug.Log("데미지 : " + weapon.damage);
+            WeaponMeshCtrl meshCtrl = other.GetComponent<WeaponMeshCtrl>();
+            Weapon weapon = null;
+            if (meshCtrl)
+                weapon = meshCtrl.WeaponGameObject;
+            else
+                weapon = other.GetComponent<Weapon>();
+            
+            //Debug.Log("데미지 : " + weapon.damage);
             objStat.TakeDamage(weapon.damage);
+
+            Vector3 newPos = tr.position;
+            newPos.y += 1f;
+            Instantiate(ParticleMng.GetInstance().EffectBulletImpactWood(), newPos , tr.rotation);
+            Instantiate(ParticleMng.GetInstance().EffectBulletImpactMetal(), newPos, tr.rotation);
             if (!isAttackedByWeapon)
             {
                 isAttackedByWeapon = true;
-                weapon.SubtractDurability(50);
-                Debug.Log("durability : " + weapon.durabilityCur);
+                weapon.SubtractDurability(weapon.durabilityReduce);
             }
             ComboSystemMng.GetInstance().AddCombo(1);
         }

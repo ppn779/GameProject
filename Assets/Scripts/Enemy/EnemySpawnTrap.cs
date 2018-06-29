@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawnTrap : MonoBehaviour {
-    [SerializeField] private GameObject enemyPrefab = null;
+    [SerializeField] private List<GameObject> enemyPrefab = null;
     private Transform tr = null;
     private bool isUsed = false;
 
 	private void Start () {
-        if (!enemyPrefab)
-            Debug.LogError("enemyPrefab is NULL,, This need Enemy GameObject");
         tr = this.transform;
 	}
 	
@@ -34,10 +32,14 @@ public class EnemySpawnTrap : MonoBehaviour {
         while (count > 0)
         {
             Vector3 newPos = tr.position;
-            
+            int rand = Random.Range(0, enemyPrefab.Capacity);
+
+            Debug.Log(enemyPrefab[rand]);
             newPos.x += 3f * Mathf.Cos(count * 45f * Mathf.Deg2Rad);
             newPos.z += 3f * Mathf.Sin(count * 45f * Mathf.Deg2Rad);
-            Instantiate(enemyPrefab, newPos, tr.rotation);
+            Instantiate(enemyPrefab[rand], newPos, tr.rotation);
+            Instantiate(ParticleMng.GetInstance().EffectPlasmaExp(), newPos, tr.rotation);
+            
             --count;
             yield return new WaitForSeconds(0.15f);
         }
