@@ -58,7 +58,11 @@ public class PlayerStats : CharacterStat {
         //canvasControl.ShowResultCanvas(true);
 
         GameMng.Instance.SetActiveResultCanvas();
-
+        Vector3 newPos = this.transform.position;
+        Quaternion quater = this.transform.rotation;
+        newPos.y += 1f;
+        Instantiate(ParticleMng.GetInstance().EffectSmallExp(), newPos, quater);
+        
         Destroy(gameObject);
     }
 }
