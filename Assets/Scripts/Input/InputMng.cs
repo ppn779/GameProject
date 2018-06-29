@@ -39,10 +39,10 @@ public class InputMng : MonoBehaviour
         {
             Item unequipItem = equipment.UnEquip();
             slot.RemoveItemMain();
-            slot.AddItemMainEmpty();
+            //slot.AddItemMainEmpty();
             if (unequipItem != null) { Destroy(unequipItem.gameObject); }
 
-            DebugSystem.GetInstance().HideQuickSlotMain();
+            //DebugSystem.GetInstance().HideQuickSlotMain();
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -84,7 +84,7 @@ public class InputMng : MonoBehaviour
                 slot.AddItemEmpty(slotNumber);
                 equipment.Equip(it);
 
-                DebugSystem.GetInstance().HideQuickSlot(slotNumber);
+                //DebugSystem.GetInstance().HideQuickSlot(slotNumber);
             }
         }
     }
