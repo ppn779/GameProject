@@ -63,6 +63,7 @@ public class PlayerStats : CharacterStat {
         Quaternion quater = this.transform.rotation;
         newPos.y += 1f;
         Instantiate(ParticleMng.GetInstance().EffectSmallExp(), newPos, quater);
+        AudioMng.GetInstance().PlaySound("PlayerDie", newPos, 100f);
 
         GameMng.Instance.GameOver();
 

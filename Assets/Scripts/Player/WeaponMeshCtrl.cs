@@ -115,6 +115,7 @@ public class WeaponMeshCtrl : Weapon {
         //
         //
 
+        
         mesh.Clear();
 
         mesh.vertices = circleVertices;

@@ -39,29 +39,19 @@ public class InputMng : MonoBehaviour
         {
             Item unequipItem = equipment.UnEquip();
             slot.RemoveItemMain();
-            slot.AddItemMainEmpty();
+            //slot.AddItemMainEmpty();
             if (unequipItem != null) { Destroy(unequipItem.gameObject); }
 
-            DebugSystem.GetInstance().HideQuickSlotMain();
+            //DebugSystem.GetInstance().HideQuickSlotMain();
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("//================//");
-            Debug.Log("Main : " + slot.GetItemMain());
-            for (int i = 0; i < 5; ++i)
-            {
-                if(slot.ItemList[i] != null) Debug.Log("slot[" + i + "] : " + slot.ItemList[i].GetItemType());
-            }
-            Debug.Log("//================//");
-        }
-
 
         if (isPressedNumber)
         {
             isPressedNumber = false;
             // 그리고 누른 번호에 해당하는 슬롯의 정보를 현재 장착슬롯에 적용및 누른번호에 해당하는 슬롯에 대한 정보 소거
             // 따로 빼낸 정보를 슬롯에 추가
+            AudioMng.GetInstance().PlaySound("Button1", tr.position, 100f);
+
             if (slot.IsSlotEmpty(slotNumber)) { Debug.Log("비었다"); return; }
             // 현재 낀 아이템이 있는지 체크
             if (equipment.IsEquipWeapon)
@@ -84,7 +74,7 @@ public class InputMng : MonoBehaviour
                 slot.AddItemEmpty(slotNumber);
                 equipment.Equip(it);
 
-                DebugSystem.GetInstance().HideQuickSlot(slotNumber);
+                //DebugSystem.GetInstance().HideQuickSlot(slotNumber);
             }
         }
     }

@@ -8,6 +8,7 @@ public class EnemyStats : CharacterStat
 {
     [SerializeField]
     private string opponentObjAtkTagName = null;
+    [SerializeField] private List<string> listStrDeath = null;
     private static bool isAttackedByWeapon = false;
     private Transform tr = null;
     private Animator animator = null;
@@ -15,6 +16,7 @@ public class EnemyStats : CharacterStat
     private Weapon weapon = null;
     private NavMeshAgent nav = null;
     private EnemyAIScript01 ai = null;
+    
 
     private void Start()
     {
@@ -67,6 +69,15 @@ public class EnemyStats : CharacterStat
             newPos.y += 1f;
             Instantiate(ParticleMng.GetInstance().EffectBulletImpactWood(), newPos , tr.rotation);
             Instantiate(ParticleMng.GetInstance().EffectBulletImpactMetal(), newPos, tr.rotation);
+            
+            if (weapon.listSoundName.Capacity > 0)
+            {
+                int rand = Random.Range(0, weapon.listSoundName.Capacity - 2);
+                AudioMng.GetInstance().PlaySound(weapon.listSoundName[rand], newPos , 100f);
+            }
+
+            
+
             if (!isAttackedByWeapon)
             {
                 isAttackedByWeapon = true;
@@ -90,6 +101,13 @@ public class EnemyStats : CharacterStat
         nav.isStopped = true;
 
         this.GetComponent<DropTable>().GetRandomItem();
+
+        if (listStrDeath.Capacity > 0)
+        {
+            AudioMng.GetInstance().PlaySound(listStrDeath[Random.Range(0 , listStrDeath.Capacity -2)], tr.position, 100f);
+        }
+        //
+
 
         Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length + 1);
     }

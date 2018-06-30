@@ -2447,6 +2447,10 @@ MonoBehaviour:
   damage: 0
   armor: 5
   opponentObjAtkTagName: PlayerWeaponMesh
+  listStrDeath:
+  - Death_Goblin_1
+  - Death_Goblin_2
+  - Death_Goblin_3
 --- !u!114 &114749541236550868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2503,6 +2507,7 @@ MonoBehaviour:
   durabilityReduce: 50
   isWeaponTypeMelee: 1
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
+  listSoundName: []
 --- !u!114 &114867118956921818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2544,6 +2549,7 @@ MonoBehaviour:
   durabilityReduce: 50
   isWeaponTypeMelee: 1
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
+  listSoundName: []
   atkStartDist: 0
   attackRange: 5
   weaponAngle: 20

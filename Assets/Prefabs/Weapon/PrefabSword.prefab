@@ -120,6 +120,10 @@ MonoBehaviour:
   durabilityReduce: 40
   isWeaponTypeMelee: 1
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
+  listSoundName:
+  - Hit_Sword_1
+  - Hit_Sword_2
+  - Hit_Sword_3
   atkStartDist: 0
   attackRange: 2.5
   weaponAngle: 100

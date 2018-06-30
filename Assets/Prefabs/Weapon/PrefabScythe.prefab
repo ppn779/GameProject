@@ -57,7 +57,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 93ed97538ee05ea4f814288ded7e9550, type: 2}
   m_StaticBatchInfo:
@@ -121,6 +120,9 @@ MonoBehaviour:
   durabilityReduce: 40
   isWeaponTypeMelee: 1
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
+  listSoundName:
+  - Hit_Scythe_1
+  - Hit_Scythe_2
   atkStartDist: 0
   attackRange: 3
   weaponAngle: 80

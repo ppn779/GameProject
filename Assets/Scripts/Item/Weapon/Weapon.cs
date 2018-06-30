@@ -12,11 +12,12 @@ public class Weapon : Item
     public int usableCount = 5;
     public int durabilityReduce = 50;
     public bool isWeaponTypeMelee = true;
+    public Color SlotColor = Color.green;
+    public List<string> listSoundName = null;
 
     private bool isPlayerEquipped = false;
     private bool isChangedSlotColor = false;
-    public Color SlotColor = Color.green;
-
+    
     public virtual void Attack(Transform _objTr, float _atkPow) { }
     public virtual float WeaponAngle { get; set; }
     public virtual float AtkRangeDist { get; set; }
