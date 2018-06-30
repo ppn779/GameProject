@@ -5,23 +5,17 @@ using UnityEngine;
 public class CharacterStat : MonoBehaviour
 {
     public float maxHealth = 100;
-    public float currentHealth = 0;// { get; private set; }
-    public float damage = 10f;
+    public float currentHealth { get; private set; }
     public float armor = 0f;
 
     private bool isDead = false;
 
     public bool IsDead
     {
-        get
-        {
-            return isDead;
-        }
-        set
-        {
-            isDead = value;
-        }
+        get { return isDead; }
+        set { isDead = value; }
     }
+
     public event System.Action<float, float> OnHealthChanged;
 
     private void Awake()
@@ -29,11 +23,11 @@ public class CharacterStat : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public bool TakeDamage(float damage)
+    public bool TakeDamage(float _damage)
     {
-        damage -= armor;
+        _damage -= armor;
 
-        currentHealth -= damage;
+        currentHealth -= _damage;
 
         if (OnHealthChanged != null)
         {
@@ -49,8 +43,5 @@ public class CharacterStat : MonoBehaviour
         return true;
     }
 
-    public virtual void Die()
-    {
-        //Debug.Log(transform.name + " died.");
-    }
+    public virtual void Die() { }
 }

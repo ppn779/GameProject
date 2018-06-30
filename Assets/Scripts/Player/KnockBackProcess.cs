@@ -42,11 +42,11 @@ public class KnockBackProcess : MonoBehaviour
         newPos.y += 1f;
         Instantiate(ParticleMng.GetInstance().EffectBloodSprray(), newPos, quater);
         Instantiate(ParticleMng.GetInstance().EffectBulletImpactFleshBig(), newPos, quater);
-        
+
         while (time < knockBackTime)
         {
             direction.y = 0;
-            playerCtrl.transform.position += (direction*forcePow)/100;
+            playerCtrl.transform.position += (direction * forcePow) / 100;
             time += Time.deltaTime;
             yield return new WaitForFixedUpdate();
         }
@@ -54,7 +54,7 @@ public class KnockBackProcess : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "WeaponMesh"&&!isKnockBackOn)
+        if (other.tag == "WeaponMesh" && !isKnockBackOn)
         {
             //Debug.Log(other.transform.forward);
             direction = other.transform.forward;

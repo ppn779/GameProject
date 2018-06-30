@@ -13,17 +13,17 @@ public class PlayerStats : CharacterStat {
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        //currentHealth = maxHealth;
     }
 
-    public void HealthUp(float HP)
-    {
-        currentHealth += HP;
-        if (currentHealth > maxHealth)
-        {
-            currentHealth = maxHealth;
-        }
-    }
+    //public void HealthUp(float HP)
+    //{
+    //    currentHealth += HP;
+    //    if (currentHealth > maxHealth)
+    //    {
+    //        currentHealth = maxHealth;
+    //    }
+    //}
 
     public float AtkSpeed
     {
@@ -51,22 +51,14 @@ public class PlayerStats : CharacterStat {
 
     public override void Die()
     {
-        base.Die();
-
-        //CanvasControl canvasControl = GetComponent<CanvasControl>();
-        //if (canvasControl == null) { Debug.LogError("canvasControl is null"); }
-        //canvasControl.ShowResultCanvas(true);
-
-        //GameMng.Instance.SetActiveResultCanvas();
-
         Vector3 newPos = this.transform.position;
         Quaternion quater = this.transform.rotation;
         newPos.y += 1f;
+
         Instantiate(ParticleMng.GetInstance().EffectSmallExp(), newPos, quater);
         AudioMng.GetInstance().PlaySound("PlayerDie", newPos, 100f);
 
         GameMng.Instance.GameOver();
-
 
         Destroy(gameObject);
     }

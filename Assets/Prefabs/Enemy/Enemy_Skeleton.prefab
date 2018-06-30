@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 114576293719820206}
   - component: {fileID: 136472473548491072}
   - component: {fileID: 114697359685849504}
+  - component: {fileID: 114768100875122706}
   m_Layer: 0
   m_Name: Enemy_Skeleton
   m_TagString: Enemy
@@ -1005,7 +1006,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1113959399987006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.93, y: 0, z: 6.52}
+  m_LocalPosition: {x: 6.2542696, y: 0.5, z: 13.548904}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4656789603018434}
@@ -1294,6 +1295,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -1368,6 +1370,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114029621098500704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1391,8 +1394,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 0
-  damage: 0
   armor: 0
   opponentObjAtkTagName: PlayerWeaponMesh
   listStrDeath:
@@ -1439,8 +1440,8 @@ MonoBehaviour:
   pauseAtWaypoints: 0
   pauseMin: 1
   pauseMax: 3
-  huntingTimer: 5
   target: {fileID: 0}
+  huntingTimer: 5
   targetOn: 1
   playerHasBeenSeen: 0
 --- !u!114 &114511047040146976
@@ -1528,6 +1529,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textPrefab: {fileID: 1246682396083508, guid: b1a39d66d66c61446a64e43e82a771e3, type: 2}
   textTr: {fileID: 4060426864131352}
+--- !u!114 &114768100875122706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1113959399987006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c10cbbfca0c214e93e636d63f1b9c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opponentObjAtkTagName: PlayerWeaponMesh
 --- !u!114 &114771354371536092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1578,6 +1591,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: ed14df0368fe53543907335c0e3902c6, type: 2}
   m_StaticBatchInfo:
@@ -1658,6 +1672,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: ed14df0368fe53543907335c0e3902c6, type: 2}
   m_StaticBatchInfo:
