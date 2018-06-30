@@ -120,6 +120,8 @@ MonoBehaviour:
   durabilityReduce: 40
   isWeaponTypeMelee: 0
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
+  listSoundName:
+  - Hit_Shuriken
   projectile: {fileID: 1941739627128864, guid: ec1aaa1385537334e9c4779f523cf6a3, type: 2}
 --- !u!114 &114526594216889282
 MonoBehaviour:

@@ -47,7 +47,6 @@ public class QuickSlotMng : MonoBehaviour
 
         if (slot.GetItemMain() && slot.GetItemMain().IsDestroyed)
         {
-            Debug.Log("파괴되었다");
             Item itMainTemp = slot.GetItemMain();
             //Weapon weaponMainTemp = itMainTemp.GetComponent<Weapon>();
             //if (!weaponMainTemp)

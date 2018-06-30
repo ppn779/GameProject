@@ -2061,6 +2061,9 @@ MonoBehaviour:
   damage: 0
   armor: 5
   opponentObjAtkTagName: PlayerWeaponMesh
+  listStrDeath:
+  - Death_Ent_1
+  - Death_Ent_2
 --- !u!114 &114779640650655456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2097,6 +2100,7 @@ MonoBehaviour:
   durabilityReduce: 50
   isWeaponTypeMelee: 0
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
+  listSoundName: []
   projectile: {fileID: 1199687602671644, guid: f36308d7981303a458f950ad55d4d8bb, type: 2}
 --- !u!136 &136784531602908586
 CapsuleCollider:

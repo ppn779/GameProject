@@ -28,7 +28,7 @@ public class PlayerAtkMng : MonoBehaviour
         animator = GetComponent<Animator>();
         weaponMeshCtrl = GameObject.FindGameObjectWithTag("PlayerWeaponMesh").GetComponent<WeaponMeshCtrl>();
         if (weaponMeshCtrl == null) { Debug.LogError("어택매니져 웨폰메쉬 Null"); }
-        debugWeaponMesh = GameObject.Find("DebugWeaponMesh").GetComponent<DebugWeaponMeshCtrl>();//디버그용 지워야 하는 코드.
+        //debugWeaponMesh = GameObject.Find("DebugWeaponMesh").GetComponent<DebugWeaponMeshCtrl>();//디버그용 지워야 하는 코드.
         equipment = GetComponent<Equipment>();
         if (equipment == null) { gameObject.AddComponent<Equipment>(); }
 
@@ -50,8 +50,8 @@ public class PlayerAtkMng : MonoBehaviour
 
         if (equippedWeapon !=  null)//디버그용 조건문. 다 지워야 함.
         {
-            debugWeaponMesh.transform.position = this.transform.position + (this.transform.forward * equippedWeapon.AtkStartDist);
-            debugWeaponMesh.transform.rotation = this.transform.rotation;
+            //debugWeaponMesh.transform.position = this.transform.position + (this.transform.forward * equippedWeapon.AtkStartDist);
+            //debugWeaponMesh.transform.rotation = this.transform.rotation;
         }
     }
 
@@ -89,7 +89,19 @@ public class PlayerAtkMng : MonoBehaviour
                 isReady = true;
             }
             isAtkTimerOn = true;
-            
+
+            switch (Random.Range(0, 2))
+            {
+                case 0:
+                    AudioMng.GetInstance().PlaySound("AttackSound_1", objTr.position, 100f);
+                    break;
+                case 1:
+                    AudioMng.GetInstance().PlaySound("AttackSound_2", objTr.position, 100f);
+                    break;
+                case 2:
+                    AudioMng.GetInstance().PlaySound("AttackSound_3", objTr.position, 100f);
+                    break;
+            }
             time = 0.0f;
             animator.SetTrigger("Attack");
         }
@@ -134,9 +146,9 @@ public class PlayerAtkMng : MonoBehaviour
     public void MakeDebugWeaponMesh()//삭제해야 함.
     {
         float[] tmpAngle = new float[] { objTr.rotation.y - (equippedWeapon.WeaponAngle / 2), objTr.rotation.y + (equippedWeapon.WeaponAngle / 2) };
-        debugWeaponMesh.makeFanShape(tmpAngle, objTr, equippedWeapon.AtkRangeDist);//디버그용
-        debugWeaponMesh.gameObject.SetActive(false);
-        debugWeaponMesh.gameObject.SetActive(true);//디버그용
+        //debugWeaponMesh.makeFanShape(tmpAngle, objTr, equippedWeapon.AtkRangeDist);//디버그용
+        //debugWeaponMesh.gameObject.SetActive(false);
+        //debugWeaponMesh.gameObject.SetActive(true);//디버그용
     }
 
     private void WeaponAttack()
@@ -157,7 +169,6 @@ public class PlayerAtkMng : MonoBehaviour
 
     private void SetForMeleeAtk()
     {
-        Debug.Log("메쉬 만듬");
         weaponMeshCtrl.damage = this.atkPower;
         //Debug.Log("Start Pos   : " +atkStartPos);
         if (weaponMeshCtrl == null) { Debug.LogError("웨폰메쉬컨트롤 Null"); }

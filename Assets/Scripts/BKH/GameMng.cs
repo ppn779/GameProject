@@ -38,7 +38,6 @@ public class GameMng : MonoBehaviour
    
     public void GameOver()
     {
-        Debug.Log("REGAME ");
         StartCoroutine(GameMng.Instance.GameOver(1));
     }
 

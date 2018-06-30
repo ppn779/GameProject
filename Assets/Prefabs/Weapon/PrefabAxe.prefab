@@ -57,7 +57,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 512fd4b459512214980b413d086a692d, type: 2}
   m_StaticBatchInfo:
@@ -121,6 +120,9 @@ MonoBehaviour:
   durabilityReduce: 40
   isWeaponTypeMelee: 1
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
+  listSoundName:
+  - Hit_Arrow_1
+  - Hit_Arrow_2
   atkStartDist: 0
   attackRange: 2.5
   weaponAngle: 160

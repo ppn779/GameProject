@@ -58,7 +58,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 06627b2c0c38d4446aab6e366857c7a9, type: 2}
   m_StaticBatchInfo:
@@ -125,6 +124,9 @@ MonoBehaviour:
   durabilityReduce: 50
   isWeaponTypeMelee: 1
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
+  listSoundName:
+  - Hit_Arrow_1
+  - Hit_Arrow_2
   projectileSpeed: 1600
 --- !u!114 &114792395514885616
 MonoBehaviour:
@@ -149,6 +151,7 @@ MonoBehaviour:
   durabilityReduce: 50
   isWeaponTypeMelee: 1
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
+  listSoundName: []
 --- !u!135 &135119021185292524
 SphereCollider:
   m_ObjectHideFlags: 1
