@@ -122,7 +122,7 @@ MonoBehaviour:
   isWeaponTypeMelee: 1
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
   atkStartDist: 0
-  attackRange: 8
+  attackRange: 3
   weaponAngle: 80
 --- !u!114 &114190360349403438
 MonoBehaviour:

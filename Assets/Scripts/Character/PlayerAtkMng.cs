@@ -8,7 +8,6 @@ public class PlayerAtkMng : MonoBehaviour
     private Transform objTr=null;
     private Animator animator = null;
     private WeaponMeshCtrl weaponMeshCtrl = null;
-    private DebugWeaponMeshCtrl debugWeaponMesh = null;//디버그용
     private Weapon equippedWeapon = null;
     private Equipment equipment = null;
     private float atkPower = 0.0f;
@@ -29,7 +28,6 @@ public class PlayerAtkMng : MonoBehaviour
         animator = GetComponent<Animator>();
         weaponMeshCtrl = GameObject.FindGameObjectWithTag("PlayerWeaponMesh").GetComponent<WeaponMeshCtrl>();
         if (weaponMeshCtrl == null) { Debug.LogError("어택매니져 웨폰메쉬 Null"); }
-        debugWeaponMesh = GameObject.Find("DebugWeaponMesh").GetComponent<DebugWeaponMeshCtrl>();//디버그용 지워야 하는 코드.
         equipment = GetComponent<Equipment>();
         if (equipment == null) { gameObject.AddComponent<Equipment>(); }
     }
@@ -45,12 +43,6 @@ public class PlayerAtkMng : MonoBehaviour
         else
         {
             isAtkTimerOn = false;
-        }
-
-        if (equippedWeapon !=  null)//디버그용 조건문. 다 지워야 함.
-        {
-            debugWeaponMesh.transform.position = this.transform.position + (this.transform.forward * equippedWeapon.AtkStartDist);
-            debugWeaponMesh.transform.rotation = this.transform.rotation;
         }
     }
 
@@ -127,14 +119,6 @@ public class PlayerAtkMng : MonoBehaviour
         {
             isEquippedWeapon = value;
         }
-    }
-
-    public void MakeDebugWeaponMesh()//삭제해야 함.
-    {
-        float[] tmpAngle = new float[] { objTr.rotation.y - (equippedWeapon.WeaponAngle / 2), objTr.rotation.y + (equippedWeapon.WeaponAngle / 2) };
-        debugWeaponMesh.makeFanShape(tmpAngle, objTr, equippedWeapon.AtkRangeDist);//디버그용
-        debugWeaponMesh.gameObject.SetActive(false);
-        debugWeaponMesh.gameObject.SetActive(true);//디버그용
     }
 
     private void SetForMeleeAtk()

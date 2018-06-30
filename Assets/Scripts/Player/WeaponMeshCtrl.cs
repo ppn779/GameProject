@@ -20,16 +20,13 @@ public class WeaponMeshCtrl : Weapon {
     private void Start()
     {
         mesh = new Mesh();
-        Debug.Log("메쉬: " + mesh);
         meshFilter = GetComponent<MeshFilter>();
         meshCollider = GetComponent<MeshCollider>();
-        Debug.Log("메쉬 콜라이더 : " + meshCollider);
         meshCollider.sharedMesh = mesh;
     }
 
     public void clearShape()
     {
-        Debug.Log("실행");
         mesh.Clear();
         meshFilter.mesh = mesh;
         //mesh 변경 후 false->true로 설정해야 반영된다.
@@ -118,8 +115,6 @@ public class WeaponMeshCtrl : Weapon {
         //
         //
 
-
-        Debug.Log(mesh);
         mesh.Clear();
 
         mesh.vertices = circleVertices;
