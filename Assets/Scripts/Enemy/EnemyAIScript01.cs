@@ -5,11 +5,9 @@ using UnityEngine.AI;
 
 public class EnemyAIScript01 : MonoBehaviour
 {
-    public bool isDead = false;               // 생존 여부
+    public bool isDead = false;             // 생존 여부
     public bool runAway = false;            // 도망 여부
     public bool runAwayByHp = false;        // 도망에 체력 조건 사용
-    public bool isSwitchOn = true;
-
 
     // 거리 설정
     public float moveableRadius = 30.0f;    // 움직이는 범위, 값이 0이거나 설정값 내에서만 움직임
@@ -33,9 +31,8 @@ public class EnemyAIScript01 : MonoBehaviour
     public float pauseMin = 1.0f;           // 웨이포인트 최소 일시 정지 시간
     public float pauseMax = 3.0f;           // 웨이포인트 최대 일시 정지 시간
 
-    public float huntingTimer = 5.0f;       // 추적 지속 시간
 
-    public Transform target = null;
+    public float huntingTimer = 5.0f;       // 추적 지속 시간
     public bool targetOn = false;
 
     private Vector3 startPos;
@@ -56,9 +53,9 @@ public class EnemyAIScript01 : MonoBehaviour
     private int waypointPatrol = 0;
     private bool pauseWaypointControl;
 
-    private CharacterStat myStats = null;
-    private CharacterStat targetStats = null;
+    private Transform target = null;
 
+    private CharacterStat myStats = null;
     private Animator animator = null;
     private AtkMng atkMng = null;
     private NavMeshAgent nav = null;
@@ -76,16 +73,17 @@ public class EnemyAIScript01 : MonoBehaviour
         StartCoroutine(Initialize());
     }
 
+    void Update()
+    {
+        AIFunctionality();
+    }
+
     private IEnumerator Initialize()
     {
-        
         target = GameObject.FindGameObjectWithTag("Player").transform;
         if (target == null) { Debug.LogError("target is null"); }
 
         myStats = this.gameObject.GetComponent<CharacterStat>();
-
-        if (target != null) { targetStats = target.GetComponent<CharacterStat>(); }
-
         animator = this.gameObject.GetComponentInChildren<Animator>();
         atkMng = this.gameObject.GetComponent<AtkMng>();
         nav = this.gameObject.GetComponent<NavMeshAgent>();
@@ -93,28 +91,21 @@ public class EnemyAIScript01 : MonoBehaviour
         this.gameObject.GetComponentInChildren<AnimationEventReceiver>().attackHit = AttackHit;
 
         startPos = this.transform.position;
+
         nav.speed = walkSpeed;
         nav.stoppingDistance = attackRange;
-                
-        yield return null;
-    }
 
-    void Update()
-    {
-        AIFunctionality();
+        yield return null;
     }
 
     private void AIFunctionality()
     {
-        if ((!target) || (isDead))
-        {
-            return;
-        }
+        if ((!target) || (isDead)) { return; }
 
         isDead = myStats.IsDead;
-
         targetPos = target.transform.position;
         nav.stoppingDistance = 2f;
+
         float distance = Vector3.Distance(transform.position, targetPos);
 
         if (enemyIsAttacking || isDead)
@@ -131,7 +122,6 @@ public class EnemyAIScript01 : MonoBehaviour
             // 타겟 시야 반경 내
             if (TargetIsInSight())
             {
-
                 // 타겟 따라가기
                 NavStart();
                 SetNav(target.position);
@@ -146,6 +136,8 @@ public class EnemyAIScript01 : MonoBehaviour
                 // 공격 거리 이내
                 else if (distance < attackRange)
                 {
+                    LookAtPlayer();
+
                     animator.SetBool("isRun", false);
                     animator.SetBool("isWalk", false);
                     nav.stoppingDistance = attackRange;
@@ -155,7 +147,6 @@ public class EnemyAIScript01 : MonoBehaviour
                         StartCoroutine(Attack());
                     }
                 }
-
             }
 
             // 타겟 시야 반경 밖
@@ -166,17 +157,19 @@ public class EnemyAIScript01 : MonoBehaviour
                 lostPlayerTimer = Time.time + huntingTimer;
 
                 StartCoroutine(HuntDownTarget());
-
             }
+
             // 발견 못했거나 moveableRadius가 0 또는 플레이어와의 거리가 moveableRadius보다 작으면
             else if (((!playerHasBeenSeen)) && ((moveableRadius == 0) || (distance < moveableRadius)))
             {
                 WalkNewPath();
             }
+
             else if ((!playerHasBeenSeen) && (distance > moveableRadius))
             {
                 //animator.SetBool("isWalk", false);
                 animator.SetBool("isRun", false);
+
                 if (useWaypoint)
                 {
                     Patrol();
@@ -192,6 +185,7 @@ public class EnemyAIScript01 : MonoBehaviour
                 }
             }
         }
+
         else if (runAway)
         {
             NavStop();
@@ -200,14 +194,14 @@ public class EnemyAIScript01 : MonoBehaviour
             {
                 enemyCanAttack = false;
                 nav.speed = runSpeed;
-                RunAway();
             }
             else if (distance > runAwayDistance)
             {
                 enemyCanAttack = false;
                 nav.speed = walkSpeed;
-                RunAway();
             }
+
+            RunAway();
         }
 
         // 체력 조건 사용
@@ -218,7 +212,7 @@ public class EnemyAIScript01 : MonoBehaviour
         }
     }
 
-    void LookAtPlayer()
+    private void LookAtPlayer()
     {
         Vector3 dir = (target.transform.position - transform.position).normalized;
         Quaternion lookRot = Quaternion.LookRotation(new Vector3(dir.x, 0, dir.z));
@@ -239,10 +233,7 @@ public class EnemyAIScript01 : MonoBehaviour
                 {
                     lastShotFired = Time.time;
 
-                    if (targetStats != null)
-                    {
-                        animator.SetTrigger("attack");
-                    }
+                    animator.SetTrigger("attack");
 
                     yield return new WaitForSeconds(attackTime);
 
@@ -490,10 +481,6 @@ public class EnemyAIScript01 : MonoBehaviour
     public void AttackHit()
     {
         if (atkMng == null) { Debug.LogError(atkMng); }
-        else
-        {
-            atkMng.Attack();
-        }
-        //Debug.Log("ATTACKHIT");
+        else { atkMng.Attack(); }
     }
 }
