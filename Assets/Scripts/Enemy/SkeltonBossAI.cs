@@ -54,11 +54,18 @@ public class SkeltonBossAI : MonoBehaviour
             LookAtPlayer();
             if (state == bossState.none)
             {
-                // 패턴 2, 원거리 공격
-                if (state == bossState.longAtk)
-                {
-                    bossAttack.LongDistanceAttack();
-                }
+                Debug.Log("State1 " + state);
+
+                StartCoroutine(Waiting());
+
+            }
+            // 패턴 2, 원거리 공격
+            else if (state == bossState.longAtk)
+            {
+                Debug.Log("State3 " + state);
+
+                Debug.Log("Pattern");
+                bossAttack.LongDistanceAttack();
             }
 
         }
@@ -71,7 +78,9 @@ public class SkeltonBossAI : MonoBehaviour
             yield return new WaitForSeconds(2f);
 
             state = bossState.longAtk;
-            animator.Play("Attack", 0);
+
+            yield return new WaitForSeconds(2f);
+
             state = bossState.none;
         }
     }

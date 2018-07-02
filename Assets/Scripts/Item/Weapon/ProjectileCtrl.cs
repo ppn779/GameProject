@@ -14,12 +14,13 @@ public class ProjectileCtrl : Weapon {
 
     private void Start()
     {
+        Debug.Log(direction);
         GetComponent<Rigidbody>().AddForce(direction * (projectileSpeed * 10));
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Weapon")
+        if (other.tag != "Weapon"&&other.tag!="WeaponMesh")
         {
             Destroy(this.gameObject);
         }

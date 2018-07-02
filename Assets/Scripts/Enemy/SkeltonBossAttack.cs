@@ -15,7 +15,8 @@ public class SkeltonBossAttack : MonoBehaviour
 
     public void LongDistanceAttack()
     {
-
+        Debug.Log("Boss Atk");
+        atkMng.Attack();
     }
 
     //public void AttackHit()
