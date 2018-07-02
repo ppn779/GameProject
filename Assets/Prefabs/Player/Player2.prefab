@@ -1290,7 +1290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comboUiText: {fileID: 0}
   comboUiBar: {fileID: 0}
-  comboTimeDefault: 10
+  comboTimeDefault: 5
 --- !u!114 &114053458810071140
 MonoBehaviour:
   m_ObjectHideFlags: 1

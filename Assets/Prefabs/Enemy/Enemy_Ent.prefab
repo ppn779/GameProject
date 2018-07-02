@@ -1984,10 +1984,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropTable:
   - name: Axe
-    item: {fileID: 1679818820238594, guid: 5ebcace05f40e294ea99512cb13fe4c0, type: 2}
+    item: {fileID: 1783659366462482, guid: 3d04ab3805cfe564186aa1922b3a7a1a, type: 2}
     dropDice: 0.15
   - name: sword
-    item: {fileID: 1111195535892534, guid: 2356a41d8d88b7a41a55fc47836d0f26, type: 2}
+    item: {fileID: 1295213387744814, guid: 9daed256e7060f34eb9e8130778cd341, type: 2}
     dropDice: 0.2
 --- !u!114 &114333624957951598
 MonoBehaviour:

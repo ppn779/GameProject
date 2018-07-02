@@ -2538,6 +2538,9 @@ MonoBehaviour:
   - name: sword
     item: {fileID: 1111195535892534, guid: 2356a41d8d88b7a41a55fc47836d0f26, type: 2}
     dropDice: 0.3
+  - name: Scythe
+    item: {fileID: 1821159972810372, guid: 882cf92cd552d9a45b717c9384aabe92, type: 2}
+    dropDice: 0.2
 --- !u!114 &114946265019907440
 MonoBehaviour:
   m_ObjectHideFlags: 1

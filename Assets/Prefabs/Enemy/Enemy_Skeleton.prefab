@@ -1513,6 +1513,9 @@ MonoBehaviour:
   - name: bow
     item: {fileID: 1295213387744814, guid: b86e5358337f47245bc6cb30e338080d, type: 2}
     dropDice: 0.15
+  - name: Shuriken
+    item: {fileID: 1509833293233074, guid: ca81185ebed633d4bb3625e10be88137, type: 2}
+    dropDice: 0.15
 --- !u!114 &114697359685849504
 MonoBehaviour:
   m_ObjectHideFlags: 1

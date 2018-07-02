@@ -44,6 +44,7 @@ public class EndingTextMng : MonoBehaviour
     {
         if (sentences.Count == 0)
         {
+            Application.Quit();
             return;
         }
         string sentence = sentences.Dequeue();
