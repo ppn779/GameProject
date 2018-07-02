@@ -10,20 +10,10 @@ public class EnemySpawnTrap : MonoBehaviour {
 	private void Start () {
         tr = this.transform;
 	}
-	
-	void Update () {
-		
-	}
-    private void OnTriggerEnter(Collider other)
+
+    public void OnStart()
     {
-        if (isUsed)
-            return;
-        if (other.CompareTag("Player"))
-        {
-            isUsed = true;
-            //Debug.Log(other);
-            StartCoroutine(coroutineSpawn());
-        }
+        StartCoroutine(coroutineSpawn());
     }
 
     private IEnumerator coroutineSpawn()
