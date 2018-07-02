@@ -30,7 +30,11 @@ public class EnemyStats : CharacterStat
     public override void Die()
     {
         IsDead = true;
-        nav.isStopped = true;
+        if (nav)
+        {
+            nav.isStopped = true;
+        }
+
 
         // Animation
         animator.SetTrigger("Death");
@@ -41,7 +45,7 @@ public class EnemyStats : CharacterStat
         if (listStrDeathSound.Capacity > 0)
         {
             int rand = Random.Range(0, listStrDeathSound.Capacity - 2);
-            AudioMng.GetInstance().PlaySound(listStrDeathSound[rand] , this.transform.position, 120f);
+            AudioMng.GetInstance().PlaySound(listStrDeathSound[rand], this.transform.position, 120f);
         }
 
 

@@ -2334,7 +2334,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
@@ -2378,8 +2378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd5d818332d55c64d99953b513d4a2e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  armor: 0
+  maxHealth: 2000
+  armor: 10
   listStrDeathSound: []
 --- !u!114 &114482419710585512
 MonoBehaviour:
@@ -2484,7 +2484,7 @@ CapsuleCollider:
   m_Radius: 3.23
   m_Height: 4.85
   m_Direction: 1
-  m_Center: {x: 0, y: 3.63, z: 1.52}
+  m_Center: {x: 0, y: 3.63, z: 0.66}
 --- !u!137 &137106471325788020
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

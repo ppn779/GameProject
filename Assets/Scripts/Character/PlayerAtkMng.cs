@@ -31,8 +31,6 @@ public class PlayerAtkMng : MonoBehaviour
         //debugWeaponMesh = GameObject.Find("DebugWeaponMesh").GetComponent<DebugWeaponMeshCtrl>();//디버그용 지워야 하는 코드.
         equipment = GetComponent<Equipment>();
         if (equipment == null) { gameObject.AddComponent<Equipment>(); }
-
-        weaponMeshCtrl.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -175,6 +173,7 @@ public class PlayerAtkMng : MonoBehaviour
         float[] tmpAngle = new float[] { objTr.rotation.y - (equippedWeapon.WeaponAngle / 2), objTr.rotation.y + (equippedWeapon.WeaponAngle / 2) };
 
         weaponMeshCtrl.makeFanShape(tmpAngle, objTr, equippedWeapon.AtkRangeDist);
+        weaponMeshCtrl.gameObject.SetActive(false);
         if (equippedWeapon != null)
             weaponMeshCtrl.WeaponGameObject = equippedWeapon;
     }
