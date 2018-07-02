@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1893362385657426}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -110,3 +110,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eaafec1c2e9a3145ab40167383f5103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupRange: 3
+  remainCount: 3
+  spriteWeaponIcon: {fileID: 0}
+  remainTime: 5
+  damage: 0
+  attackSpeed: 0
+  durabilityMax: 100
+  durabilityCur: 100
+  usableCount: 5
+  durabilityReduce: 50
+  isWeaponTypeMelee: 1
+  SlotColor: {r: 0, g: 1, b: 0, a: 1}

@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 114595026274819236}
   - component: {fileID: 114397953817461052}
   - component: {fileID: 114779640650655456}
-  - component: {fileID: 114126579601537596}
+  - component: {fileID: 114484771280471808}
   m_Layer: 0
   m_Name: Enemy_Ent
   m_TagString: Enemy
@@ -1971,18 +1971,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e30577513cac4054bb471a72d53bb6ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114126579601537596
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1335777043561132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c10cbbfca0c214e93e636d63f1b9c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  opponentObjAtkTagName: PlayerWeaponMesh
 --- !u!114 &114250664434781222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2015,7 +2003,6 @@ MonoBehaviour:
   isDead: 0
   runAway: 0
   runAwayByHp: 0
-  isSwitchOn: 1
   moveableRadius: 0
   visualRadius: 20
   attackRange: 8
@@ -2046,6 +2033,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiPrefab: {fileID: 1370459759072142, guid: 683790ac86a457843a87dd19328ac552, type: 2}
   target: {fileID: 4195852340873556}
+--- !u!114 &114484771280471808
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1335777043561132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c10cbbfca0c214e93e636d63f1b9c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opponentObjAtkTagName: PlayerWeaponMesh
 --- !u!114 &114595026274819236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2071,6 +2070,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 200
   armor: 5
+  listStrDeathSound:
+  - Death_Ent_1
+  - Death_Ent_2
 --- !u!114 &114779640650655456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2107,6 +2109,7 @@ MonoBehaviour:
   durabilityReduce: 50
   isWeaponTypeMelee: 0
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
+  listSoundName: []
   projectile: {fileID: 1199687602671644, guid: f36308d7981303a458f950ad55d4d8bb, type: 2}
 --- !u!136 &136784531602908586
 CapsuleCollider:

@@ -1395,7 +1395,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   armor: 0
-  opponentObjAtkTagName: PlayerWeaponMesh
+  listStrDeathSound:
+  - Death_Skeleton_1
+  - Death_Skeleton_2
 --- !u!114 &114457833459056720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1422,7 +1424,6 @@ MonoBehaviour:
   isDead: 0
   runAway: 0
   runAwayByHp: 0
-  isSwitchOn: 1
   moveableRadius: 0
   visualRadius: 0
   attackRange: 2
@@ -1437,7 +1438,6 @@ MonoBehaviour:
   pauseAtWaypoints: 0
   pauseMin: 1
   pauseMax: 3
-  target: {fileID: 0}
   huntingTimer: 5
   targetOn: 1
   playerHasBeenSeen: 0
@@ -1488,6 +1488,7 @@ MonoBehaviour:
   durabilityReduce: 50
   isWeaponTypeMelee: 1
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
+  listSoundName: []
   atkStartDist: 0
   attackRange: 4
   weaponAngle: 60
@@ -1560,6 +1561,7 @@ MonoBehaviour:
   durabilityReduce: 50
   isWeaponTypeMelee: 1
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
+  listSoundName: []
 --- !u!136 &136472473548491072
 CapsuleCollider:
   m_ObjectHideFlags: 1

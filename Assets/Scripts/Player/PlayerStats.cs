@@ -56,6 +56,7 @@ public class PlayerStats : CharacterStat {
         newPos.y += 1f;
 
         Instantiate(ParticleMng.GetInstance().EffectSmallExp(), newPos, quater);
+        AudioMng.GetInstance().PlaySound("PlayerDie", newPos, 100f);
 
         GameMng.Instance.GameOver();
 

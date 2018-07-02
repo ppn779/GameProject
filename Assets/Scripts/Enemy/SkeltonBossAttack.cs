@@ -13,11 +13,6 @@ public class SkeltonBossAttack : MonoBehaviour
         //this.gameObject.GetComponentInChildren<AnimationEventReceiver>().attackHit = AttackHit;
     }
 
-    public void MeleeAttack()
-    {
-
-    }
-
     public void LongDistanceAttack()
     {
 

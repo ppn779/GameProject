@@ -26,7 +26,7 @@ public class SkeltonBossAI : MonoBehaviour
     private float distance;
 
     private bossState state = 0;
-    private enum bossState { waiting = 0, move, meleeAtk, longAtk };
+    private enum bossState { waiting = 0, longAtk };
 
     void Start()
     {
@@ -48,33 +48,22 @@ public class SkeltonBossAI : MonoBehaviour
         targetPos = target.position;
         distance = Vector3.Distance(myPos, targetPos);
 
-        // 패턴 1, 대기
-        if (state == bossState.waiting)
-        {
-            StartCoroutine(Waiting());
-        }
 
-        // 패턴 2, 이동
-        if (state == bossState.move)
+        if (moveableRadius < distance)
         {
-            StartCoroutine(Move());
-        }
+            LookAtPlayer();
 
-        // 패턴 3, 근접 공격
-        if (state == bossState.meleeAtk)
-        {
-            bossAttack.MeleeAttack();
-        }
+            // 패턴 1, 대기
+            if (state == bossState.waiting)
+            {
+                StartCoroutine(Waiting());
+            }
 
-        // 패턴 4, 원거리 공격
-        if (state == bossState.longAtk)
-        {
-            bossAttack.LongDistanceAttack();
-        }
-
-        if (myStats.currentHealth <= 0)
-        {
-
+            // 패턴 2, 원거리 공격
+            if (state == bossState.longAtk)
+            {
+                bossAttack.LongDistanceAttack();
+            }
         }
     }
 
@@ -84,29 +73,7 @@ public class SkeltonBossAI : MonoBehaviour
 
         yield return new WaitForSeconds(5f);
 
-        if (distance > attackRange)
-        {
-            state = bossState.waiting;
-        }
-    }
-
-    private IEnumerator Move()
-    {
-        animator.Play("Walk", 0);
-
-        SetNav(targetPos);
-
-        yield return new WaitForSeconds(5f);
-
-        if (distance < attackRange)
-        {
-            state = bossState.meleeAtk;
-        }
-    }
-
-    private void SetNav(Vector3 target)
-    {
-        nav.SetDestination(target);
+        state = bossState.longAtk;
     }
 
     private void LookAtPlayer()

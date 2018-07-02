@@ -33,12 +33,12 @@ public class EnemySpawnTrap : MonoBehaviour {
         {
             Vector3 newPos = tr.position;
             int rand = Random.Range(0, enemyPrefab.Capacity);
-
-            Debug.Log(enemyPrefab[rand]);
+            
             newPos.x += 3f * Mathf.Cos(count * 45f * Mathf.Deg2Rad);
             newPos.z += 3f * Mathf.Sin(count * 45f * Mathf.Deg2Rad);
             Instantiate(enemyPrefab[rand], newPos, tr.rotation);
             Instantiate(ParticleMng.GetInstance().EffectPlasmaExp(), newPos, tr.rotation);
+            AudioMng.GetInstance().PlaySound("MoveIn", tr.position, 100f);
             
             --count;
             yield return new WaitForSeconds(0.15f);

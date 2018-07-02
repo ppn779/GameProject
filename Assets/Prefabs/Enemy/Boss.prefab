@@ -1026,12 +1026,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4806650808030708}
-  - component: {fileID: 114002824659147562}
   - component: {fileID: 114640360247176906}
   - component: {fileID: 114482419710585512}
   - component: {fileID: 114292852029641386}
   - component: {fileID: 114044400095044626}
   - component: {fileID: 114685048359912626}
+  - component: {fileID: 114507045117101600}
   - component: {fileID: 195414229322159776}
   - component: {fileID: 136261813744178846}
   - component: {fileID: 54540983088382156}
@@ -2339,23 +2339,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114002824659147562
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1921982625598404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9138c25c20b4b404dabcba8396a01f7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDead: 0
-  moveableRadius: 30
-  attackRange: 3
-  walkSpeed: 3
-  runSpeed: 5
-  rotationSpeed: 2
 --- !u!114 &114044400095044626
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2392,6 +2375,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   opponentObjAtkTagName: PlayerWeaponMesh
+--- !u!114 &114507045117101600
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1921982625598404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9138c25c20b4b404dabcba8396a01f7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDead: 0
+  moveableRadius: 30
+  attackRange: 3
+  walkSpeed: 3
+  runSpeed: 5
+  rotationSpeed: 2
 --- !u!114 &114640360247176906
 MonoBehaviour:
   m_ObjectHideFlags: 1

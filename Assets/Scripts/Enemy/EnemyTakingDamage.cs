@@ -39,7 +39,7 @@ public class EnemyTakingDamage : MonoBehaviour
             // Paticle
             Instantiate(ParticleMng.GetInstance().EffectBulletImpactWood(), newPos, tr.rotation);
             Instantiate(ParticleMng.GetInstance().EffectBulletImpactMetal(), newPos, tr.rotation);
-
+            
             if (!isAttackedByWeapon)
             {
                 isAttackedByWeapon = true;

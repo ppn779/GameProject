@@ -134,6 +134,9 @@ MonoBehaviour:
   durabilityReduce: 40
   isWeaponTypeMelee: 1
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
+  listSoundName:
+  - Hit_Club_1
+  - Hit_Club_2
   atkStartDist: 0
   attackRange: 1.3
   weaponAngle: 120
