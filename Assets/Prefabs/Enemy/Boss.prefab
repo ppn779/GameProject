@@ -713,6 +713,7 @@ GameObject:
   - component: {fileID: 4472257758495830}
   - component: {fileID: 95696124277529324}
   - component: {fileID: 54003787732738636}
+  - component: {fileID: 114659574608351306}
   m_Layer: 0
   m_Name: Skull
   m_TagString: Untagged
@@ -1034,12 +1035,11 @@ GameObject:
   - component: {fileID: 114044400095044626}
   - component: {fileID: 114685048359912626}
   - component: {fileID: 114507045117101600}
-  - component: {fileID: 195414229322159776}
-  - component: {fileID: 136261813744178846}
   - component: {fileID: 54540983088382156}
+  - component: {fileID: 136579597286032394}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2330,7 +2330,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1921982625598404}
   serializedVersion: 2
-  m_Mass: 100
+  m_Mass: 10000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -2421,6 +2421,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d9c38f7d1e0cf4595717edb007849f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114659574608351306
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1640751276903106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d633ebd00ff98e443a2db22abd79de35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114685048359912626
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2461,7 +2472,7 @@ MonoBehaviour:
   SlotColor: {r: 0, g: 1, b: 0, a: 1}
   listSoundName: []
   projectile: {fileID: 1199687602671644, guid: f36308d7981303a458f950ad55d4d8bb, type: 2}
---- !u!136 &136261813744178846
+--- !u!136 &136579597286032394
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2470,10 +2481,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 2.5
-  m_Height: 6
+  m_Radius: 3.23
+  m_Height: 4.85
   m_Direction: 1
-  m_Center: {x: 0, y: 3, z: 0.5}
+  m_Center: {x: 0, y: 3.63, z: 1.52}
 --- !u!137 &137106471325788020
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -2578,24 +2589,3 @@ SkinnedMeshRenderer:
     m_Center: {x: -1.576231, y: 0.23913217, z: 0.68845075}
     m_Extent: {x: 2.3426275, y: 2.692612, z: 2.6378124}
   m_DirtyAABB: 0
---- !u!195 &195414229322159776
-NavMeshAgent:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1921982625598404}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 2.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 5
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4

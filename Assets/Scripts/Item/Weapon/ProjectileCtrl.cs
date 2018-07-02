@@ -14,7 +14,6 @@ public class ProjectileCtrl : Weapon {
 
     private void Start()
     {
-        Debug.Log(direction);
         GetComponent<Rigidbody>().AddForce(direction * (projectileSpeed * 10));
     }
 

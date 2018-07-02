@@ -13,6 +13,10 @@ public class SkeltonBossAI : MonoBehaviour
     public float runSpeed = 5.0f;
     public float rotationSpeed = 2.0f;
 
+    private float waitingDelay = 4f;
+    private float attackDelay = 4f;
+    private int attackCount = 0;
+
     private Transform target = null;
     private CharacterStat myStats = null;
     private Animator animator = null;
@@ -37,7 +41,6 @@ public class SkeltonBossAI : MonoBehaviour
         animator = this.gameObject.GetComponentInChildren<Animator>();
         nav = this.gameObject.GetComponent<NavMeshAgent>();
         bossAttack = this.gameObject.GetComponent<SkeltonBossAttack>();
-        StartCoroutine(Waiting());
     }
 
     void Update()
@@ -49,39 +52,50 @@ public class SkeltonBossAI : MonoBehaviour
         distance = Vector3.Distance(myPos, targetPos);
 
 
-        if (moveableRadius < distance)
+        if (moveableRadius > distance)
         {
             LookAtPlayer();
             if (state == bossState.none)
             {
                 Debug.Log("State1 " + state);
 
-                StartCoroutine(Waiting());
+                attackDelay -= Time.deltaTime;
 
+                if (attackDelay < 0f)
+                {
+                    state = bossState.longAtk;
+                }
             }
+
             // 패턴 2, 원거리 공격
             else if (state == bossState.longAtk)
             {
                 Debug.Log("State3 " + state);
 
-                Debug.Log("Pattern");
                 bossAttack.LongDistanceAttack();
+
+                attackDelay = 4f;
+
+                state = bossState.none;
+
+                ++attackCount;
+
+                if (attackCount == 5)
+                {
+                    state = bossState.waiting;
+                }
+
             }
 
-        }
-    }
-
-    private IEnumerator Waiting()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(2f);
-
-            state = bossState.longAtk;
-
-            yield return new WaitForSeconds(2f);
-
-            state = bossState.none;
+            else if (state == bossState.waiting)
+            {
+                waitingDelay -= Time.deltaTime;
+                if(waitingDelay < 0)
+                {
+                    state = bossState.none;
+                    waitingDelay = 4f;
+                }
+            }
         }
     }
 

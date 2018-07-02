@@ -15,7 +15,8 @@ public class LoadingScene : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(StartLoad("Main"));
+        Time.timeScale = 1;
+        StartCoroutine(StartLoad("Main"));        
     }
 
     void Update()
