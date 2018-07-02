@@ -55,6 +55,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -100,5 +101,10 @@ MonoBehaviour:
   remainTime: 0
   damage: 0
   attackSpeed: 1.5
-  durability: 100
+  durabilityMax: 100
+  durabilityCur: 100
   usableCount: 5
+  durabilityReduce: 50
+  isWeaponTypeMelee: 1
+  SlotColor: {r: 1, g: 1, b: 1, a: 1}
+  listSoundName: []

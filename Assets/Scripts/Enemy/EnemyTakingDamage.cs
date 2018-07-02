@@ -40,6 +40,12 @@ public class EnemyTakingDamage : MonoBehaviour
             Instantiate(ParticleMng.GetInstance().EffectBulletImpactWood(), newPos, tr.rotation);
             Instantiate(ParticleMng.GetInstance().EffectBulletImpactMetal(), newPos, tr.rotation);
             
+            if (weapon.listSoundName.Capacity > 0)
+            {
+                int rand = Random.Range(0, weapon.listSoundName.Count);
+                AudioMng.GetInstance().PlaySound(weapon.listSoundName[rand], this.transform.position, 120f);
+            }
+                
             if (!isAttackedByWeapon)
             {
                 isAttackedByWeapon = true;

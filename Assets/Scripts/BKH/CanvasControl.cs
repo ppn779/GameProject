@@ -10,6 +10,11 @@ public class CanvasControl : MonoBehaviour
         SceneManager.LoadScene("LoadingScene");
     }
 
+    public void Resume()
+    {
+        GameMng.Instance.SetOffMenu();
+    }
+
     public void ExitGame()
     {
         Application.Quit();

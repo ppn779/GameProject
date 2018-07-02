@@ -26,7 +26,7 @@ public class SkeltonBossAI : MonoBehaviour
     private float distance;
 
     private bossState state = 0;
-    private enum bossState { waiting = 0, longAtk };
+    private enum bossState { none = 0, waiting, longAtk };
 
     void Start()
     {
@@ -37,7 +37,7 @@ public class SkeltonBossAI : MonoBehaviour
         animator = this.gameObject.GetComponentInChildren<Animator>();
         nav = this.gameObject.GetComponent<NavMeshAgent>();
         bossAttack = this.gameObject.GetComponent<SkeltonBossAttack>();
-
+        StartCoroutine(Waiting());
     }
 
     void Update()
@@ -52,28 +52,28 @@ public class SkeltonBossAI : MonoBehaviour
         if (moveableRadius < distance)
         {
             LookAtPlayer();
-
-            // 패턴 1, 대기
-            if (state == bossState.waiting)
+            if (state == bossState.none)
             {
-                StartCoroutine(Waiting());
+                // 패턴 2, 원거리 공격
+                if (state == bossState.longAtk)
+                {
+                    bossAttack.LongDistanceAttack();
+                }
             }
 
-            // 패턴 2, 원거리 공격
-            if (state == bossState.longAtk)
-            {
-                bossAttack.LongDistanceAttack();
-            }
         }
     }
 
     private IEnumerator Waiting()
     {
-        animator.Play("Idle", 0);
+        while (true)
+        {
+            yield return new WaitForSeconds(2f);
 
-        yield return new WaitForSeconds(5f);
-
-        state = bossState.longAtk;
+            state = bossState.longAtk;
+            animator.Play("Attack", 0);
+            state = bossState.none;
+        }
     }
 
     private void LookAtPlayer()

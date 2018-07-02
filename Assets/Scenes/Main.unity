@@ -4563,6 +4563,7 @@ GameObject:
   - component: {fileID: 175314570}
   - component: {fileID: 175314569}
   - component: {fileID: 175314568}
+  - component: {fileID: 175314571}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -4627,7 +4628,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 175314569}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 175314571}
+        m_MethodName: Resume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &175314569
@@ -4663,6 +4675,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 175314566}
+--- !u!114 &175314571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 175314566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e690a9243bfa7a41878fe814386557d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &182831919
 GameObject:
   m_ObjectHideFlags: 0
@@ -10560,6 +10583,11 @@ Prefab:
     - target: {fileID: 114507045117101600, guid: 5e66b3de8358a84449f2df7215e7ba0c,
         type: 2}
       propertyPath: isDead
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54540983088382156, guid: 5e66b3de8358a84449f2df7215e7ba0c,
+        type: 2}
+      propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -23085,7 +23113,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &785099288
 RectTransform:
   m_ObjectHideFlags: 0
@@ -55635,6 +55663,26 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a33b976bec48cc34298f8b604c0ef013, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1823513739 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1640751276903106, guid: 5e66b3de8358a84449f2df7215e7ba0c,
+    type: 2}
+  m_PrefabInternal: {fileID: 393776362}
+--- !u!54 &1823513742
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1823513739}
+  serializedVersion: 2
+  m_Mass: 1000
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
 --- !u!1 &1826707045
 GameObject:
   m_ObjectHideFlags: 0
@@ -65670,9 +65718,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 297f7ba9afe6f10408c5a443236dbeeb, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

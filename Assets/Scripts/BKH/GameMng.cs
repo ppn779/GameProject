@@ -17,6 +17,13 @@ public class GameMng : MonoBehaviour
         resultUI.gameObject.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SetActiveResultCanvas();
+        }
+    }
     public static GameMng Instance
     {
         get
@@ -40,19 +47,27 @@ public class GameMng : MonoBehaviour
         StartCoroutine(GameMng.Instance.GameOver(1));
     }
 
-    //public void Menu()
-    //{
-    //    if (isPause)
-    //    {
-    //        Time.timeScale = 0;
-    //        isPause = false;
-    //    }
-    //    else
-    //    {
-    //        Time.timeScale = 1;
-    //        isPause = true;
-    //    }
-    //}
+    public void Menu()
+    {
+        if (!isPause)
+            SetOnMenu();
+        else
+            SetOffMenu();
+    }
+    public void SetOnMenu()
+    {
+        Time.timeScale = 0;
+        isPause = true;
+    }
+    public void SetOffMenu()
+    {
+        if (isPause)
+        {
+            resultUI.gameObject.SetActive(false);
+            Time.timeScale = 1;
+            isPause = false;
+        }
+    }
 
     public IEnumerator GameOver(int wait)
     {
@@ -62,19 +77,14 @@ public class GameMng : MonoBehaviour
 
     public void SetActiveResultCanvas()
     {
-        Debug.Log("SetActive Canvas");
         StartCoroutine(GameMng.Instance.SetActiveResultCavasCoroutine());
     }
 
     private IEnumerator SetActiveResultCavasCoroutine()
     {
-        yield return new WaitForSeconds(1);
-
-        Debug.Log(resultUI);
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            resultUI.gameObject.SetActive(true);
-        }
+        resultUI.gameObject.SetActive(true);
+        Menu();
+        yield return null;
     }
 
 
