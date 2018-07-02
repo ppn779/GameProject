@@ -4533,6 +4533,7 @@ GameObject:
   - component: {fileID: 187553817}
   - component: {fileID: 187553819}
   - component: {fileID: 187553818}
+  - component: {fileID: 187553821}
   m_Layer: 0
   m_Name: Door_01
   m_TagString: Untagged
@@ -4598,6 +4599,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 187553816}
   m_Mesh: {fileID: 4300002, guid: bd099db89f137fd4f952b37101af0eb4, type: 3}
+--- !u!111 &187553821
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 187553816}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 8804c6722a7ac3c469c721fd0cba9c66, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 8804c6722a7ac3c469c721fd0cba9c66, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &187681809
 GameObject:
   m_ObjectHideFlags: 0
@@ -10093,6 +10109,11 @@ Prefab:
     - target: {fileID: 4806650808030708, guid: 5e66b3de8358a84449f2df7215e7ba0c, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114292852029641386, guid: 5e66b3de8358a84449f2df7215e7ba0c,
+        type: 2}
+      propertyPath: maxHealth
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5e66b3de8358a84449f2df7215e7ba0c, type: 2}
@@ -29207,10 +29228,11 @@ Animation:
   m_GameObject: {fileID: 1013226354}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
+  m_Animation: {fileID: 7400000, guid: 0bf0930dc1cc35e449ee2700554e1417, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 0bf0930dc1cc35e449ee2700554e1417, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!1 &1016409793
@@ -35888,6 +35910,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 915489570}
+  ani:
+  - {fileID: 187553821}
+  - {fileID: 1013226358}
 --- !u!65 &1216741141
 BoxCollider:
   m_ObjectHideFlags: 0
