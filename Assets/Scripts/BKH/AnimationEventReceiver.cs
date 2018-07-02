@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationEventReceiver : MonoBehaviour {
+public class AnimationEventReceiver : MonoBehaviour
+{
 
     public delegate void AttackHitDelegate();
     public AttackHitDelegate attackHit = null;

@@ -19,7 +19,7 @@ public class ProjectileCtrl : Weapon {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Weapon")
+        if (other.tag != "Weapon"&&other.tag!="WeaponMesh")
         {
             Destroy(this.gameObject);
         }

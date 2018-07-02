@@ -17,6 +17,7 @@ public class EnemyDebug : MonoBehaviour
 
     void Start()
     {
+        return;
         target = this.GetComponent<Transform>();
         stat = this.gameObject.GetComponent<CharacterStat>();
         enemy = this.gameObject.GetComponent<EnemyAIScript01>();

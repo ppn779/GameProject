@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameMng : MonoBehaviour
 {
     //public string sceneName;
-
+    private bool isPause = false;
     private static GameMng instance = null;
     private Transform resultUI = null;
 
@@ -14,10 +14,16 @@ public class GameMng : MonoBehaviour
     {
         resultUI = this.transform.GetComponentInChildren<RectTransform>();
         if (resultUI == null) { return; }
-        //resultUI.gameObject.SetActive(false);
+        resultUI.gameObject.SetActive(false);
     }
 
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SetActiveResultCanvas();
+        }
+    }
     public static GameMng Instance
     {
         get
@@ -35,10 +41,32 @@ public class GameMng : MonoBehaviour
             return instance;
         }
     }
-   
+
     public void GameOver()
     {
         StartCoroutine(GameMng.Instance.GameOver(1));
+    }
+
+    public void Menu()
+    {
+        if (!isPause)
+            SetOnMenu();
+        else
+            SetOffMenu();
+    }
+    public void SetOnMenu()
+    {
+        Time.timeScale = 0;
+        isPause = true;
+    }
+    public void SetOffMenu()
+    {
+        if (isPause)
+        {
+            resultUI.gameObject.SetActive(false);
+            Time.timeScale = 1;
+            isPause = false;
+        }
     }
 
     public IEnumerator GameOver(int wait)
@@ -47,17 +75,17 @@ public class GameMng : MonoBehaviour
         SceneManager.LoadScene("EndingScene");
     }
 
-    //public void SetActiveResultCanvas()
-    //{
-    //    Debug.Log("SetActive Canvas");
-    //    StartCoroutine(GameMng.Instance.SetActiveResultCavasCoroutine());
-    //}
+    public void SetActiveResultCanvas()
+    {
+        StartCoroutine(GameMng.Instance.SetActiveResultCavasCoroutine());
+    }
 
-    //private IEnumerator SetActiveResultCavasCoroutine()
-    //{
-    //    yield return new WaitForSeconds(1);
+    private IEnumerator SetActiveResultCavasCoroutine()
+    {
+        resultUI.gameObject.SetActive(true);
+        Menu();
+        yield return null;
+    }
 
-    //    Debug.Log(resultUI);
-    //    resultUI.gameObject.SetActive(true);
-    //}
+
 }
